@@ -4,4 +4,5 @@
  * See: https://www.gatsbyjs.org/docs/browser-apis/
  */
 
-import "sanitize.css";
+import "antd/dist/antd.css";
+window.BROWSER = true;

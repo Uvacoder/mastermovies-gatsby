@@ -5,6 +5,11 @@ module.exports = {
     author: `@MarcusCemes`,
   },
   plugins: [
+    {
+      resolve: `gatsby-plugin-create-client-paths`,
+      options: { prefixes: [`/glacier/*`] },
+    },
+    `gatsby-plugin-remove-trailing-slashes`,
     `gatsby-plugin-typescript`,
     `gatsby-plugin-react-helmet`,
     {
@@ -15,7 +20,14 @@ module.exports = {
       },
     },
     `gatsby-transformer-sharp`,
-    `gatsby-plugin-sharp`,
+    {
+      resolve: `gatsby-plugin-sharp`,
+      options: {
+        stripMetadata: true,
+        defaultQuality: 75,
+      },
+    },
+    `gatsby-transformer-sqip`,
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
@@ -28,6 +40,12 @@ module.exports = {
         icon: `src/images/logo/default.png`
       },
     },
+    // {
+    //   resolve: `gatsby-plugin-webpack-bundle-analyzer`,
+    //   options: {
+    //     production: true
+    //   },
+    // },
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,
