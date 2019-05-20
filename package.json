@@ -5,25 +5,40 @@
   "version": "0.1.0",
   "author": "Marcus Cemes <marcus.cemes@gmail.com>",
   "dependencies": {
-    "gatsby": "^2.3.16",
-    "gatsby-image": "^2.0.37",
-    "gatsby-plugin-manifest": "^2.0.28",
-    "gatsby-plugin-offline": "^2.0.25",
-    "gatsby-plugin-react-helmet": "^3.0.12",
-    "gatsby-plugin-sharp": "^2.0.32",
-    "gatsby-plugin-typescript": "^2.0.12",
-    "gatsby-source-filesystem": "^2.0.29",
-    "gatsby-transformer-sharp": "^2.1.17",
+    "antd": "^3.18.1",
+    "axios": "^0.18.0",
+    "classnames": "^2.2.6",
+    "hash-sum": "^1.0.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-helmet": "^5.2.0",
-    "sanitize.css": "^8.0.0"
+    "react-helmet": "^5.2.1",
+    "react-spring": "^8.0.20",
+    "react-use-gesture": "^5.0.1",
+    "swagger-ui": "^3.22.1",
+    "throttle-debounce": "^2.1.0"
   },
   "devDependencies": {
-    "@types/react": "^16.8.13",
+    "@types/reach__router": "^1.2.4",
+    "@types/react": "^16.8.17",
     "@types/react-dom": "^16.8.4",
     "@types/react-helmet": "^5.0.8",
-    "prettier": "^1.17.0"
+    "@types/throttle-debounce": "^1.1.1",
+    "gatsby": "^2.5.5",
+    "gatsby-image": "^2.1.0",
+    "gatsby-plugin-create-client-paths": "^2.0.5",
+    "gatsby-plugin-manifest": "^2.1.1",
+    "gatsby-plugin-offline": "^2.1.1",
+    "gatsby-plugin-react-helmet": "^3.0.12",
+    "gatsby-plugin-remove-trailing-slashes": "^2.0.11",
+    "gatsby-plugin-sharp": "^2.0.37",
+    "gatsby-plugin-typescript": "^2.0.14",
+    "gatsby-plugin-webpack-bundle-analyzer": "^1.0.5",
+    "gatsby-source-filesystem": "^2.0.36",
+    "gatsby-transformer-sharp": "^2.1.19",
+    "gatsby-transformer-sqip": "^2.0.35",
+    "prettier": "^1.17.1",
+    "typescript": "^3.4.5",
+    "utility-types": "^3.7.0"
   },
   "keywords": [
     "gatsby"
@@ -32,7 +47,7 @@
   "scripts": {
     "build": "gatsby build",
     "develop": "gatsby develop",
-    "format": "prettier --write src/**/*.{js,jsx}",
+    "format": "prettier --write src/**/*.{js,jsx,ts,tsx}",
     "start": "npm run develop",
     "serve": "gatsby serve",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\""
