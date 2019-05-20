@@ -1,0 +1,43 @@
+@import "../../../fonts/brandon/brandon.css";
+
+.root {
+  position: relative;
+  height: 100vh;
+}
+
+.logo {
+  width: 200px;
+}
+
+.title {
+  font-family: brandon_grotesque;
+  font-size: 46px;
+  letter-spacing: 12px;
+  line-height: 1.5;
+  font-weight: 900;
+  margin-top: 40px;
+  margin-bottom: 0;
+  color: #FFF;
+}
+
+.subtitle {
+  font-family: brandon_grotesque;
+  font-size: 18px;
+  letter-spacing: 4px;
+  font-weight: 300;
+  margin-top: 0.2rem;
+  color: #FFF;
+}
+
+
+@media only screen and (max-width: 768px) {
+  .logo {
+    width: 45vmin;
+  }
+  .title {
+    font-size: 6.5vmin;
+  }
+  .subtitle {
+    font-size: 3.6vmin;
+  }
+}

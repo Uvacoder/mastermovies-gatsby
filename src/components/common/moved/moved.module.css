@@ -1,0 +1,137 @@
+@import url('https://fonts.googleapis.com/css?family=Lobster');
+
+
+.root {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.2s cubic-bezier(0.55, 0.055, 0.675, 0.19);
+}
+
+.root[data-active] {
+  opacity: 1;
+  pointer-events: all;
+  transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255,255,255,0.8);
+
+  cursor: pointer;
+}
+
+.container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  max-width: 100vw;
+
+  text-align: center;
+  padding: 64px;
+  box-sizing: border-box;
+  background: #FFF;
+  color: #222;
+  border: 1.5px solid #39CCCC;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05), 0 6px 6px rgba(0, 0, 0, 0.1);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.title {
+  font-size: 3rem;
+  font-family: Lobster, sans-serif;
+}
+
+.subtitle {
+  position: relative;
+  top: -16px;
+  font-size: 1.4rem;
+  font-family: Lobster, sans-serif;
+}
+
+.justify {
+  text-align: justify;
+}
+
+.addressBar {
+  width: 100%;
+  background: rgba(0,0,0,0.04);
+  border: 1px solid rgba(0,0,0,0.08);
+  padding: 8px;
+  cursor: pointer;
+
+  display: flex;
+  justify-content: center;
+  margin-top: 8px;
+  align-items: center;
+  flex-wrap: nowrap;
+  flex-direction: row;
+
+  transition: box-shadow 200ms;
+}
+
+.addressBar:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.09);
+}
+
+.addressBarIcon {
+  margin: 0 8px;
+  font-size: 16px;
+}
+
+.urlBar {
+  position: relative;
+  background: #FFF;
+  padding: 4px 64px 4px 12px;
+  border-radius: 28px;
+  margin: 0 8px;
+  flex: 1;
+
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
+.urlSecure {
+  color: rgb(43, 187, 60);
+}
+
+.shrink {
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  font-weight: bold;
+}
+
+.close {
+  position: absolute;
+  top: 32px;
+  right: 32px;
+  font-size: 32px;
+  cursor: pointer;
+}
+
+.closeMessage {
+  position: relative;
+  top: 16px;
+  margin-top: 32px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  color: rgba(0,0,0,0.6);
+}
