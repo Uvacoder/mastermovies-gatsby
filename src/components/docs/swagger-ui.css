@@ -1,0 +1,7 @@
+.swagger-ui .loading-container .loading:after {
+  content: '' !important;
+}
+
+.swagger-ui .download-contents {
+  width: initial;
+}

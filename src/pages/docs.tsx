@@ -1,22 +1,29 @@
 import "swagger-ui/dist/swagger-ui.css";
 
-import React, { useEffect, useRef } from "react";
+import { Alert } from "antd";
+import React, { useEffect, useRef, useState } from "react";
 
-import { SEO } from "../components/common/SEO";
-
-declare global {
-  interface Window { SwaggerUI: (config: any) => void }
-}
+import { SEO } from "../components/common/seo";
+import { DocsLayout } from "../components/docs/layout";
 
 export default () =>  {
 
   const ref = useRef(null);
+  const [ failure, setFailure ] = useState(false);
 
   useEffect(() => {
-    window.SwaggerUI({
-      domNode: ref.current,
-      url: "https://api.mastermovies.co.uk/v2/openapi.json"
-    });
+    if (window.SSR !== true) {
+      import("swagger-ui").then(lib => {
+        try {
+          (lib.default || lib)({
+            domNode: ref.current,
+            url: "https://api.mastermovies.uk/v2/openapi.json"
+          });
+        } catch (err) {
+          setFailure(true);
+        }
+      });
+    }
   }, []);
 
   return (
@@ -25,7 +32,16 @@ export default () =>  {
         title="API"
         keywords={["MasterMovies", "docs", "application", "documentation", "api"]}
       />
-      <div ref={ref} />
+      <DocsLayout>
+        {failure && <Alert
+          style={{marginTop: 32}}
+          message="Error"
+          description="Some sort of error occurred while loading OpenAPI"
+          type="error"
+          showIcon
+        />}
+        <div ref={ref} />
+      </DocsLayout>
     </>
   )
 }
