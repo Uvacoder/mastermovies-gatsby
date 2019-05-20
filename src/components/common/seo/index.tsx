@@ -1,8 +1,8 @@
-import React from "react"
-import Helmet from "react-helmet"
-import { useStaticQuery, graphql } from "gatsby"
+import { graphql, useStaticQuery } from "gatsby";
+import React, { FunctionComponent } from "react";
+import Helmet from "react-helmet";
 
-function SEO(props: SEOProps) {
+export const SEO: FunctionComponent<SEOProps> = (props: SEOProps) => {
   const { description, lang, meta, keywords, title } = { ...defaultSEOProps, ...props };
   const { site } = useStaticQuery(
     graphql`
@@ -61,15 +61,15 @@ function SEO(props: SEOProps) {
           content: metaDescription,
         },
       ]
-        .concat(
-          keywords.length > 0
-            ? {
-                name: `keywords`,
-                content: keywords.join(`, `),
-              }
-            : []
-        )
-        .concat(meta)}
+      .concat(
+        keywords.length > 0
+          ? {
+              name: `keywords`,
+              content: keywords.join(`, `),
+            }
+          : []
+      )
+      .concat(meta)}
     />
   )
 }
@@ -89,5 +89,3 @@ const defaultSEOProps: SEOProps = {
   keywords: [],
   title: "MasterMovies"
 }
-
-export default SEO
