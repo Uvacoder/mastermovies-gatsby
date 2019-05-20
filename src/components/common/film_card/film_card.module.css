@@ -1,0 +1,166 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
+
+.root {
+  position: relative;
+  width: 450px;
+  max-width: 100%;
+  user-select: none;
+  text-align: left;
+}
+
+.root[data-dark] {
+  background: #1a1a1a;
+  border: 1px solid #333;
+}
+
+.root[data-dark]:hover {
+  border: 1px solid #444;
+  box-shadow: none;
+}
+
+.placeholder {
+  position: relative;
+  padding-top: 45%;
+}
+
+.placeholderContent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  background: #FFF;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.placeHolderSpacer {
+  height: 4em;
+  width: 100%;
+}
+
+.root[data-dark] .placeholderContent {
+  color: #FFF;
+  background: transparent;
+}
+
+.image {
+  width: 100%;
+}
+
+.root[data-dark] .placeholder,
+.root[data-dark] .image {
+  opacity: 0;
+  transition: opacity 300ms;
+}
+
+.root[data-dark][data-active] .placeholder,
+.root[data-dark][data-active] .image {
+  opacity: 1;
+  transition: opacity 300ms 200ms;
+}
+
+.root
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  background: #FFF;
+  z-index: 2;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  opacity: 1;
+  transition: opacity 300ms;
+}
+
+.root[data-active] .overlay {
+  opacity: 0;
+}
+
+.overlayContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  opacity: 0.5;
+  transition: opacity 500ms;
+}
+
+.overlayContainer[data-pending] {
+  animation: flash 2s infinite ease;
+}
+
+.overlay:hover .overlayContainer {
+  opacity: 1;
+}
+
+.root[data-dark] .overlay {
+  background: transparent;
+  color: #FFF;
+}
+
+.overlayText {
+  font-family: "Open Sans", sans-serif;
+  letter-spacing: 0.05em;
+}
+
+.overlayIcon {
+  font-size: 2rem;
+  /* margin-bottom: 0.3em; */
+  margin-bottom: 0.5em;
+}
+
+.overlayButton {
+  position: absolute;
+  bottom: 16%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.meta {
+  font-family: "Open Sans", sans-serif;
+}
+
+.cardTitle {
+  letter-spacing: 0.04em;
+}
+
+.cardDescription {
+  font-size: 0.9em;
+  color: rgba(0,0,0,0.8);
+}
+
+.root[data-dark] .cardTitle {
+  color: #FFF;
+}
+
+.root[data-dark] .cardDescription {
+  color: rgba(255,255,255,0.8);
+}
+
+.release {
+  opacity: 0.6;
+  letter-spacing: 0.01em;
+  margin-left: 0.5em;
+  font-size: 0.8em;
+}
+
+@keyframes flash {
+  0% { opacity: 0.5 }
+  50% { opacity: 0.3 }
+  100% { opacity: 0.5 }
+}
