@@ -1,0 +1,106 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway:800');
+
+.root {
+  position: relative;
+  padding: 64px 16px 48px 16px;
+
+  background-color: #EEE;
+  color: #000;
+  border-top: 1px solid #CCC;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  user-select: none;
+}
+
+.root[data-dark] {
+  background-color: #222;
+  color: #FFF;
+  border-top: 1px solid #666;
+}
+
+.title {
+  font-size: 2rem;
+  font-family: 'Raleway', sans-serif;
+  letter-spacing: 0.1rem;
+  font-weight: 800;
+}
+
+.subtitle {
+  font-size: 0.8rem;
+  margin-bottom: 2rem;
+  letter-spacing: 0.1rem;
+}
+
+.title, .subtitle {
+  opacity: 0.5;
+}
+
+.root[data-dark] .title,
+.root[data-dark] .subtitle {
+  opacity: 0.8;
+}
+
+
+.link {
+  color: #111;
+  margin: 0 0.8rem;
+  font-weight: bold;
+  transition: color 300ms;
+}
+
+.root[data-dark] .link {
+  color: #DDD;
+}
+
+.link:hover {
+  color: #1890ff;
+}
+
+.root[data-dark] .link:hover {
+  color: #FFF;
+}
+
+.icon {
+  font-size: 18px;
+  margin: 0 0.8rem;
+}
+
+.breadcrumb {
+  text-align: center;
+}
+
+.experimental {
+  opacity: 0.4;
+  margin-top: 16px;
+  margin-bottom: 16px;
+  font-weight: 600;
+  text-align: center;
+
+  display: flex;
+  align-items: center;
+}
+
+.experimentalIcon {
+  margin-right: 8px;
+}
+
+@media only screen and (max-width: 768px) {
+  .experimental {
+    flex-direction: column;
+  }
+  .experimentalIcon {
+    margin-right: 0;
+    margin-bottom: 8px;
+  }
+}
+
+.breadcrumbMessage {
+  font-weight: 600;
+  opacity: 0.4;
+  font-size: 0.8rem;
+  margin-top: 16px;
+}
