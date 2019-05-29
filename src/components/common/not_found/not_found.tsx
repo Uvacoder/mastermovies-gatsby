@@ -22,11 +22,11 @@ export const NotFound: FunctionComponent<INotFoundProps> = ({
   titleLink = "/",
   theme = "light",
 }) => {
-  const [trail, set] = useTrail(6, () => ({ opacity: 0 }))
+  const [trail, set] = useTrail(6, () => ({ opacity: 0 }));
   useEffect(() => {
     // @ts-ignore Bad typings for react-spring
-    set({ opacity: 1 })
-  }, [])
+    set({ opacity: 1 });
+  }, []);
 
   return (
     <>
@@ -34,7 +34,10 @@ export const NotFound: FunctionComponent<INotFoundProps> = ({
       <div className={styles.root} data-dark={theme === "dark" ? "" : void 0}>
         <div className={styles.container}>
           <Link to={titleLink}>
-            <animated.h4 style={trail[0]} className={classnames(styles.title, titleClass)}>
+            <animated.h4
+              style={trail[0]}
+              className={classnames(styles.title, titleClass)}
+            >
               {title}
             </animated.h4>
           </Link>
@@ -53,7 +56,10 @@ export const NotFound: FunctionComponent<INotFoundProps> = ({
             welcome <Icon type="smile" />
           </animated.p>
 
-          <animated.p style={trail[4]} className={classnames(styles.text, styles.fadedText)}>
+          <animated.p
+            style={trail[4]}
+            className={classnames(styles.text, styles.fadedText)}
+          >
             That does mean we don't have anything to show you.
             <br />
             Here's a handy button to get you out of here:
@@ -61,11 +67,13 @@ export const NotFound: FunctionComponent<INotFoundProps> = ({
 
           <animated.p style={trail[5]} className={styles.text}>
             <Link to={buttonLink}>
-              <Button className={styles.button} type="primary">Get me out of here!</Button>
+              <Button className={styles.button} type="primary">
+                Get me out of here!
+              </Button>
             </Link>
           </animated.p>
         </div>
       </div>
     </>
-  )
-}
+  );
+};

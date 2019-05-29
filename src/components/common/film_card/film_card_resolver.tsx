@@ -1,8 +1,9 @@
-import React, { FunctionComponent, useState, useEffect } from "react";
+import React, { FunctionComponent, useEffect, useState } from "react";
 import { Overwrite, Subtract } from "utility-types";
 
-import { IFilmCardProps, FilmCard } from "./film_card";
-import { getFilm, IGlacierFilm, createCancelToken } from "../api/glacier";
+import { createCancelToken } from "../api/common";
+import { getFilm, IGlacierFilm } from "../api/glacier";
+import { FilmCard, IFilmCardProps } from "./film_card";
 
 type reducedFilmCardProps = Subtract<IFilmCardProps, { film?: IGlacierFilm }>;
 interface IFilmCardResolverProps extends reducedFilmCardProps {
@@ -15,13 +16,13 @@ interface IFilmCardResolverProps extends reducedFilmCardProps {
  * down all original props, such as error and retry. If an internal error occurs, the error
  * props will be overwritten to reflect the internal retry functions.
  */
-export const FilmCardResolver: FunctionComponent<Overwrite<IFilmCardProps, IFilmCardResolverProps>> = ({ film, error, onRetry, ...rest }) => {
-
-  const [ resolvedFilm, setResolvedFilm ] = useState<IGlacierFilm>(null);
-  const [ resolveError, setResolveError ] = useState<boolean>(false);
+export const FilmCardResolver: FunctionComponent<
+  Overwrite<IFilmCardProps, IFilmCardResolverProps>
+> = ({ film, error, onRetry, ...rest }) => {
+  const [resolvedFilm, setResolvedFilm] = useState<IGlacierFilm>(null);
+  const [resolveError, setResolveError] = useState<boolean>(false);
 
   useEffect(() => {
-
     if (!error && film) {
       const cancelToken = createCancelToken();
 
@@ -33,11 +34,14 @@ export const FilmCardResolver: FunctionComponent<Overwrite<IFilmCardProps, IFilm
 
       return cancelToken.cancel;
     }
-
   }, [film, error]);
 
   return (
-    <FilmCard {...rest} error={resolveError? resolveError : error} onRetry={resolveError? () => setResolveError(false) : onRetry} film={resolvedFilm} />
+    <FilmCard
+      {...rest}
+      error={resolveError ? resolveError : error}
+      onRetry={resolveError ? () => setResolveError(false) : onRetry}
+      film={resolvedFilm}
+    />
   );
-
-}
+};

@@ -9,10 +9,12 @@ interface IFilmCardImageProps {
   className?: string;
 }
 
-export const FilmCardImage: FunctionComponent<IFilmCardImageProps> = ({ thumbnails, className }) => {
-
-  const [ fluid, setFluid ] = useState<FluidObject>(null);
-  const [ aspectRatio, setAspectRatio ] = useState(1);
+export const FilmCardImage: FunctionComponent<IFilmCardImageProps> = ({
+  thumbnails,
+  className,
+}) => {
+  const [fluid, setFluid] = useState<FluidObject>(null);
+  const [aspectRatio, setAspectRatio] = useState(1);
 
   useEffect(() => {
     if (Array.isArray(thumbnails) && thumbnails.length > 0) {
@@ -24,25 +26,25 @@ export const FilmCardImage: FunctionComponent<IFilmCardImageProps> = ({ thumbnai
         if (isSubscribed) {
           setFluid(data);
         }
-      })
+      });
 
       return () => {
         isSubscribed = false;
         cancel();
-      }
-
+      };
     }
   }, thumbnails);
 
-  const resolvedFluid = fluid? fluid : {
-    aspectRatio,
-    src: "",
-    srcSet: "",
-    srcWebp: "",
-    srcSetWebp: "",
-    sizes: ""
-  };
+  const resolvedFluid = fluid
+    ? fluid
+    : {
+        aspectRatio,
+        src: "",
+        srcSet: "",
+        srcWebp: "",
+        srcSetWebp: "",
+        sizes: "",
+      };
 
   return <Img className={className} fluid={resolvedFluid} />;
-
-}
+};

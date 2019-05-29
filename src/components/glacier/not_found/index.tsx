@@ -1,8 +1,8 @@
-import { RouteComponentProps } from "@reach/router"
-import React, { FunctionComponent } from "react"
+import { RouteComponentProps } from "@reach/router";
+import React, { FunctionComponent } from "react";
 
-import styles from "./index.module.css"
-import { NotFound } from "../../common/not_found"
+import styles from "./index.module.css";
+import { NotFound } from "../../common/not_found";
 
 export const GlacierNotFound: FunctionComponent<RouteComponentProps> = () => {
   return (
@@ -13,5 +13,5 @@ export const GlacierNotFound: FunctionComponent<RouteComponentProps> = () => {
       titleLink="/glacier"
       buttonLink="/glacier"
     />
-  )
-}
+  );
+};

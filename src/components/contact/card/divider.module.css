@@ -1,0 +1,60 @@
+.divider {
+  position: relative;
+  pointer-events: none;
+
+  display: flex;
+  align-items: center;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  position: absolute;
+  left: calc(50% - 0.5px);
+  right: calc(50% - 0.5px);
+  height: calc(50% - 64px);
+  background-color: #e8e8e8;
+}
+
+.divider::before {
+  top: 32px;
+}
+
+.divider::after {
+  bottom: 32px;
+}
+
+.text {
+  color: #AAA;
+  font-weight: 600;
+}
+
+
+.stagger {
+  opacity: 0;
+  transition: opacity 0.5s linear;
+}
+
+.stagger.show {
+  opacity: 1;
+}
+
+@media only screen and (max-width: 768px) {
+  .divider {
+    flex-direction: column;
+  }
+  .divider::before,
+  .divider::after {
+    top: calc(50% - 0.5px);
+    height: 1px;
+    width: calc(50% - 64px);
+  }
+  .divider::before {
+    left: 32px;
+    right: auto;
+  }
+  .divider::after {
+    right: 32px;
+    left: auto;
+  }
+}

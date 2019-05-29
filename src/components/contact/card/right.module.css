@@ -1,0 +1,32 @@
+.container {
+  position: relative;
+  flex: 1;
+  padding: 16px 48px 32px 48px;
+}
+
+.header {
+  user-select: none;
+  margin: 16px 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 16px;
+}
+
+.owl {
+  height: 96px;
+}
+
+
+.stagger {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: transform 0.5s cubic-bezier(0.215, 0.61, 0.355, 1), opacity 0.5s linear;
+}
+
+.container.show .stagger {
+  opacity: 1;
+  transform: none;
+}

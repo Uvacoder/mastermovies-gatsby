@@ -6,11 +6,14 @@ import styles from "./index.module.css";
 /**
  * Creates an absolute zero container, and fills the image across.
  * Also protects against clicks.
-*/
-export const Cover: FunctionComponent<JSX.IntrinsicElements["div"]> = ({children, ...rest}) => {
+ */
+export const Cover: FunctionComponent<JSX.IntrinsicElements["div"]> = ({
+  children,
+  ...rest
+}) => {
   return (
     <div {...rest} className={classnames(styles.container, rest.className)}>
       {children}
     </div>
-  )
+  );
 };

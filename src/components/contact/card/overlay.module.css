@@ -1,0 +1,75 @@
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #FFF;
+  z-index: 10;
+  text-align: center;
+  padding: 16px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  user-select: none;
+  pointer-events: none;
+
+  transform: translateY(50%) scaleY(0);
+  transition: transform 1.5s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.owlContainer {
+  position: relative;
+  width: 200px;
+  height: 200px;
+}
+
+.owl {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200px;
+  max-width: 80%;
+  pointer-events: none;
+}
+
+.flyIn,
+.scaleIn {
+  opacity: 0;
+  transition: transform 1s cubic-bezier(0.55, 0.055, 0.675, 0.19), opacity 0.6s linear;
+}
+
+.flyIn {
+  transform: translate(-50%, -50%) translate(64px, 48px);
+}
+
+.scaleIn {
+  transform: translate(-50%, -50%) scale(0);
+}
+
+.stagger {
+  transform: translateY(32px);
+  opacity: 0;
+  transition: transform 0.6s cubic-bezier(0.55, 0.055, 0.675, 0.19), opacity 0.6s linear;
+}
+
+.overlay.active {
+  pointer-events: all;
+  transform: none;
+}
+
+.overlay.active .flyIn[data-active],
+.overlay.active .scaleIn[data-active] {
+  transform: translate(-50%, -50%) ;
+  opacity: 1;
+  transition: transform 0.6s cubic-bezier(0.215, 0.61, 0.355, 1), opacity 0.8s linear;
+}
+
+.overlay.active .stagger {
+  transform: none;
+  opacity: 1;
+  transition: transform 0.6s cubic-bezier(0.215, 0.61, 0.355, 1), opacity 0.6s linear;
+}

@@ -13,7 +13,11 @@ interface BannerProps extends divProps {
   logoURL: string;
 }
 
-export const Banner: FunctionComponent<BannerProps> = ({ background, logoURL, ...rest }) => (
+export const Banner: FunctionComponent<BannerProps> = ({
+  background,
+  logoURL,
+  ...rest
+}) => (
   <Flex {...rest} className={root}>
     <Cover>
       <Img fluid={background} />

@@ -1,24 +1,29 @@
-import { IGlacierFilmThumbnail, createCancelToken } from "../api/glacier";
-import { FluidObject } from "gatsby-image";
 import Axios from "axios";
+import { FluidObject } from "gatsby-image";
+
+import { createCancelToken } from "../api/common";
+import { IGlacierFilmThumbnail } from "../api/glacier";
 
 /* Generate a *fluid* object for gatsby-image */
-export function generateFluid(thumbnails: IGlacierFilmThumbnail[]): { promise: Promise<FluidObject>, aspectRatio: number, cancel: () => void } {
-
+export function generateFluid(
+  thumbnails: IGlacierFilmThumbnail[]
+): { promise: Promise<FluidObject>; aspectRatio: number; cancel: () => void } {
   // Generate aspect ratio from largest dimensions
   const aspectRatio = { ratio: 1, width: 0, height: 0 };
 
   // Generate src from largest image
-  const src = { src: "", width: 0, height: 0 }
-  const srcWebp = { src: "", width: 0, height: 0 }
+  const src = { src: "", width: 0, height: 0 };
+  const srcWebp = { src: "", width: 0, height: 0 };
   const srcSet = [];
   const srcSetWebp = [];
   const base64 = { src: "", width: 0, height: 0 };
 
   for (const thumbnail of thumbnails) {
-
     // Set newest aspect ratio
-    if (thumbnail.width > aspectRatio.width && thumbnail.height > aspectRatio.height) {
+    if (
+      thumbnail.width > aspectRatio.width &&
+      thumbnail.height > aspectRatio.height
+    ) {
       aspectRatio.ratio = thumbnail.width / thumbnail.height;
       aspectRatio.width = thumbnail.width;
       aspectRatio.height = thumbnail.height;
@@ -26,8 +31,11 @@ export function generateFluid(thumbnails: IGlacierFilmThumbnail[]): { promise: P
 
     // Update src and srcWebp
     if (thumbnail.mime === "image/webp") {
-      if (thumbnail.width > srcWebp.width && thumbnail.height > srcWebp.height) {
-        srcWebp.src  = thumbnail.image_url;
+      if (
+        thumbnail.width > srcWebp.width &&
+        thumbnail.height > srcWebp.height
+      ) {
+        srcWebp.src = thumbnail.image_url;
         srcWebp.width = thumbnail.width;
         srcWebp.height = thumbnail.height;
       }
@@ -50,7 +58,6 @@ export function generateFluid(thumbnails: IGlacierFilmThumbnail[]): { promise: P
         base64.src = thumbnail.image_url;
       }
     }
-
   }
 
   const baseFluid = {
@@ -59,23 +66,33 @@ export function generateFluid(thumbnails: IGlacierFilmThumbnail[]): { promise: P
     src: src.src,
     srcWebp: srcWebp.src,
     srcSet: srcSet.map(x => `${x.src} ${x.width}w`).join(", "),
-    srcSetWebp: srcSetWebp.map(x => `${x.src} ${x.width}w`).join(", ")
-  }
+    srcSetWebp: srcSetWebp.map(x => `${x.src} ${x.width}w`).join(", "),
+  };
 
   if (base64.src) {
     const cancelToken = createCancelToken();
-    return { cancel: cancelToken.cancel, aspectRatio: aspectRatio.ratio, promise: new Promise(resolve => {
-      Axios.get<string>(base64.src, { cancelToken: cancelToken.token })
-      .then(data => {
-        resolve({ ...baseFluid, base64: `data:image/svg+xml,${encodeURIComponent(data.data)}` })
-      })
-      .catch(() => {
-        resolve(baseFluid);
-        console.error("[FilmCard] Failed to resolve Base64 placeholder");
-      });
-    })};
-  } else  {
-    return { promise: Promise.resolve(baseFluid), aspectRatio: aspectRatio.ratio, cancel: () => {} };
+    return {
+      cancel: cancelToken.cancel,
+      aspectRatio: aspectRatio.ratio,
+      promise: new Promise(resolve => {
+        Axios.get<string>(base64.src, { cancelToken: cancelToken.token })
+          .then(data => {
+            resolve({
+              ...baseFluid,
+              base64: `data:image/svg+xml,${encodeURIComponent(data.data)}`,
+            });
+          })
+          .catch(() => {
+            resolve(baseFluid);
+            console.error("[FilmCard] Failed to resolve Base64 placeholder");
+          });
+      }),
+    };
+  } else {
+    return {
+      promise: Promise.resolve(baseFluid),
+      aspectRatio: aspectRatio.ratio,
+      cancel: () => {},
+    };
   }
-
 }

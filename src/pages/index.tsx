@@ -9,6 +9,7 @@ import { Nav, ILink } from "../components/common/nav";
 import { SEO } from "../components/common/seo";
 import { Banner } from "../components/index/banner";
 import { IndexGlacier } from "../components/index/glacier";
+import { links } from "../config";
 
 interface IndexProps {
   data: {
@@ -16,43 +17,37 @@ interface IndexProps {
       childImageSharp: {
         sqip: {
           dataURI: string;
-        },
+        };
         fluid: FluidObject;
-      }
-    },
+      };
+    };
     logoImage: {
       publicURL: string;
-    }
-  }
+    };
+  };
 }
 
-export const query = graphql`query {
-  background: file(relativePath: { eq: "landing_banner.jpg" }) {
-    childImageSharp {
-      sqip(mode: 1, numberOfPrimitives: 16, blur: 0) {
-        dataURI
-      },
-      fluid(maxWidth: 1920, quality: 90) {
-        ...GatsbyImageSharpFluid_withWebp_noBase64,
+export const query = graphql`
+  query {
+    background: file(relativePath: { eq: "landing_banner.jpg" }) {
+      childImageSharp {
+        sqip(mode: 1, numberOfPrimitives: 16, blur: 0) {
+          dataURI
+        }
+        fluid(maxWidth: 1920, quality: 90) {
+          ...GatsbyImageSharpFluid_withWebp_noBase64
+        }
       }
     }
-  },
-  logoImage: file(relativePath: { eq: "logo/white.svg" }) {
-    publicURL
+    logoImage: file(relativePath: { eq: "logo/white.svg" }) {
+      publicURL
+    }
   }
-}`;
-
-const links: ILink[] = [
-  {text: "Home", link: "/"},
-  {text: "Glacier", link: "/glacier"},
-  {text: "API", link: "/docs"},
-  {text: "Contact", link: "/contact"}
-];
+`;
 
 const Index: FunctionComponent<IndexProps> = ({ data }) => {
-
-  const [ alternateSidebar, setAlternateSidebar ] = useState(false);
-  const [ alternateNav, setAlternateNav ] = useState(false);
+  const [alternateSidebar, setAlternateSidebar] = useState(false);
+  const [alternateNav, setAlternateNav] = useState(false);
   const alternateZone = useRef(null);
 
   // Calculate whether the alternate sidebar should be visible
@@ -95,7 +90,7 @@ const Index: FunctionComponent<IndexProps> = ({ data }) => {
       <Moved />
       <Nav
         links={links}
-        theme={alternateNav? "light" : "dark"}
+        theme={alternateNav ? "light" : "dark"}
         type="fixed"
         extended={!alternateNav}
         background={alternateNav}
@@ -103,7 +98,7 @@ const Index: FunctionComponent<IndexProps> = ({ data }) => {
       <Banner
         background={{
           ...data.background.childImageSharp.fluid,
-          base64: data.background.childImageSharp.sqip.dataURI
+          base64: data.background.childImageSharp.sqip.dataURI,
         }}
         logoURL={data.logoImage.publicURL}
       />
@@ -111,7 +106,7 @@ const Index: FunctionComponent<IndexProps> = ({ data }) => {
         <IndexGlacier />
         <Footer />
       </div>
-  </>
+    </>
   );
 };
 

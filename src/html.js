@@ -1,5 +1,5 @@
-import React from "react"
-import PropTypes from "prop-types"
+import React from "react";
+import PropTypes from "prop-types";
 
 export default function HTML(props) {
   return (
@@ -11,13 +11,27 @@ export default function HTML(props) {
           name="viewport"
           content="width=device-width, initial-scale=1, shrink-to-fit=no"
         />
-        <style dangerouslySetInnerHTML={{__html: "html, body { margin: 0; padding: 0; }"}} />
+        <style
+          dangerouslySetInnerHTML={{
+            __html: "html, body { margin: 0; padding: 0; }",
+          }}
+        />
         {props.headComponents}
       </head>
       <body {...props.bodyAttributes}>
         {props.preBodyComponents}
         <noscript key="noscript" id="gatsby-noscript">
-          <div id="gatsby-noscript-div" style={{width: "100%", textAlign: "center", backgroundColor: "#001f3f", color: "#FFF", padding: 16, fontWeight: "bold"}}>
+          <div
+            id="gatsby-noscript-div"
+            style={{
+              width: "100%",
+              textAlign: "center",
+              backgroundColor: "#001f3f",
+              color: "#FFF",
+              padding: 16,
+              fontWeight: "bold",
+            }}
+          >
             This website works best with JavaScript enabled.
           </div>
         </noscript>
@@ -29,7 +43,7 @@ export default function HTML(props) {
         {props.postBodyComponents}
       </body>
     </html>
-  )
+  );
 }
 
 HTML.propTypes = {
@@ -39,4 +53,4 @@ HTML.propTypes = {
   preBodyComponents: PropTypes.array,
   body: PropTypes.string,
   postBodyComponents: PropTypes.array,
-}
+};

@@ -1,8 +1,9 @@
-@import url('https://fonts.googleapis.com/css?family=Raleway:300,600&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Raleway:300');
+@import url('https://fonts.googleapis.com/css?family=Raleway:600');
 
 
 .wrapper {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   height: 100%;
@@ -10,10 +11,6 @@
   overflow: hidden;
   z-index: 101;
   pointer-events: none;
-}
-
-.wrapper.fixed {
-  position: fixed;
 }
 
 .overlay {
@@ -61,8 +58,17 @@
 
 .menu {
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 16px;
+  right: 16px;
+  opacity: 1;
+  transition: transform 300ms cubic-bezier(0.645, 0.045, 0.355, 1), opacity 100ms linear;
+}
+
+.menu.exit {
+  transform: translateX(100px);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 300ms cubic-bezier(0.645, 0.045, 0.355, 1) 400ms, opacity 100ms linear 600ms;
 }
 
 .gestureTrigger {

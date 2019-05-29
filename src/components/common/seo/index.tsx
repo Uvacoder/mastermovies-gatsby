@@ -3,7 +3,10 @@ import React, { FunctionComponent } from "react";
 import Helmet from "react-helmet";
 
 export const SEO: FunctionComponent<SEOProps> = (props: SEOProps) => {
-  const { description, lang, meta, keywords, title } = { ...defaultSEOProps, ...props };
+  const { description, lang, meta, keywords, title } = {
+    ...defaultSEOProps,
+    ...props,
+  };
   const { site } = useStaticQuery(
     graphql`
       query {
@@ -16,9 +19,9 @@ export const SEO: FunctionComponent<SEOProps> = (props: SEOProps) => {
         }
       }
     `
-  )
+  );
 
-  const metaDescription = description || site.siteMetadata.description
+  const metaDescription = description || site.siteMetadata.description;
 
   return (
     <Helmet
@@ -26,7 +29,9 @@ export const SEO: FunctionComponent<SEOProps> = (props: SEOProps) => {
         lang,
       }}
       title={title}
-      titleTemplate={title ? `%s – ${site.siteMetadata.title}` : site.siteMetadata.title}
+      titleTemplate={
+        title ? `%s – ${site.siteMetadata.title}` : site.siteMetadata.title
+      }
       meta={[
         {
           name: `description`,
@@ -61,23 +66,23 @@ export const SEO: FunctionComponent<SEOProps> = (props: SEOProps) => {
           content: metaDescription,
         },
       ]
-      .concat(
-        keywords.length > 0
-          ? {
-              name: `keywords`,
-              content: keywords.join(`, `),
-            }
-          : []
-      )
-      .concat(meta)}
+        .concat(
+          keywords.length > 0
+            ? {
+                name: `keywords`,
+                content: keywords.join(`, `),
+              }
+            : []
+        )
+        .concat(meta)}
     />
-  )
-}
+  );
+};
 
 export interface SEOProps {
   description?: string;
   lang?: string;
-  meta?: Array<{ name: string, content: string }>;
+  meta?: Array<{ name: string; content: string }>;
   keywords: string[];
   title: string;
 }
@@ -87,5 +92,5 @@ const defaultSEOProps: SEOProps = {
   lang: "en",
   meta: [],
   keywords: [],
-  title: "MasterMovies"
-}
+  title: "MasterMovies",
+};

@@ -1,11 +1,6 @@
-import React, { FunctionComponent, ReactNode } from "react";
+import React, { FunctionComponent, ReactNode, useState } from "react";
 import { Navbar } from "./navbar";
 import { Sidebar } from "./sidebar";
-
-export interface ILink {
-  text: string;
-  link: string;
-}
 
 export interface ILogo {
   text: string | ReactNode;
@@ -21,20 +16,40 @@ export interface INavProps {
   background?: boolean;
 }
 
+export interface INavPropsWithState {
+  links: ILink[];
+  theme: "light" | "dark";
+  logo: ILogo;
+  type: "static" | "absolute" | "fixed";
+  extended: boolean;
+  background: boolean;
+  sidebarOpen: boolean;
+  setSidebarOpen: (open: boolean) => void;
+}
+
 export const Nav: FunctionComponent<INavProps> = ({
   links,
   theme = "light",
   logo = { text: "MasterMovies", link: "https://mastermovies.uk" },
   type = "static",
   extended = false,
-  background = false
+  background = false,
 }) => {
-
   const resolvedProps = { links, theme, logo, type, extended, background };
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-  <>
-    <Navbar {...resolvedProps} />
-    <Sidebar {...resolvedProps}  />
-  </>);
-}
+    <>
+      <Navbar
+        {...resolvedProps}
+        sidebarOpen={sidebarOpen}
+        setSidebarOpen={setSidebarOpen}
+      />
+      <Sidebar
+        {...resolvedProps}
+        sidebarOpen={sidebarOpen}
+        setSidebarOpen={setSidebarOpen}
+      />
+    </>
+  );
+};
