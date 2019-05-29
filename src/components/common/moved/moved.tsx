@@ -15,7 +15,8 @@ export const Moved: FunctionComponent = () => {
   // Open the overlay ONCE per app load
   useEffect(() => {
     const timeout = setTimeout(() => {
-      if (typeof document.cookie === "string" && document.cookie.indexOf("moved_banner_shown=true") === -1 && !show) {
+      const moved_banner_shown = sessionStorage.getItem("moved_banner_shown");
+      if (!sessionStorage || moved_banner_shown !== "1") {
         setShow(true);
         // @ts-ignore Bad typings for react-spring
         setTrail({ opacity: 1, delay: 300 })
@@ -26,7 +27,7 @@ export const Moved: FunctionComponent = () => {
 
   // Close the modal
   const close = () => {
-    document.cookie = "moved_banner_shown=true";
+    sessionStorage.setItem("moved_banner_shown", "1");
     setCopyVisible(false);
     setShow(false);
   }
