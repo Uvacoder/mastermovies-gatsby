@@ -40,6 +40,13 @@ module.exports = {
         icon: `src/images/logo/default.png`
       },
     },
+    {
+      resolve: 'gatsby-plugin-import',
+      options: {
+        libraryName: "antd",
+        style: "css"
+      }
+    },
     // {
     //   resolve: `gatsby-plugin-webpack-bundle-analyzer`,
     //   options: {

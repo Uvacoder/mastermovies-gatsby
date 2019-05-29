@@ -11,11 +11,6 @@ export default function HTML(props) {
           name="viewport"
           content="width=device-width, initial-scale=1, shrink-to-fit=no"
         />
-        <style
-          dangerouslySetInnerHTML={{
-            __html: "html, body { margin: 0; padding: 0; }",
-          }}
-        />
         {props.headComponents}
       </head>
       <body {...props.bodyAttributes}>
