@@ -50,8 +50,11 @@ export const Footer: FunctionComponent<IFooterProps> = ({
           <Icon type="experiment" className={styles.experimentalIcon} />
           This website is currently under active development
         </span>
-        <span className={styles.breadcrumbMessage}>
+        {/* <span className={styles.breadcrumbMessage}>
           Home-made website, coded with ❤
+        </span> */}
+        <span className={styles.breadcrumbMessage}>
+          All rights reserved © 2019 Marcus Cemes – Powered by <b>SnowOwl</b>
         </span>
       </p>
     </footer>

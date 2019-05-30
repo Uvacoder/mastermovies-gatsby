@@ -78,14 +78,32 @@
   margin-top: 16px;
   margin-bottom: 16px;
   font-weight: 600;
-  text-align: center;
 
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .experimentalIcon {
   margin-right: 8px;
+}
+
+.breadcrumbMessage {
+  font-weight: 600;
+  opacity: 0.4;
+  font-size: 0.8rem;
+  margin-top: 16px;
+}
+
+
+.experimental,
+.breadcrumbMessage {
+  transition: opacity 0.3s ease-out;
+}
+
+.experimental:hover,
+.breadcrumbMessage:hover {
+  opacity: 0.8;
 }
 
 @media only screen and (max-width: 768px) {
@@ -96,11 +114,4 @@
     margin-right: 0;
     margin-bottom: 8px;
   }
-}
-
-.breadcrumbMessage {
-  font-weight: 600;
-  opacity: 0.4;
-  font-size: 0.8rem;
-  margin-top: 16px;
 }
