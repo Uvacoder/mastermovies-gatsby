@@ -73,9 +73,9 @@
 
 .gestureTrigger {
   position: absolute;
-  top: 0;
-  width: 48px;
-  right: -48px;
+  top: 96px;
+  width: 36px;
+  right: -36px;
   bottom: 0;
 }
 
@@ -86,11 +86,14 @@
 .logo {
   display: inline-block;
   position: relative;
-  color: #000;
   font-size: 1.6rem;
   margin-bottom: 32px;
   font-family: Raleway, sans-serif;
   font-weight: 600;
+}
+
+.logo, .logo > * {
+  color: #000 !important;
 }
 
 .logo::after {

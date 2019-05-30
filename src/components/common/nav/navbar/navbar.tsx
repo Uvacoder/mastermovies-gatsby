@@ -31,7 +31,7 @@ export const Navbar: FunctionComponent<INavPropsWithState> = ({
       <NavMenu
         active={sidebarOpen}
         theme={theme}
-        className={classnames(styles.menu, { [styles.exit]: sidebarOpen })}
+        className={classnames(styles.menu, {[styles.exit]: sidebarOpen})}
         onClick={() => setSidebarOpen(true)}
       />
 
@@ -49,11 +49,3 @@ export const Navbar: FunctionComponent<INavPropsWithState> = ({
     </nav>
   );
 };
-
-function isILogo(obj: any): obj is ILogo {
-  return (
-    typeof obj === "object" &&
-    typeof obj.text === "string" &&
-    typeof obj.link === "string"
-  );
-}
