@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  font-family: "Open Sans", sans-serif;
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease-out;
+
+  user-select: none;
+  letter-spacing: 0.01em;
+}
+
+.overlay.active {
+  pointer-events: all;
+  opacity: 1;
+}
+
+.overlay.active.dim:not(:hover) {
+  opacity: 0.6;
+}
+
+.overlay.dark {
+  color: #FFF;
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon {
+  font-size: 32px;
+  margin-bottom: 16px;
+}
+
+.button {
+  margin-top: 32px;
+}
+
+.shimmer {
+  animation: shimmer 2s infinite ease;
+}
+
+@keyframes shimmer {
+  0% { opacity: 0.6 }
+  50% { opacity: 0.4 }
+  100% { opacity: 0.6 }
+}
