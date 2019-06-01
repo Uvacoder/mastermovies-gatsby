@@ -43,46 +43,20 @@ export interface IGlacierFilmThumbnail {
   image_url: string;
 }
 
-interface ICacheQuery {
-  promise: Promise<any>;
-  state: boolean | null;
-}
 
-/** Contains API response cache */
-const cache: { [index: string]: ICacheQuery } = {};
-
-function fetchWithCache<T>(url: string, cancelToken?: CancelToken): Promise<T> {
-  // Check the cache
-  if (typeof cache[url] !== "undefined" && cache[url].state !== false)
-    return cache[url].promise;
-
-  // Run the query and update the query state
-  const cacheEntry = { promise: void 0, state: null };
-  const query = axios
-    .get(url, { cancelToken })
-    .then(result => {
-      cacheEntry.state = true;
-      return result.data;
-    })
-    .catch(err => {
-      cacheEntry.state = false;
-      throw err;
-    });
-  cacheEntry.promise = query;
-
-  cache[url] = cacheEntry;
-  return cacheEntry.promise;
+function fetch<T>(url: string, cancelToken?: CancelToken): Promise<T> {
+  return axios.get(url, { cancelToken }).then(result => result.data);
 }
 
 export function getFilms(cancelToken: CancelToken, onlyPublic: boolean) {
-  return fetchWithCache<IGlacierFilmSummary[]>(
+  return fetch<IGlacierFilmSummary[]>(
     API_BASE + "/glacier/list" + (onlyPublic ? "?public" : ""),
     cancelToken
   );
 }
 
 export function getFilm(cancelToken: CancelToken, film: string) {
-  return fetchWithCache<IGlacierFilm>(
+  return fetch<IGlacierFilm>(
     API_BASE + "/glacier/film/" + film,
     cancelToken
   );
