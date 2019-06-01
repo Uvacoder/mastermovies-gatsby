@@ -23,6 +23,20 @@ export const SEO: FunctionComponent<SEOProps> = (props: SEOProps) => {
 
   const metaDescription = description || site.siteMetadata.description;
 
+  let addTheme = true;
+  for (const item of meta) {
+    if (item.name === "theme-color") {
+      addTheme = false;
+      break;
+    }
+  }
+  if (addTheme) {
+    meta.push({
+      name: `theme-color`,
+      content: `#FFF`
+    });
+  }
+
   return (
     <Helmet
       htmlAttributes={{
