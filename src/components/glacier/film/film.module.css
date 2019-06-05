@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css?family=Oswald:200&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+
+
+.film {
+  position: relative;
+  user-select: none;
+
+  color: #FFF;
+}
+
+.film::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  cursor: pointer;
+  z-index: 5;
+}
+
+.summary {
+  margin-top: 16px;
+}
+
+.title {
+  margin-bottom: 8px;
+
+  font-size: 1.3em;
+  letter-spacing: 0.05em;
+  font-family: Oswald, sans-serif;
+  text-transform: uppercase;
+  font-weight: 200;
+}
+
+.lock {
+  position: relative;
+  color: rgba(255,255,255,0.4);
+  float: right;
+  z-index: 20;
+}
+
+.description {
+  font-size: 0.9em;
+  color: rgba(255,255,255,0.8);
+  font-family: "Open Sans", sans-serif;
+}
+
+.release {
+  opacity: 0.6;
+  letter-spacing: 0.01em;
+  margin-left: 0.5em;
+  font-size: 0.8em;
+}
+
+.titleSkeleton,
+.descriptionSkeleton,
+.descriptionSkeleton::after,
+.releaseSkeleton {
+  display: inline-block;
+}
+
+.titleSkeleton {
+  height: 1.3em;
+  width: 196px;
+  background-color: rgba(255,255,255,0.4);
+}
+
+.descriptionSkeleton {
+  height: 0.9em;
+  width: 100%;
+  background-color: rgba(255,255,255,0.3);
+}
+
+.descriptionSkeleton::after {
+  content: "";
+  margin-top: 22px;
+  height: 0.9em;
+  width: 256px;
+  background-color: rgba(255,255,255,0.3);
+}
+
+.releaseSkeleton {
+  height: 0.8em;
+  width: 48px;
+  background-color: rgba(255,255,255,0.2);
+}

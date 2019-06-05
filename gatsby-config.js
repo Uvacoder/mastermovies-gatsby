@@ -7,7 +7,7 @@ module.exports = {
   plugins: [
     {
       resolve: `gatsby-plugin-create-client-paths`,
-      options: { prefixes: [`/glacier/*`] },
+      options: { prefixes: [`/glacier/*`, `/test/*`] },
     },
     `gatsby-plugin-remove-trailing-slashes`,
     `gatsby-plugin-typescript`,
@@ -34,8 +34,8 @@ module.exports = {
         name: `gatsby-starter-default`,
         short_name: `mastermovies`,
         start_url: `/`,
-        background_color: `#5ABDFC`,
-        theme_color: `#5ABDFC`,
+        background_color: `#FFF`,
+        // theme_color: `#FFF`, // react-helmet
         display: `minimal-ui`,
         icon: `src/images/logo/default.png`
       },

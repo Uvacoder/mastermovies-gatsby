@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway:300&display=swap');
+
+
+.logo {
+  font-family: Raleway, sans-serif;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  font-size: 2.2rem;
+  user-select: none;
+  text-decoration: none;
+  color: #000;
+}
+
+.dark {
+  color: #FFF;
+}

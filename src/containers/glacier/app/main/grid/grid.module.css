@@ -1,0 +1,28 @@
+.grid {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 48px;
+  padding: 0 10vw;
+}
+
+.filmWrapper {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  margin: 32px 32px;
+}
+
+@media only screen and (max-width: 768px) {
+  .grid {
+    margin-top: 0;
+    padding: 0 16px;
+  }
+  .cardContainer {
+    margin: 16px 8px 64px 8px;
+  }
+}

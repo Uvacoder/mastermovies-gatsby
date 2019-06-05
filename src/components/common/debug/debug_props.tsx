@@ -13,14 +13,12 @@ export const DebugProps: FunctionComponent<IDebugPropsProps> = ({ render, debugP
 
   const [ injectedProps, setInjectedProps ] = useState({});
   const [ isolate, setIsolate ] = useState(false);
-  const [ dark, setDark ] = useState(false);
 
   return (
     <>
       <DebugControlPanel>
         <h4>Prop Debug</h4>
-        Isolate: <Checkbox onChange={e => setIsolate(e.target.checked)} /><br />
-        Dark: <Checkbox onChange={e => setDark(e.target.checked)} />
+        Isolate: <Checkbox onChange={e => setIsolate(e.target.checked)} />
 
         <Divider />
 
@@ -41,7 +39,7 @@ export const DebugProps: FunctionComponent<IDebugPropsProps> = ({ render, debugP
 
       {
         isolate? (
-          <div style={{position: "fixed", zIndex: 1000, background: dark? "#000" : "#FFF", top: 0, left: 0, width: "100vw", height: "100vh", display: "flex", justifyContent: "center", alignItems: "center"}}>
+          <div style={{position: "fixed", zIndex: 1000, background: "#FFF", top: 0, left: 0, width: "100vw", height: "100vh", display: "flex", justifyContent: "center", alignItems: "center"}}>
             {render(injectedProps)}
           </div>
         )

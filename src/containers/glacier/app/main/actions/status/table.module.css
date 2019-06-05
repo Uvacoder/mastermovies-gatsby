@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css?family=Oswald:200&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Oswald&display=swap');
+
+.tableWrapper {
+  position: relative;
+  min-height: 96px;
+  margin-bottom: 16px;
+}
+
+.wrapper {
+  position: relative;
+}
+
+.title {
+  font-size: 1em;
+  font-family: Oswald, sans-serif;
+  letter-spacing: 0.02em
+}
+
+.release {
+  margin-left: 4px;
+  font-family: Oswald, sans-serif;
+  color: rgba(0,0,0,0.6);
+  font-weight: 200;
+}
+
+.error {
+  color: #FF4136;
+  font-style: italic;
+}

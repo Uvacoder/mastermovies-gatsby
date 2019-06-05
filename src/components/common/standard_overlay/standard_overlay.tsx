@@ -5,6 +5,7 @@ import React, { FunctionComponent } from "react";
 import { Transition, TransitionGroup } from "react-transition-group";
 
 import styles from "./standard_overlay.module.css";
+import { DarkButton } from "../../glacier/dark_button";
 
 type divProps = JSX.IntrinsicElements["div"];
 interface IStandardOverlayProps extends divProps {
@@ -43,7 +44,10 @@ export const StandardOverlay: FunctionComponent<IStandardOverlayProps> = ({
             <span className={classnames(styles.container, {[styles.shimmer]: shimmer})}>
               {icon && <Icon type={icon} className={styles.icon}/>}
               <span>{text}</span>
-              {button && <Button className={styles.button} ghost={theme === "dark"} onClick={() => onButton()}>{button}</Button>}
+              {button && (theme === "dark"?
+                (<DarkButton className={styles.button} onClick={onButton}>{button}</DarkButton>)
+              : (<Button className={styles.button} onClick={onButton}>{button}</Button>)
+              )}
             </span>
           </div>
         )}

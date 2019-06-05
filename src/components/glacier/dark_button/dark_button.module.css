@@ -1,0 +1,12 @@
+.darkButton {
+  color: #DDD !important;
+  border-color: #DDD !important;
+  --antd-wave-shadow-color: #FFF;
+}
+
+.darkButton:hover,
+.darkButton:focus,
+.darkButton:active {
+  color: #FFF !important;
+  border-color: #FFF !important;
+}

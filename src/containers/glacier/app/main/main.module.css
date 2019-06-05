@@ -1,0 +1,62 @@
+.browser {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.actionBar {
+  position: relative;
+  display: flex;
+}
+
+.actionSearch {
+  position: relative;
+  width: 60%;
+}
+
+.actionPadding,
+.actionButtons {
+  flex: 1;
+}
+
+.actionButtons {
+  padding: 0 32px;
+}
+
+.searchResults {
+  position: absolute;
+  top: calc(100% + 16px);
+  left: 8px;
+  color: rgba(255,255,255,0.4);
+}
+
+.content {
+  margin-bottom: 32px;
+
+  flex: 1;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media only screen and (max-width: 768px) {
+  .actionBar {
+    flex-wrap: wrap;
+  }
+  .actionSearch,
+  .actionButtons {
+    width: 100%;
+  }
+  .actionSearch {
+    margin-top: 16px;
+    order: 1;
+  }
+  .actionButtons {
+    text-align: center;
+  }
+  .actionPadding {
+    display: none;
+  }
+}

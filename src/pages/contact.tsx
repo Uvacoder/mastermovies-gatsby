@@ -2,7 +2,7 @@ import React from "react";
 
 import { SEO } from "../components/common/seo";
 import { ContactBackground } from "../components/contact/background";
-import { ContactApp } from "../components/contact/app";
+import { ContactApp } from "../containers/contact/app";
 
 export default () => {
   return (

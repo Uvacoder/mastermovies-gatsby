@@ -1,0 +1,10 @@
+.actionButton {
+  padding: 4px 16px;
+  font-size: 1.2em;
+  box-sizing: content-box;
+}
+
+.dropdownItem {
+  font-size: 1rem;
+  padding: 8px 16px;
+}

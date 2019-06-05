@@ -1,0 +1,39 @@
+.description {
+  display: table;
+  height: 30px;
+}
+
+.name {
+  display: table-cell;
+  margin-right: 8px;
+  padding-bottom: 8px;
+  white-space: nowrap;
+  line-height: 20px;
+  color: rgba(0,0,0,0.6);
+}
+
+.name::after {
+  position: relative;
+  top: -0.5px;
+  margin: 0 8px 0 2px;
+  content: ":";
+}
+
+.value {
+  display: table-cell;
+  padding-bottom: 8px;
+  width: 100%;
+  line-height: 20px;
+}
+
+@media only screen and (max-width: 576px) {
+  .description {
+    position: relative;
+    width: 100%;
+  }
+  .name {
+    display: inline-block;
+    width: 96px;
+    text-align: right;
+  }
+}

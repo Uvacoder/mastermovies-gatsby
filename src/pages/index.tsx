@@ -4,11 +4,11 @@ import React, { FunctionComponent, useEffect, useRef, useState } from "react";
 import { throttle } from "throttle-debounce";
 
 import { Footer } from "../components/common/footer/footer";
-import { Moved } from "../components/common/moved";
-import { Nav, ILink } from "../components/common/nav";
+import { Moved } from "../components/index/moved";
+import { Nav } from "../components/common/nav";
 import { SEO } from "../components/common/seo";
-import { Banner } from "../components/index/banner";
-import { IndexGlacier } from "../components/index/glacier";
+import { IndexBanner } from "../containers/index/banner";
+import { IndexGlacier } from "../containers/index/glacier";
 import { links } from "../config";
 
 interface IndexProps {
@@ -27,23 +27,6 @@ interface IndexProps {
   };
 }
 
-export const query = graphql`
-  query {
-    background: file(relativePath: { eq: "landing_banner.jpg" }) {
-      childImageSharp {
-        sqip(mode: 1, numberOfPrimitives: 16, blur: 0) {
-          dataURI
-        }
-        fluid(maxWidth: 1920, quality: 90) {
-          ...GatsbyImageSharpFluid_withWebp_noBase64
-        }
-      }
-    }
-    logoImage: file(relativePath: { eq: "logo/white.svg" }) {
-      publicURL
-    }
-  }
-`;
 
 const Index: FunctionComponent<IndexProps> = ({ data }) => {
   const [alternateSidebar, setAlternateSidebar] = useState(false);
@@ -95,13 +78,7 @@ const Index: FunctionComponent<IndexProps> = ({ data }) => {
         extended={!alternateNav}
         background={alternateNav}
       />
-      <Banner
-        background={{
-          ...data.background.childImageSharp.fluid,
-          base64: data.background.childImageSharp.sqip.dataURI,
-        }}
-        logoURL={data.logoImage.publicURL}
-      />
+      <IndexBanner />
       <div ref={alternateZone}>
         <IndexGlacier />
         <Footer />

@@ -1,21 +1,15 @@
 import classnames from "classnames";
 import { navigate } from "gatsby";
 import hash from "hash-sum";
-import React, {
-  FunctionComponent,
-  ReactNode,
-  useEffect,
-  useState,
-} from "react";
+import React, { FunctionComponent, useEffect, useState } from "react";
 import { animated, useSpring } from "react-spring";
 import { useGesture } from "react-use-gesture";
 
-import { ILink, ILogo } from "..";
 import { SmartLink } from "../../smart_link";
-import styles from "./sidebar.module.css";
-import { SidebarImage } from "./sidebar_image";
 import { NavMenu } from "../common/menu";
 import { INavPropsWithState } from "../nav";
+import styles from "./sidebar.module.css";
+import { SidebarImage } from "./sidebar_image";
 
 const SIDEBAR_WIDTH = 400; /* see styles */
 const SIDEBAR_MAX_WIDTH = 0.8; /* see styles */
@@ -27,12 +21,6 @@ const STAGGER_DELAY = 100; // delay between stagger animations
 const DEFAULT_SPRING_CONFIG = { mass: 1, tension: 170, friction: 26 };
 const GESTURE_SPRING_CONFIG = { mass: 1, tension: 200, friction: 30 };
 
-interface INavSidebarProps {
-  links: ILink[];
-  theme: "light" | "dark";
-  logo: ILogo;
-  type: "static" | "absolute" | "fixed";
-}
 
 /** A powerful react-spring animated sidebar that supports drag-based open/close gestures */
 export const Sidebar: FunctionComponent<INavPropsWithState> = ({
