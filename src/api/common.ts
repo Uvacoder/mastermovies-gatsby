@@ -15,11 +15,13 @@ export async function getCsrfToken() {
     const done = message.loading("Requesting CSRF token... This will only happen once.", 0);
     try {
       await axios.get(API_BASE);
-      await new Promise(res => setTimeout(res, 1000)); // wait for cookies to update
-    } finally {
+      let retry = 6;
+      while (retry >= 0 && !(token = findCsrfCookie()))
+        await new Promise(res => setTimeout(res, 500)); // wait for cookies to update
+        retry--;
+    } catch {/* */} finally {
       done();
     }
-    token = findCsrfCookie();
   }
 
   return token;

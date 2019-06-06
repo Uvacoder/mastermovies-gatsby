@@ -50,6 +50,7 @@
     width: 100%;
   }
   .actionSearch {
+    padding: 0 16px;
     margin-top: 16px;
     order: 1;
   }
