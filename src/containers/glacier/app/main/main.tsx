@@ -35,7 +35,6 @@ export const GlacierMain: FunctionComponent<RouteComponentProps<{ film: string }
       let mounted = true;
       const cancelToken = createCancelToken();
 
-      // Promise.reject()
       getFilms(cancelToken.token, false)
         .then(films => {
           if (mounted) {

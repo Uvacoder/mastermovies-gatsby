@@ -1,11 +1,11 @@
 import { Button, Descriptions, Icon, Input, Popover, Steps } from "antd";
 import classnames from "classnames";
 import filesize from "file-size";
-import React, { FunctionComponent, useEffect, useState } from "react";
+import React, { FunctionComponent, ReactNode, useEffect, useState } from "react";
 import { Transition, TransitionGroup } from "react-transition-group";
 
-import { authorise, checkAuth } from "../../../../../../api/auth";
-import { createCancelToken } from "../../../../../../api/common";
+import { authorise, hasFilmAuth } from "../../../../../../api/auth";
+import { createCancelToken, timeToReset } from "../../../../../../api/common";
 import { IGlacierFilm, IGlacierFilmExport } from "../../../../../../api/glacier";
 import { SummaryTitle } from "../common/summary";
 import styles from "./wizard.module.css";
@@ -22,7 +22,7 @@ const [ IDLE, PREPARE, LOGIN, AUTHORISE, READY, DOWNLOAD, DONE ] = [ 0, 1, 2, 3,
 export const GlacierDownloadWizard: FunctionComponent<iGlacierDownloadWizardProps> = ({ film, filmExport, onBack }) => {
 
   const [ authStage, setAuthStage ] = useState<number>(IDLE);
-  const [ error, setError ] = useState<string | true>(null);
+  const [ error, setError ] = useState<ReactNode>(null);
   const [ key, setKey ] = useState<string>("");
   const [ lockout, setLockout ] = useState<number>(null);
 
@@ -49,15 +49,15 @@ export const GlacierDownloadWizard: FunctionComponent<iGlacierDownloadWizardProp
     switch (authStage) {
       case PREPARE:
         const queryCancelToken = createCancelToken();
-        checkAuth(queryCancelToken.token, film.fingerprint)
+        hasFilmAuth(queryCancelToken.token, film.fingerprint)
           .then(auth => {
             if (!auth && film.restricted) {
               setAuthStage(LOGIN);  // go to authorization
             } else {
-              setAuthStage(READY);  // skip authorization
+              setAuthStage(AUTHORISE);  // skip login
             }
           })
-          .catch(err => setError("Unable to reach Glacier: " + err.message));
+          .catch(err => setError(prettyError("Unable to reach Glacier", err.message)));
         return () => queryCancelToken.cancel();
       case AUTHORISE:
         const authCancelToken = createCancelToken();
@@ -65,19 +65,23 @@ export const GlacierDownloadWizard: FunctionComponent<iGlacierDownloadWizardProp
         authorise(authCancelToken.token, film.fingerprint, key)
           .then(() => setAuthStage(READY))
           .catch(err => {
-            let customErrorMessage = false;
+            console.log(err);
+            let errorMessageSet = false;
             if (err.response && err.response.status) {
               if (err.response.status === 429) {
-                setError("Too many attempts, try again in a few minutes");
-                setLockout(1000 * 60 * 10); // TODO wait 10 minutes
-                customErrorMessage = true;
-              } else if (err.response.status === 403) {
-                setError("Invalid download key")
-                customErrorMessage = true;
+                const duration = timeToReset(err.response.headers) * 1000;
+                setError(prettyError(`Too many attempts, try again in ${Math.ceil(duration/1000)}s`, "429 rate-limited"));
+                setLockout(duration);
+                errorMessageSet = true;
+              } else if (err.response.status === 401) {
+                setError(prettyError(film.restricted?
+                  "The provided download key is not valid"
+                  : "Unable to authorise the download at this time", "Bad credentials"));
+                errorMessageSet = true;
               }
             }
-            if (!customErrorMessage) setError("Unknown error: " + err.message);
-            setAuthStage(LOGIN);
+            if (!errorMessageSet) setError(prettyError("Unable to authorize download", err.message));
+            if (film.restricted) setAuthStage(LOGIN); // if the key is bad, go back to login
             setKey("");
           });
         return () => authCancelToken.cancel();
@@ -149,7 +153,7 @@ export const GlacierDownloadWizard: FunctionComponent<iGlacierDownloadWizardProp
                       <Button className={styles.formButton} disabled={lockout !== null || key.length === 0} type="primary" onClick={() => setAuthStage(AUTHORISE)}>Unlock</Button>
                     </div>
                   </>
-                ) || authStage === AUTHORISE && (
+                ) || authStage === AUTHORISE && !error && (
                   <span style={{userSelect: "none", fontSize: "0.9rem"}}>
                     Authorising download...
                   </span>
@@ -166,7 +170,8 @@ export const GlacierDownloadWizard: FunctionComponent<iGlacierDownloadWizardProp
                     <Button onClick={onBack}>Back to Glacier</Button>
                   </>
                 )}
-                {error? <span className={styles.error}>{typeof error === "string"? error : "An unknown error occurred"}</span> : null}
+
+                {error? error : null}
 
               </div>
             </div>
@@ -189,12 +194,12 @@ const steps = [
   },
   {
     title: "Authorise",
-    status: x => x < LOGIN? WAIT : x > READY? FINISHED : PROCESS,
+    status: x => x < LOGIN? WAIT : x > LOGIN? FINISHED : PROCESS,
     icon: x => x === AUTHORISE? "loading" : "user"
   },
   {
     title: "Download",
-    status: x => x < DOWNLOAD? WAIT : x > DOWNLOAD? FINISHED : PROCESS,
+    status: x => x === DOWNLOAD? PROCESS : x >= READY? FINISHED : WAIT,
     icon: x => x === DOWNLOAD? "loading" : "cloud-download"
   }
 ];
@@ -211,3 +216,17 @@ const DownloadSteps: FunctionComponent<{ authStage: number, error: boolean }> = 
     ))}
   </Steps>
 )
+
+function prettyError(friendlyText: string, error?: string): ReactNode {
+  return (
+    <>
+      <span className={styles.error}>{friendlyText}</span>
+      {error && (
+        <>
+          <br />
+          <code style={{fontSize: "0.8em"}}>Error: {error}</code>
+        </>
+      )}
+    </>
+  );
+}

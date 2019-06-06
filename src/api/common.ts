@@ -1,5 +1,5 @@
 import { message } from "antd";
-import axios, { CancelToken, CancelTokenSource } from "axios";
+import axios, { CancelToken, CancelTokenSource, AxiosResponse } from "axios";
 
 export const API_BASE = "https://api.mastermovies.uk/v2";
 
@@ -52,4 +52,15 @@ function readCsrfToken() {
 
 export function retrieve<T>(url: string, cancelToken?: CancelToken): Promise<T> {
   return axios.get(url, { cancelToken }).then(result => result.data);
+}
+
+/** Returns the number of seconds until the ratelimter resets */
+export function timeToReset(headers: AxiosResponse["headers"]): number {
+  try {
+    const header = headers["x-ratelimit-reset"];
+    if (!isNaN(header)) {
+      return Math.ceil((new Date(parseInt(header) * 1000).valueOf() - Date.now()) / 1000);
+    }
+  } catch {/* */}
+  return 60; // 1 minute
 }

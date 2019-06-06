@@ -17,7 +17,7 @@ export function getAuth(cancelToken: CancelToken) {
   ).then(response => response.data);
 }
 
-export async function checkAuth(cancelToken: CancelToken, film: string): Promise<boolean> {
+export async function hasFilmAuth(cancelToken: CancelToken, film: string): Promise<boolean> {
   const token = await getAuth(cancelToken);
   return typeof token === "object"
     && typeof token.glacier === "object"
