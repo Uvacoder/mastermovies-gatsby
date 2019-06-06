@@ -109,7 +109,7 @@ const ContactForm: FunctionComponent<FormComponentProps> = ({ form }) => {
           ],
         })(
           <Input
-            disabled={sendValues !== null}
+            disabled={sendValues !== null || success === true}
             prefix={<Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />}
             placeholder="Name"
           />
@@ -122,7 +122,7 @@ const ContactForm: FunctionComponent<FormComponentProps> = ({ form }) => {
           ],
         })(
           <Input
-            disabled={sendValues !== null}
+            disabled={sendValues !== null || success === true}
             prefix={<Icon type="mail" style={{ color: "rgba(0,0,0,.25)" }} />}
             placeholder="Email"
           />
@@ -136,7 +136,7 @@ const ContactForm: FunctionComponent<FormComponentProps> = ({ form }) => {
           ],
         })(
           <Input
-            disabled={sendValues !== null}
+            disabled={sendValues !== null || success === true}
             prefix={
               <Icon type="highlight" style={{ color: "rgba(0,0,0,.25)" }} />
             }
@@ -158,7 +158,7 @@ const ContactForm: FunctionComponent<FormComponentProps> = ({ form }) => {
           ],
         })(
           <Input.TextArea
-            disabled={sendValues !== null}
+            disabled={sendValues !== null || success === true}
             placeholder="So what did you want to say?"
           />
         )}
@@ -179,6 +179,7 @@ const ContactForm: FunctionComponent<FormComponentProps> = ({ form }) => {
             icon={!finished? "mail" : success? "check" : "exclamation"}
             size="large"
             loading={sendValues !== null}
+            disabled={success === true}
           >
             Dispatch an owl
           </Button>

@@ -8,18 +8,18 @@ export function createCancelToken(): CancelTokenSource {
 }
 
 /* Get a valid CSRF token. Will query the API if one is not present */
-export async function getCsrfToken() {
-  let token = findCsrfCookie();
+export async function getCsrfToken(): Promise<string | null> {
+  let token = readCsrfToken();
 
   if (!token) {
     const done = message.loading("Requesting CSRF token... This will only happen once.", 0);
     try {
-      await axios.get(API_BASE);
-      let retry = 6;
-      while (retry >= 0 && !(token = findCsrfCookie()))
-        await new Promise(res => setTimeout(res, 500)); // wait for cookies to update
-        retry--;
-    } catch {/* */} finally {
+      await axios.get(API_BASE, { withCredentials: true });
+      token = await waitForCsrfToken(20); // Cookies may not be synchronous
+    } catch (err) {
+      setTimeout(() => message.error("Failed to request CSRF token"), 400);
+      console.error("[API] Failed to request CSRF token:", err.message);
+    } finally {
       done();
     }
   }
@@ -27,8 +27,18 @@ export async function getCsrfToken() {
   return token;
 }
 
+/** A recursive function to delay between reads */
+async function waitForCsrfToken(retries: number): Promise<string | null> {
+  const token = readCsrfToken();
+  if (!token) {
+    await new Promise(res => setTimeout(res, 500));
+    return retries > 0? waitForCsrfToken(retries - 1) : null;
+  }
+  return token;
+}
+
 /* Search for the CSRF token in cookies */
-function findCsrfCookie() {
+function readCsrfToken() {
   const cookies = document.cookie.split("; ");
   for (const cookie of cookies) {
     if (cookie.substring(0, 11) === "CSRF-Token=") {
