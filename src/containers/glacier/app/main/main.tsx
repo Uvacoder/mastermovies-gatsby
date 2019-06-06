@@ -1,13 +1,14 @@
 import { RouteComponentProps } from "@reach/router";
+import { navigate } from "gatsby";
 import React, { FunctionComponent, useEffect, useState } from "react";
 
 import { createCancelToken } from "../../../../api/common";
 import { getFilms, IGlacierFilmSummary } from "../../../../api/glacier";
-import { links } from "../../../../config";
 import { Footer } from "../../../../components/common/footer";
 import { Nav } from "../../../../components/common/nav";
 import { StandardOverlay } from "../../../../components/common/standard_overlay";
 import { GlacierLogo } from "../../../../components/glacier/logo";
+import { links } from "../../../../config";
 import { GlacierIntro } from "../intro";
 import { GlacierActions } from "./actions";
 import { GlacierDownload } from "./download";
@@ -16,7 +17,7 @@ import styles from "./main.module.css";
 import { GlacierSearch } from "./search";
 
 
-export const GlacierMain: FunctionComponent<RouteComponentProps<{ film: string }>> = ({ navigate, film }) => {
+export const GlacierMain: FunctionComponent<RouteComponentProps<{ film: string }>> = ({ film }) => {
 
   const [ introFinished, setIntroFinished ] = useState<boolean>(false);
 
@@ -103,16 +104,16 @@ export const GlacierMain: FunctionComponent<RouteComponentProps<{ film: string }
               </div>
 
               <div className={styles.actionButtons}>
-                <GlacierActions navigate={navigate} />
+                <GlacierActions />
               </div>
             </div>
 
             <div className={styles.content}>
-              <GlacierAppGrid films={introFinished? displayedFilms : []} navigate={navigate} />
+              <GlacierAppGrid films={introFinished? displayedFilms : []} />
             </div>
 
             <div>
-              <GlacierDownload film={film} onBack={() => navigate("/glacier")} />
+              <GlacierDownload film={film} onBack={() => navigate("/glacier", {state: { noScroll: true }})} />
             </div>
 
             <Footer theme="dark" />

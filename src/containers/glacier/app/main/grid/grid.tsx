@@ -1,3 +1,4 @@
+import { navigate } from "gatsby";
 import React, { FunctionComponent } from "react";
 
 import { IGlacierFilmSummary } from "../../../../../api/glacier";
@@ -6,10 +7,9 @@ import styles from "./grid.module.css";
 
 interface IGlacierAppGridProps {
   films?: IGlacierFilmSummary[];
-  navigate: (url: string) => any;
 }
 
-export const GlacierAppGrid: FunctionComponent<IGlacierAppGridProps> = ({ films = [], navigate }) => {
+export const GlacierAppGrid: FunctionComponent<IGlacierAppGridProps> = ({ films = [] }) => {
 
   return (
     <div className={styles.grid}>
@@ -22,7 +22,7 @@ export const GlacierAppGrid: FunctionComponent<IGlacierAppGridProps> = ({ films 
             <GlacierFilmResolver
               film={film.fingerprint}
               onOpen={(clickedFilm) => {
-                navigate("/glacier/film/" + clickedFilm);
+                navigate("/glacier/film/" + clickedFilm, {state:{noScroll: true}});
               }}
             />
           </div>
