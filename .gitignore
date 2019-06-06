@@ -69,5 +69,5 @@ yarn-error.log
 # Yarn Integrity file
 .yarn-integrity
 
-# source (high-quality) images
-src/images
+# Untracked images for testing
+src/images/untracked

@@ -8,7 +8,7 @@ export const IndexBanner: FunctionComponent = () => {
 
   const query = useStaticQuery(graphql`
     query {
-      background: file(relativePath: { eq: "landing_banner.jpg" }) {
+      background: file(relativePath: { eq: "index/landing_banner.jpg" }) {
         childImageSharp {
           sqip(mode: 1, numberOfPrimitives: 16, blur: 0) {
             dataURI

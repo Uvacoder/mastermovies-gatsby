@@ -9,7 +9,7 @@ export const SidebarImage: FunctionComponent<{ load?: boolean }> = React.memo(
     const { background } = useStaticQuery(
       graphql`
         query {
-          background: file(relativePath: { eq: "sidebar.jpg" }) {
+          background: file(relativePath: { eq: "common/sidebar.jpg" }) {
             childImageSharp {
               sqip(mode: 1, numberOfPrimitives: 16, blur: 0) {
                 dataURI
