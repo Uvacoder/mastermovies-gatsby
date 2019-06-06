@@ -6,18 +6,17 @@ import { getAuth, IMasterMoviesID } from "../../../../../../api/auth";
 import { createCancelToken } from "../../../../../../api/common";
 import styles from "./status.module.css";
 import { GlacierActionsStatusTable } from "./table";
+import Helmet from "react-helmet";
 
 interface IGlacierActionsStatusProps {
   active: boolean;
-  onBack?: () => any;
 }
 
 // setData({ "2622ab0cc9f5": 1559732400, "097ee5cd5907": 1558732400,"097ee5cd5908": 1558732400,"097ee5cd5909": 1558732400,"097ee5cd5910": 1558732400,"097ee5cd5911": 1558732400,"097ee5cd5912": 1558732400,"097ee5cd5913": 1558732400 });
 
 /** Query the MasterMovies ID token and list authorized films */
 export const GlacierActionsStatus: FunctionComponent<IGlacierActionsStatusProps> = ({
-  active,
-  onBack = () => {}
+  active
 }) => {
 
   const [ data, setData ] = useState<IMasterMoviesID["glacier"]["authorizations"]>(null);

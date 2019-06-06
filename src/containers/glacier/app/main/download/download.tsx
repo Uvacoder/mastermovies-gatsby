@@ -5,6 +5,7 @@ import { getFilm, IGlacierFilm, IGlacierFilmExport } from "../../../../../api/gl
 import { Modal } from "../../../../../components/common/modal/modal";
 import { GlacierDownloadOverview } from "./overview/overview";
 import { GlacierDownloadWizard } from "./wizard";
+import Helmet from "react-helmet";
 
 interface IGlacierDownloadProps {
   film?: string;
@@ -60,6 +61,8 @@ export const GlacierDownload: FunctionComponent<IGlacierDownloadProps> = ({ film
 
   return (
     <>
+      {!!film && resolvedFilm && <Helmet title={"Download " + resolvedFilm.name + " (" + new Date(resolvedFilm.release).getFullYear() + ") – Glacier"} />}
+
       <Modal
         active={!!film}
         onBack={(all) => { all || !download? onBack() : setDownload(null) }}

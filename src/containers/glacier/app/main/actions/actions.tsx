@@ -8,6 +8,7 @@ import { DarkButton } from "../../../../../components/glacier/dark_button";
 import styles from "./actions.module.css";
 import { GlacierActionsLogout } from "./logout";
 import { GlacierActionsStatus } from "./status";
+import Helmet from "react-helmet";
 
 
 export const GlacierActions: FunctionComponent = () => {
@@ -33,17 +34,23 @@ export const GlacierActions: FunctionComponent = () => {
 
       <Match path="/glacier/status">
         {({ match }) => (
+          <>
+            {!!match && <Helmet title="MasterMoviesID Status – Glacier" />}
             <Modal active={!!match} onBack={onBack}>
-              <GlacierActionsStatus active={!!match} onBack={onBack} />
+              <GlacierActionsStatus active={!!match} />
             </Modal>
+          </>
         )}
       </Match>
 
       <Match path="/glacier/logout">
         {({ match }) => (
-          <Modal active={!!match} onBack={onBack}>
-            <GlacierActionsLogout onBack={onBack} />
-          </Modal>
+          <>
+            {!!match && <Helmet title="MasterMoviesID Logout – Glacier" />}
+            <Modal active={!!match} onBack={onBack}>
+              <GlacierActionsLogout onBack={onBack} />
+            </Modal>
+          </>
         )}
       </Match>
     </>

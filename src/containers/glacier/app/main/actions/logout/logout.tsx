@@ -1,8 +1,9 @@
-import React, { FunctionComponent, useState, useEffect } from "react";
-import styles from "./logout.module.css";
-import { Button, Row, message, Icon } from "antd";
-import { createCancelToken } from "../../../../../../api/common";
+import { Button, message } from "antd";
+import React, { FunctionComponent, useEffect, useState } from "react";
+
 import { logout } from "../../../../../../api/auth";
+import { createCancelToken } from "../../../../../../api/common";
+import styles from "./logout.module.css";
 
 interface IGlacierActionsLogoutProps {
   onBack?: () => any;

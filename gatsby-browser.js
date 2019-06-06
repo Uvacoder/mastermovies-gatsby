@@ -7,9 +7,14 @@
  /** Disable scrolling if *noScroll: true* is passed */
 exports.shouldUpdateScroll = ({ routerProps }) => {
   if (
-    typeof routerProps.location === "object"
-    && typeof routerProps.location.state === "object"
+    isObj(routerProps)
+    && isObj(routerProps.location)
+    && isObj(routerProps.location.state)
     && routerProps.location.state.noScroll === true
   ) return false;
   return true;
+}
+
+function isObj(obj) {
+  return obj !== null && typeof obj === "object";
 }

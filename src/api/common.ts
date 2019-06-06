@@ -15,14 +15,16 @@ export async function getCsrfToken(): Promise<string | null> {
     const done = message.loading("Requesting CSRF token... This will only happen once.", 0);
     try {
       await axios.get(API_BASE, { withCredentials: true });
-      token = await waitForCsrfToken(20); // Cookies may not be synchronous
+      token = await waitForCsrfToken(10); // Cookies may not be synchronous
     } catch (err) {
-      setTimeout(() => message.error("Failed to request CSRF token"), 400);
+      message.error("Failed to request CSRF token");
       console.error("[API] Failed to request CSRF token:", err.message);
     } finally {
       done();
     }
   }
+
+  if (token === null) message.error("Failed to request CSRF token");
 
   return token;
 }
