@@ -8,7 +8,7 @@ import { Footer } from "../../../../components/common/footer";
 import { Nav } from "../../../../components/common/nav";
 import { StandardOverlay } from "../../../../components/common/standard_overlay";
 import { GlacierLogo } from "../../../../components/glacier/glacier_logo";
-import { links } from "../../../../config";
+import { navLinks } from "../../../../config";
 import { GlacierIntro } from "../intro";
 import { GlacierActions } from "./actions";
 import { GlacierDownload } from "./download";
@@ -80,7 +80,7 @@ export const GlacierMain: FunctionComponent<RouteComponentProps<{ film: string }
     <>
       <GlacierIntro onComplete={() => setIntroFinished(true)} />
       <div className={styles.browser}>
-        <Nav extended type="static" theme="dark" links={links} logo={{text: <GlacierLogo theme="dark" />, link: "https://mastermovies.uk/glacier"}} />
+        <Nav extended type="static" theme="dark" links={navLinks} logo={{text: <GlacierLogo theme="dark" />, link: "https://mastermovies.uk/glacier"}} />
 
         <StandardOverlay
             theme="dark"

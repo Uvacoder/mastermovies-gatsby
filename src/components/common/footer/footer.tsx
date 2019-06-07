@@ -1,10 +1,10 @@
 import { Icon, Tooltip } from "antd";
 import classnames from "classnames";
-import { Link } from "gatsby";
 import React, { FunctionComponent } from "react";
 
+import { footerLinks, socialLinks } from "../../../config";
+import { SmartLink } from "../smart_link";
 import styles from "./footer.module.css";
-import { socialLinks, links } from "../../../config";
 
 type divProps = JSX.IntrinsicElements["div"];
 interface IFooterProps extends divProps {
@@ -25,10 +25,10 @@ export const Footer: FunctionComponent<IFooterProps> = ({
       <div className={styles.subtitle}>A small media company</div>
 
       <p>
-        {links.map(link => (
-          <Link key={link.text} className={styles.link} to={link.link}>
+        {footerLinks.map(link => (
+          <SmartLink key={link.text} className={styles.link} link={link.link}>
             {link.text}
-          </Link>
+          </SmartLink>
         ))}
       </p>
 
@@ -50,9 +50,7 @@ export const Footer: FunctionComponent<IFooterProps> = ({
           <Icon type="experiment" className={styles.experimentalIcon} />
           This website is currently under active development
         </span>
-        {/* <span className={styles.breadcrumbMessage}>
-          Home-made website, coded with ❤
-        </span> */}
+
         <span className={styles.breadcrumbMessage}>
           All rights reserved © 2019 Marcus Cemes – Powered by <b>SnowOwl</b>
         </span>

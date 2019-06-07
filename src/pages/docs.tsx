@@ -6,7 +6,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { SEO } from "../components/common/seo";
 import { DocsLayout } from "../components/docs/layout";
 import { Nav } from "../components/common/nav";
-import { links } from "../config";
+import { navLinks } from "../config";
 
 export default () => {
   const ref = useRef(null);
@@ -39,7 +39,7 @@ export default () => {
           "api",
         ]}
       />
-      <Nav theme="light" links={links} extended={true} />
+      <Nav theme="light" links={navLinks} extended={true} />
       <DocsLayout>
         {failure && (
           <Alert

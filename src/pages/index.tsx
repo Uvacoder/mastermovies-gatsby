@@ -9,7 +9,7 @@ import { Nav } from "../components/common/nav";
 import { SEO } from "../components/common/seo";
 import { IndexBanner } from "../containers/index/banner";
 import { IndexGlacier } from "../containers/index/glacier";
-import { links } from "../config";
+import { navLinks } from "../config";
 
 interface IndexProps {
   data: {
@@ -72,7 +72,7 @@ const Index: FunctionComponent<IndexProps> = ({ data }) => {
       />
       <Moved />
       <Nav
-        links={links}
+        links={navLinks}
         theme={alternateNav ? "light" : "dark"}
         type="fixed"
         extended={!alternateNav}
