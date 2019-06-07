@@ -17,8 +17,8 @@ interface IStandardOverlayProps extends divProps {
   theme?: "light" | "dark";
   shimmer?: boolean;
   dim?: boolean;
+  background?: boolean;
 }
-
 
 /** Display a configurable overlay, with an icon and optional button */
 export const StandardOverlay: FunctionComponent<IStandardOverlayProps> = ({
@@ -30,24 +30,57 @@ export const StandardOverlay: FunctionComponent<IStandardOverlayProps> = ({
   shimmer = false,
   theme = "light",
   dim = false,
+  background = false,
   className,
   ...rest
 }) => (
   <TransitionGroup component={null}>
     {active && (
-      <Transition key={hash({active, icon, text, button, onButton, shimmer, theme, className, ...rest})} timeout={{enter: 200, exit: 300}}>
+      <Transition
+        key={hash({
+          active,
+          icon,
+          text,
+          button,
+          onButton,
+          shimmer,
+          theme,
+          className,
+          ...rest,
+        })}
+        timeout={{ enter: 200, exit: 300 }}
+      >
         {state => (
           <div
             {...rest}
-            className={classnames(styles.overlay, {[styles.dark]: theme === "dark", [styles.active]: state === "entered", [styles.dim]: dim}, className)}
+            className={classnames(
+              styles.overlay,
+              {
+                [styles.dark]: theme === "dark",
+                [styles.active]: state === "entered",
+                [styles.dim]: dim,
+                [styles.background]: background
+              },
+              className
+            )}
           >
-            <span className={classnames(styles.container, {[styles.shimmer]: shimmer})}>
-              {icon && <Icon type={icon} className={styles.icon}/>}
+            <span
+              className={classnames(styles.container, {
+                [styles.shimmer]: shimmer,
+              })}
+            >
+              {icon && <Icon type={icon} className={styles.icon} />}
               <span>{text}</span>
-              {button && (theme === "dark"?
-                (<DarkButton className={styles.button} onClick={onButton}>{button}</DarkButton>)
-              : (<Button className={styles.button} onClick={onButton}>{button}</Button>)
-              )}
+              {button &&
+                (theme === "dark" ? (
+                  <DarkButton className={styles.button} onClick={onButton}>
+                    {button}
+                  </DarkButton>
+                ) : (
+                  <Button className={styles.button} onClick={onButton}>
+                    {button}
+                  </Button>
+                ))}
             </span>
           </div>
         )}

@@ -31,8 +31,10 @@
 }
 
 .container {
+  position: relative;
   width: 100%;
   height: 100%;
+  z-index: 2;
 
   display: flex;
   flex-direction: column;
@@ -51,6 +53,21 @@
 
 .shimmer {
   animation: shimmer 2s infinite ease;
+}
+
+.background::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  background-color: #FFF;
+}
+
+.dark.background::before {
+  background-color: #000;
 }
 
 @keyframes shimmer {
