@@ -1,6 +1,7 @@
-import React, { FunctionComponent } from "react";
 import classnames from "classnames";
-import styles from "./logo.module.css";
+import React, { FunctionComponent } from "react";
+
+import styles from "./glacier_logo.module.css";
 
 type spanProps = JSX.IntrinsicElements["span"];
 interface IGlacierLogoProps extends spanProps {
