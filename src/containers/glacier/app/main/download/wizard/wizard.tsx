@@ -2,7 +2,6 @@ import { Button, Descriptions, Icon, Input, Popover, Steps } from "antd";
 import classnames from "classnames";
 import filesize from "file-size";
 import React, { FunctionComponent, ReactNode, useEffect, useState } from "react";
-import { Transition, TransitionGroup } from "react-transition-group";
 
 import { authorise, hasFilmAuth } from "../../../../../../api/auth";
 import { createCancelToken, timeToReset } from "../../../../../../api/common";
@@ -10,31 +9,21 @@ import { IGlacierFilm, IGlacierFilmExport } from "../../../../../../api/glacier"
 import { SummaryTitle } from "../common/summary";
 import styles from "./wizard.module.css";
 
-interface iGlacierDownloadWizardProps {
+interface IGlacierDownloadWizardProps {
   film?: IGlacierFilm;
   filmExport?: IGlacierFilmExport;
   onBack?: () => any;
 }
 
-const [ IDLE, PREPARE, LOGIN, AUTHORISE, READY, DOWNLOAD, DONE ] = [ 0, 1, 2, 3, 4, 5, 6 ];
+const [ PREPARE, LOGIN, AUTHORISE, READY, DOWNLOAD, DONE ] = [ 0, 1, 2, 3, 4, 5 ];
 
 
-export const GlacierDownloadWizard: FunctionComponent<iGlacierDownloadWizardProps> = ({ film, filmExport, onBack }) => {
+export const GlacierDownloadWizard: FunctionComponent<IGlacierDownloadWizardProps> = ({ film, filmExport, onBack }) => {
 
-  const [ authStage, setAuthStage ] = useState<number>(IDLE);
+  const [ authStage, setAuthStage ] = useState<number>(PREPARE);
   const [ error, setError ] = useState<ReactNode>(null);
   const [ key, setKey ] = useState<string>("");
   const [ lockout, setLockout ] = useState<number>(null);
-
-  // Start the authorization process
-  useEffect(() => {
-    if (filmExport) {
-      setAuthStage(PREPARE);
-      setError(null);
-    } else {
-      if (authStage !== IDLE) setAuthStage(IDLE);
-    }
-  }, [ filmExport ]);
 
   // Handle 429 lockout
   useEffect(() => {
@@ -48,6 +37,11 @@ export const GlacierDownloadWizard: FunctionComponent<iGlacierDownloadWizardProp
   useEffect(() => {
     switch (authStage) {
       case PREPARE:
+        if (!film || !filmExport) {
+          console.log("failed")
+          setError(prettyError("Could not locate the film or export", "404 Not Found"));
+          return;
+        }
         const queryCancelToken = createCancelToken();
         hasFilmAuth(queryCancelToken.token, film.fingerprint)
           .then(auth => {
@@ -101,84 +95,78 @@ export const GlacierDownloadWizard: FunctionComponent<iGlacierDownloadWizardProp
   const { Item } = Descriptions;
 
   return (
-    <TransitionGroup component={null}>
-      {!!filmExport && (
-        <Transition unmountOnExit timeout={{ enter: 0, exit: 400 }}>
-          {state => (
-            <div className={classnames(styles.authorize, {[styles.enter]: state === "entered"})}>
+    <div className={styles.wizard}>
 
-              <SummaryTitle className={styles.title} title={film.name} release={film.release} />
+      <SummaryTitle className={styles.title} title={film.name} release={film.release} />
 
-              <span className={styles.subtitle}>Download information</span>
+      <span className={styles.subtitle}>Download information</span>
 
-              <Descriptions column={2} className={styles.description}>
-                <Item label="Fingerprint"><>{filmExport.fingerprint.toUpperCase()}</></Item>
-                <Item label="Size">
-                  <>
-                    {typeof filmExport.size === "number"?
-                    filesize(filmExport.size).human("si")
-                    : filesize(parseInt(filmExport.size)).human("si")}
-                  </>
-                </Item>
-                <Item label="Resolution"><>{`${filmExport.width}x${filmExport.height}`}</></Item>
-                <Item label="Codec"><>{`${filmExport.video_codec} / ${filmExport.audio_codec}`}</></Item>
-              </Descriptions>
-
-              <DownloadSteps authStage={authStage} error={error !== null} />
-
-              <div className={styles.actions}>
-                {authStage === PREPARE && (
-                  <span>Fetching download information...</span>
-                ) || authStage === LOGIN && (
-                  <>
-                    <span className={styles.actionsTitle}>
-                      A download key is required
-                      <Popover overlayStyle={{ width: 400, maxWidth: "100vw" }} content={
-                        <span>
-                          <p>
-                            For the protection of its participants, some films are restricted to a certain audience.
-                            These films require an additional authorisation step to prove that the user is permitted to access the resource.
-                          </p>
-                          <p>
-                            Download keys provide a simple way to share access to films, and must be obtained from the film owner.
-                          </p>
-                          </span>
-                        } title={<><Icon type="lock" /> Film protection</>}>
-                        <Icon type="question-circle" style={{marginLeft: 4, fontSize: 12}} />
-                      </Popover>
-                    </span>
-
-                    <div className={styles.form}>
-                      <Input.Password type="password" onChange={value => setKey(value.target.value)} />
-                      <Button className={styles.formButton} disabled={lockout !== null || key.length === 0} type="primary" onClick={() => setAuthStage(AUTHORISE)}>Unlock</Button>
-                    </div>
-                  </>
-                ) || authStage === AUTHORISE && !error && (
-                  <span style={{userSelect: "none", fontSize: "0.9rem"}}>
-                    Authorising download...
-                  </span>
-                ) || (authStage === READY || authStage === DOWNLOAD) && (
-                  <>
-                  <span className={styles.actionsTitle}>Your download is ready</span>
-                  <Button type="primary" loading={authStage === DOWNLOAD} onClick={() => setAuthStage(DOWNLOAD)}>Download</Button>
-                  </>
-                ) || authStage === DONE && (
-                  <>
-                    <span className={styles.actionsTitle}>
-                      <Icon type="check" style={{color: "#2ECC40", marginRight: 4}} /> Your download has started
-                    </span>
-                    <Button onClick={onBack}>Back to Glacier</Button>
-                  </>
-                )}
-
-                {error? error : null}
-
-              </div>
-            </div>
-          )}
-        </Transition>
+      {filmExport && (
+        <Descriptions column={2} className={styles.description}>
+          <Item label="Fingerprint"><>{filmExport.fingerprint.toUpperCase()}</></Item>
+          <Item label="Size">
+            <>
+              {typeof filmExport.size === "number"?
+              filesize(filmExport.size).human("si")
+              : filesize(parseInt(filmExport.size)).human("si")}
+            </>
+          </Item>
+          <Item label="Resolution"><>{`${filmExport.width}x${filmExport.height}`}</></Item>
+          <Item label="Codec"><>{`${filmExport.video_codec} / ${filmExport.audio_codec}`}</></Item>
+        </Descriptions>
       )}
-    </TransitionGroup>
+
+      <DownloadSteps authStage={authStage} error={error !== null} />
+
+      <div className={styles.actions}>
+        {authStage === PREPARE && !error && (
+          <span>Fetching download information...</span>
+        ) || authStage === LOGIN && (
+          <>
+            <span className={styles.actionsTitle}>
+              A download key is required
+              <Popover overlayStyle={{ width: 400, maxWidth: "100vw" }} content={
+                <span>
+                  <p>
+                    For the protection of its participants, some films are restricted to a certain audience.
+                    These films require an additional authorisation step to prove that the user is permitted to access the resource.
+                  </p>
+                  <p>
+                    Download keys provide a simple way to share access to films, and must be obtained from the film owner.
+                  </p>
+                  </span>
+                } title={<><Icon type="lock" /> Film protection</>}>
+                <Icon type="question-circle" style={{marginLeft: 4, fontSize: 12}} />
+              </Popover>
+            </span>
+
+            <div className={styles.form}>
+              <Input.Password type="password" onChange={value => setKey(value.target.value)} />
+              <Button className={styles.formButton} disabled={lockout !== null || key.length === 0} type="primary" onClick={() => setAuthStage(AUTHORISE)}>Unlock</Button>
+            </div>
+          </>
+        ) || authStage === AUTHORISE && !error && (
+          <span style={{userSelect: "none", fontSize: "0.9rem"}}>
+            Authorising download...
+          </span>
+        ) || (authStage === READY || authStage === DOWNLOAD) && (
+          <>
+          <span className={styles.actionsTitle}>Your download is ready</span>
+          <Button type="primary" loading={authStage === DOWNLOAD} onClick={() => setAuthStage(DOWNLOAD)}>Download</Button>
+          </>
+        ) || authStage === DONE && (
+          <>
+            <span className={styles.actionsTitle}>
+              <Icon type="check" style={{color: "#2ECC40", marginRight: 4}} /> Your download has started
+            </span>
+            <Button onClick={onBack}>Back to Glacier</Button>
+          </>
+        )}
+
+        {error? error : null}
+
+      </div>
+    </div>
   );
 
 }
@@ -194,18 +182,18 @@ const steps = [
   },
   {
     title: "Authorise",
-    status: x => x < LOGIN? WAIT : x > LOGIN? FINISHED : PROCESS,
+    status: x => x < LOGIN? WAIT : x > AUTHORISE? FINISHED : PROCESS,
     icon: x => x === AUTHORISE? "loading" : "user"
   },
   {
     title: "Download",
-    status: x => x === DOWNLOAD? PROCESS : x >= READY? FINISHED : WAIT,
+    status: x => x < DOWNLOAD? WAIT : x > DOWNLOAD? FINISHED : PROCESS,
     icon: x => x === DOWNLOAD? "loading" : "cloud-download"
   }
 ];
 
 const DownloadSteps: FunctionComponent<{ authStage: number, error: boolean }> = ({ authStage, error }) => (
-  <Steps className={styles.steps} >
+  <Steps className={styles.steps}>
     {steps.map(step => (
       <Steps.Step
         key={step.title}

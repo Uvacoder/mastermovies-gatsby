@@ -18,6 +18,7 @@ interface IStandardOverlayProps extends divProps {
   shimmer?: boolean;
   dim?: boolean;
   background?: boolean;
+  code?: string;
 }
 
 /** Display a configurable overlay, with an icon and optional button */
@@ -31,6 +32,7 @@ export const StandardOverlay: FunctionComponent<IStandardOverlayProps> = ({
   theme = "light",
   dim = false,
   background = false,
+  code,
   className,
   ...rest
 }) => (
@@ -71,6 +73,9 @@ export const StandardOverlay: FunctionComponent<IStandardOverlayProps> = ({
             >
               {icon && <Icon type={icon} className={styles.icon} />}
               <span>{text}</span>
+              {code && (
+                <code className={styles.code}>{code}</code>
+              )}
               {button &&
                 (theme === "dark" ? (
                   <DarkButton className={styles.button} onClick={onButton}>

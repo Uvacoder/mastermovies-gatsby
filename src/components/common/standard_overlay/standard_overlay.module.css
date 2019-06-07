@@ -47,8 +47,14 @@
   margin-bottom: 16px;
 }
 
+.code {
+  font-size: 0.8em;
+  margin-top: 10px;
+  opacity: 0.9;
+}
+
 .button {
-  margin-top: 32px;
+  margin-top: 16px;
 }
 
 .shimmer {

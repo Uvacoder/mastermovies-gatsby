@@ -25,8 +25,8 @@ export const GlacierDownloadSummary: FunctionComponent<IGlacierDownloadSummaryPr
         <Description name="Restricted">
           {
             film.restricted?
-            <><Badge status="warning" /> <i>Download key</i></>
-            : <><Badge status="success" /><i>Public</i></>
+            <><Badge status="warning" />Download key</>
+            : <><Badge status="success" />Public</>
           }
         </Description>
         <Description name="Copyright">{film.copyright || <NotSpecified />}</Description>

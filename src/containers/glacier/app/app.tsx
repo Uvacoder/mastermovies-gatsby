@@ -14,6 +14,7 @@ export const GlacierApp: FunctionComponent = () => (
       <GlacierMain path="/glacier/status" />
       <GlacierMain path="/glacier/logout" />
       <GlacierMain path="/glacier/film/:film" />
+      <GlacierMain path="/glacier/film/:film/download/:filmExport" />
       <GlacierNotFound default />
     </Router>
   </div>

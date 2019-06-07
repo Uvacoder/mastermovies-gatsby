@@ -23,12 +23,14 @@ const columns = [
     render: (x: string) => <Title film={x} />
   },
   {
+    key: "fingerprint",
     title: "Fingerprint",
     dataIndex: "fingerprint",
     align: "center" as alignType,
     render: (x: string) => x.toUpperCase()
   },
   {
+    key: "expires",
     title: "Expires in",
     dataIndex: "expires",
     align: "center" as alignType,
@@ -40,6 +42,7 @@ export const GlacierActionsStatusTable: FunctionComponent<IGlacierActionsStatusT
   <Table
     dataSource={
       Object.entries(data).map(([ fingerprint, expires ]) => ({
+        key: fingerprint,
         fingerprint,
         expires
       }))

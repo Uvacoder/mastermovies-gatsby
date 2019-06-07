@@ -31,9 +31,8 @@ export const GlacierActionsAbout: FunctionComponent =  () => {
           <GlacierLogo /> is a secure film archive/distribution service for films
           produced by <MasterMoviesLogo />.
           <br/>
-          It is powered by SnowOwl, <MasterMoviesLogo />' virtual private server
-          based in Germany and built with using some of today's leading web technologies,
-          such as Node.js.
+          It is powered by SnowOwl, <MasterMoviesLogo />' virtual private server based in Germany,
+          built with using some of today's leading web technologies such as Node.js.
         </p>
 
         <h3>Why are some films restricted?</h3>

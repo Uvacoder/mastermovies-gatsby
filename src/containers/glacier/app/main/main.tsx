@@ -17,7 +17,7 @@ import styles from "./main.module.css";
 import { GlacierSearch } from "./search";
 
 
-export const GlacierMain: FunctionComponent<RouteComponentProps<{ film: string }>> = ({ film }) => {
+export const GlacierMain: FunctionComponent<RouteComponentProps<{ film: string, filmExport: string }>> = ({ film, filmExport }) => {
 
   const [ introFinished, setIntroFinished ] = useState<boolean>(false);
 
@@ -112,7 +112,7 @@ export const GlacierMain: FunctionComponent<RouteComponentProps<{ film: string }
             </div>
 
             <div>
-              <GlacierDownload film={film} onBack={() => navigate("/glacier", {state: { noScroll: true }})} />
+              <GlacierDownload film={film} filmExport={filmExport} onBack={() => navigate("/glacier", {state: { noScroll: true }})} />
             </div>
 
             <Footer theme="dark" />

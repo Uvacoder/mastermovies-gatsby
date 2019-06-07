@@ -6,33 +6,29 @@ import { Modal } from "../../../../../components/common/modal/modal";
 import { GlacierDownloadOverview } from "./overview/overview";
 import { GlacierDownloadWizard } from "./wizard";
 import Helmet from "react-helmet";
+import { navigate } from "gatsby";
+import { StandardOverlay } from "../../../../../components/common/standard_overlay";
 
 interface IGlacierDownloadProps {
   film?: string;
+  filmExport?: string;
   onBack: () => any;
 }
 
-export const GlacierDownload: FunctionComponent<IGlacierDownloadProps> = ({ film = "", onBack }) => {
+export const GlacierDownload: FunctionComponent<IGlacierDownloadProps> = ({ film = "", filmExport = "", onBack }) => {
 
-  const [ active, setActive ] = useState<boolean>(false);
   const [ resolvedFilm, setResolvedFilm ] = useState<IGlacierFilm>(null);
-  const [ error, setError ] = useState<string>(null);
-
-  const [ download, setDownload ] = useState<IGlacierFilmExport>(null);
+  const [ error, setError ] = useState<{ text: string, error: string }>(null);
 
   // Resolve film metadata from the API
   useEffect(() => {
 
-    // Exit transition
-    if (film === "") {
-      if (active) setActive(false);
-      if (resolvedFilm !== null) setResolvedFilm(null);
-      if (download !== null) setDownload(null);
-      if (error !== null) setError(null);
-      return;
+    if (!film) {
+      setResolvedFilm(null);
+      setError(null);
     }
 
-    if (film) {
+    if (film && !error) {
       let mounted = true;
       const cancelToken = createCancelToken();
       if (error) setError(null);
@@ -41,13 +37,15 @@ export const GlacierDownload: FunctionComponent<IGlacierDownloadProps> = ({ film
         .then(data => {
           if (mounted) {
             setResolvedFilm(data);
-            setActive(true);
           }
         })
         .catch(err => {
           if (mounted) {
-            setError(`Failed to connect to Glacier: ${err.message}`);
-            setActive(true);
+            if (err && err.response && err.response.status === 404) {
+              setError({ text: `The film ${film.toUpperCase()} does not exist`, error: "Error: 404 Not Found" });
+            } else {
+              setError({ text: `Failed to connect to Glacier: ${err.message}`, error: "Error: " + err.message });
+            }
           }
         });
 
@@ -57,7 +55,11 @@ export const GlacierDownload: FunctionComponent<IGlacierDownloadProps> = ({ film
       }
     }
 
-  }, [ film ]);
+  }, [ film, error ]);
+
+  const onRetry = () => {
+    setError(null);
+  }
 
   return (
     <>
@@ -65,25 +67,38 @@ export const GlacierDownload: FunctionComponent<IGlacierDownloadProps> = ({ film
 
       <Modal
         active={!!film}
-        onBack={(all) => { all || !download? onBack() : setDownload(null) }}
-        backText={download? "Back to overview" : "Back to Glacier"}
+        onBack={(all) => { all || !filmExport? onBack() : navigate("/glacier/film/" + film) }}
+        backText={filmExport? "Back to overview" : "Back to Glacier"}
       >
 
-        {resolvedFilm && !download && (
+        {resolvedFilm && (
           <GlacierDownloadOverview
             key={`glacier-overview-${resolvedFilm.fingerprint}`}
             film={resolvedFilm}
-            onDownload={setDownload}
+            onDownload={(filmExport => navigate(`/glacier/film/${film}/download/${filmExport.fingerprint}`))}
           />
         )}
 
-        {download && (
+        {resolvedFilm && filmExport && (
           <GlacierDownloadWizard
-            key={`glacier-download-${download.fingerprint}`}
+            key={`glacier-download-${filmExport}`}
             film={resolvedFilm}
-            filmExport={download}
+            filmExport={resolvedFilm? resolvedFilm.exports.find(x => x.fingerprint === filmExport) : null}
             onBack={onBack}
           />
+        )}
+
+        {error && (
+          <div style={{width: 400, height: 200, maxWidth: "100%", position: "relative" }}>
+            <StandardOverlay
+              active={true}
+              text={error.text}
+              icon="exclamation-circle"
+              button="Retry"
+              code={error.error}
+              onButton={onRetry}
+            />
+          </div>
         )}
 
       </Modal>

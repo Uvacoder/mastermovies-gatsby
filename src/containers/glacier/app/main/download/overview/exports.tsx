@@ -83,7 +83,7 @@ export const GlacierDownloadExports: FunctionComponent<IGlacierDownloadExportsPr
   for (let i=0; i<filmExports.length; i++) {
     const exp = filmExports[i];
     data.push({
-      key: i,
+      key: exp.fingerprint,
       fingerprint: exp.fingerprint,
       resolution: [exp.width, exp.height],
       codec: [exp.video_codec, exp.audio_codec],

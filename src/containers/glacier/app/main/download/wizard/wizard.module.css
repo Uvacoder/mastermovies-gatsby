@@ -1,4 +1,4 @@
-.authorize {
+.wizard {
   position: relative;
   padding: 32px 16px;
   background-color: #FFF;
@@ -7,16 +7,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
-  opacity: 0;
-  transform: scale(0.8);
-  transition: opacity 0.3s linear, transform 0.3s cubic-bezier(0.55, 0.085, 0.68, 0.53);
-}
-
-.authorize.enter {
-  opacity: 1;
-  transform: none;
-  transition: opacity 0.3s linear, transform 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
 }
 
 .title {
