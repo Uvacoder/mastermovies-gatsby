@@ -14,6 +14,7 @@ export const GlacierActionsLogout: FunctionComponent<IGlacierActionsLogoutProps>
 }) => {
 
   const [ action, setAction ] = useState<boolean>(false);
+  const [ success, setSuccess ] = useState<boolean>(false);
 
   // Logout logic
   useEffect(() => {
@@ -23,9 +24,9 @@ export const GlacierActionsLogout: FunctionComponent<IGlacierActionsLogoutProps>
       logout(cancelToken.token)
         .then(() => {
           if (mounted) {
+            setSuccess(true);
             setAction(false);
-            onBack();
-            setTimeout(() => message.success("You have been logged out", 2), 400);
+            message.success("You have been logged out", 2);
           }
         })
         .catch(err => {
@@ -38,19 +39,31 @@ export const GlacierActionsLogout: FunctionComponent<IGlacierActionsLogoutProps>
         mounted = false;
         cancelToken.cancel();
       }
+    } else if (success) {
+      const timeout1 = setTimeout(() => onBack(), 500);
+      const timeout2 = setTimeout(() => setSuccess(false), 1000);
+      return () => { clearTimeout(timeout1); clearTimeout(timeout2) };
     }
   }, [ action ]);
 
   return (
     <div className={styles.logout}>
-      <h3>Are you sure you want to logout?</h3>
-      <p>You may will lose access to any unlocked films and any
-        running downloads may be interrupted.
+      <h3>Are you sure you want to end your session?</h3>
+      <p>
+        You will lose access to the films your have unlocked
+        and any running downloads may be interrupted.
       </p>
 
       <div className={styles.actions}>
-        <Button className={styles.button} disabled={action} onClick={() => onBack()}>Cancel</Button>
-        <Button className={styles.button} type="primary" icon="meh" loading={action} onClick={() => setAction(true)}>Forget me</Button>
+        <Button className={styles.button} disabled={action || success} onClick={() => onBack()}>Cancel</Button>
+        <Button
+          className={styles.button}
+          type="primary"
+          icon={success? "check" : "meh"}
+          loading={action}
+          disabled={action || success}
+          onClick={() => setAction(true)}
+        >Forget me</Button>
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
 import classnames from "classnames";
 import React, { FunctionComponent, useEffect, useState } from "react";
 
-import { GlacierLogo } from "../../../../components/glacier/logo";
+import { GlacierLogo } from "../../../../components/glacier/glacier_logo";
 import styles from "./intro.module.css";
 
 interface IGlacierIntroProps {

@@ -28,14 +28,11 @@
 
 .text {
   margin-top: 16px;
-  padding: 0 64px;
+  padding: 0 32px;
   text-align: justify;
 }
 
 .message {
-  margin: 32px 0;
-  text-align: center;
-
   font-size: 1.2em;
   color: rgba(0,0,0,0.4);
   pointer-events: none;
@@ -52,8 +49,19 @@
 .tableTitle {
   text-align: center;
   font-weight: 200;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   margin: 32px 0 16px 0;
+}
+
+.tableWrapper {
+  position: relative;
+  min-height: 128px;
+  padding: 16px 0;
+  margin-bottom: 16px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 @media only screen and (max-width: 768px) {

@@ -1,4 +1,5 @@
 import { Table, Tooltip } from "antd";
+import { ColumnProps } from "antd/lib/table";
 import React, { FunctionComponent, useEffect, useState } from "react";
 
 import { IMasterMoviesID } from "../../../../../../api/auth";
@@ -6,7 +7,6 @@ import { createCancelToken } from "../../../../../../api/common";
 import { getFilm, IGlacierFilm } from "../../../../../../api/glacier";
 import { Spinner } from "../../../../../../components/common/spinner";
 import styles from "./table.module.css";
-import { ColumnProps } from "antd/lib/table";
 
 
 interface IGlacierActionsStatusTableProps {
@@ -37,19 +37,16 @@ const columns = [
 ];
 
 export const GlacierActionsStatusTable: FunctionComponent<IGlacierActionsStatusTableProps> = ({ data }) => (
-  <div className={styles.tableWrapper}>
-    {data && <Table
-      dataSource={
-        Object.entries(data).map(([ fingerprint, expires ]) => ({
-          fingerprint,
-          expires
-        }))
-      }
-      columns={columns}
-      pagination={{ hideOnSinglePage: true, pageSize: 5 }}
-    />}
-    <Spinner active={!data} />
-  </div>
+  <Table
+    dataSource={
+      Object.entries(data).map(([ fingerprint, expires ]) => ({
+        fingerprint,
+        expires
+      }))
+    }
+    columns={columns}
+    pagination={{ hideOnSinglePage: true, pageSize: 5 }}
+  />
 )
 
 

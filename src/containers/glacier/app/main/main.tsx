@@ -7,7 +7,7 @@ import { getFilms, IGlacierFilmSummary } from "../../../../api/glacier";
 import { Footer } from "../../../../components/common/footer";
 import { Nav } from "../../../../components/common/nav";
 import { StandardOverlay } from "../../../../components/common/standard_overlay";
-import { GlacierLogo } from "../../../../components/glacier/logo";
+import { GlacierLogo } from "../../../../components/glacier/glacier_logo";
 import { links } from "../../../../config";
 import { GlacierIntro } from "../intro";
 import { GlacierActions } from "./actions";

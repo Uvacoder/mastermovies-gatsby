@@ -1,12 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Oswald:200&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Oswald&display=swap');
 
-.tableWrapper {
-  position: relative;
-  min-height: 96px;
-  margin-bottom: 16px;
-}
-
 .wrapper {
   position: relative;
 }
