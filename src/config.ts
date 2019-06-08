@@ -10,7 +10,6 @@ export interface ISocialLink extends ILink {
 export const navLinks: ILink[] = [
   { text: "Home", link: "/" },
   { text: "Glacier", link: "/glacier" },
-  { text: "API", link: "/docs" },
   { text: "Contact", link: "/contact" },
 ];
 

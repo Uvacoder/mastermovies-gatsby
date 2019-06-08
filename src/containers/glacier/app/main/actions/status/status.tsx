@@ -94,9 +94,9 @@ export const GlacierActionsStatus: FunctionComponent<IGlacierActionsStatusProps>
 
       <div className={styles.tableWrapper}>
         {message? (
-          <span className={classnames(styles.message, {[styles.error]: error})}>
+          <div className={classnames(styles.message, {[styles.error]: error})}>
             {message}
-          </span>
+          </div>
         ) : data? (
           <>
             <div className={styles.tableTitle}>Your authorisations</div>

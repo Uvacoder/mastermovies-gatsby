@@ -36,6 +36,7 @@
   font-size: 1.2em;
   color: rgba(0,0,0,0.4);
   pointer-events: none;
+  text-align: center;
 }
 
 .messageIcon {
