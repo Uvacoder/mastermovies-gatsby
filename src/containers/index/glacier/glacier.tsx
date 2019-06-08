@@ -7,17 +7,40 @@ import { getFilms, IGlacierFilmSummary } from "../../../api/glacier";
 import { FilmCardResolver } from "../../../components/index/film_card";
 import styles from "./glacier.module.css";
 
+interface IOverlayError {
+  text: string;
+  code?: string;
+}
+
+
 export const IndexGlacier: FunctionComponent = () => {
 
   const [ films, setFilms ] = useState<IGlacierFilmSummary[]>(null);
-  const [ filmsError, setFilmsError ] = useState<boolean>(false);
+  const [ filmsError, setFilmsError ] = useState<IOverlayError>(null);
 
   useEffect(() => {
-    const cancelToken = createCancelToken();
-    getFilms(cancelToken.token, true)
-      .then(setFilms)
-      .catch(() => setFilmsError(true));
-    return cancelToken.cancel;
+    if (!filmsError) {
+      let mounted = true;
+      const cancelToken = createCancelToken();
+      getFilms(cancelToken.token, true)
+        .then(films => {
+          if (mounted) setFilms(films);
+        })
+        .catch(err => {
+          if (mounted) {
+            if (err && err.response && err.response.status === 429) {
+              setFilmsError({ text: "Failed to connect to Glacier", code: `Error: 429 Too Many Requests`});
+            } else {
+              setFilmsError({ text: "Failed to connect to Glacier", code: err.message? `Error: ${err.message}` : "Unknown error"});
+            }
+          }
+        });
+
+      return () => {
+        mounted = false;
+        cancelToken.cancel();
+      }
+    }
   }, [ filmsError ]);
 
   return (
@@ -32,16 +55,18 @@ export const IndexGlacier: FunctionComponent = () => {
       <div className={styles.filmsContainer}>
         <FilmCardResolver
           film={films && films[0] ? films[0].fingerprint : null}
-          error={filmsError}
-          onRetry={() => setFilmsError(false)}
+          error={filmsError? filmsError : void 0}
+          onRetry={() => setFilmsError(null)}
+          className={styles.card}
         />
 
-        <Icon type="minus" style={{ margin: "16px", color: "#AAA" }} />
+        <Icon type="minus" className={styles.divider} />
 
         <FilmCardResolver
           film={films && films[1] ? films[1].fingerprint : null}
-          error={filmsError}
-          onRetry={() => setFilmsError(false)}
+          error={filmsError? filmsError : void 0}
+          onRetry={() => setFilmsError(null)}
+          className={styles.card}
         />
       </div>
     </div>

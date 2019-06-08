@@ -1,11 +1,11 @@
 .placeholder {
   position: relative;
-  padding-top: 56.25%;
+  /* padding-top: 56.25%; */
+  padding-top: 50%;
 }
 
 .placeholderContent {
   position: absolute;
-  border-radius: 4px;
   overflow: hidden;
   left: 0;
   right: 0;
@@ -13,6 +13,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.placeholderContent.border {
+  border-radius: 4px;
 }
 
 .contain {

@@ -54,8 +54,20 @@
   flex-wrap: wrap;
 }
 
+.divider {
+  margin: 32px;
+  color: #AAA;
+}
+
+.card {
+  margin: 8px 0;
+}
+
 @media only screen and (max-width: 768px) {
   .title {
     font-size: 3rem;
+  }
+  .divider {
+    display: none;
   }
 }

@@ -22,7 +22,7 @@
   opacity: 1;
 }
 
-.overlay.active.dim:not(:hover) {
+.overlay.active.dim:not(:hover) .container {
   opacity: 0.6;
 }
 
@@ -40,11 +40,13 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  transition: opacity 0.3s ease-out;
 }
 
 .icon {
   font-size: 32px;
-  margin-bottom: 16px;
+  margin: 16px 0;
 }
 
 .code {

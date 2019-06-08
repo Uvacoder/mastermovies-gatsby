@@ -15,9 +15,9 @@ export const GlacierLogo: FunctionComponent<IGlacierLogoProps> = ({
 }) => (
   <span
     {...rest}
-    className={classnames(styles.logo, className, {
+    className={classnames(styles.logo, {
       [styles.dark]: theme === "dark",
-    })}
+    }, className)}
   >
     Glacier
   </span>

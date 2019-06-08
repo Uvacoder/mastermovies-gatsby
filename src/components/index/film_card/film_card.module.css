@@ -11,60 +11,6 @@
   text-align: left;
 }
 
-.card.dark {
-  background: #1a1a1a;
-  border: 1px solid #333;
-}
-
-.card.dark:hover {
-  border: 1px solid #444;
-  box-shadow: none;
-}
-
-.placeholder {
-  position: relative;
-  padding-top: 45%;
-}
-
-.placeholderContent {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-
-  background: #FFF;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-
-.placeHolderSpacer {
-  height: 4em;
-  width: 100%;
-}
-
-.card.dark .placeholderContent {
-  color: #FFF;
-  background: transparent;
-}
-
-.image {
-  width: 100%;
-}
-
-.card.dark .placeholder {
-  opacity: 0;
-  transition: opacity 300ms;
-}
-
-.card.dark.active .placeholder {
-  opacity: 1;
-  transition: opacity 300ms 200ms;
-}
-
 .title {
   font-size: 1.3em;
   letter-spacing: 0.05em;
@@ -73,29 +19,55 @@
   font-weight: 200;
 }
 
-.description {
-  font-size: 0.9em;
-  color: rgba(0,0,0,0.8);
-  font-family: "Open Sans", sans-serif;
-}
-
-.root.dark .title {
-  color: #FFF;
-}
-
-.root.dark .description {
-  color: rgba(255,255,255,0.8);
-}
-
 .release {
+  position: relative;
+  bottom: 0.1em;
+
   opacity: 0.6;
   letter-spacing: 0.01em;
   margin-left: 0.5em;
   font-size: 0.8em;
 }
 
-@keyframes flash {
-  0% { opacity: 0.5 }
-  50% { opacity: 0.3 }
-  100% { opacity: 0.5 }
+.description {
+  font-size: 0.9em;
+  color: rgba(0,0,0,0.8);
+  font-family: "Open Sans", sans-serif;
+}
+
+.titleSkeleton::after,
+.releaseSkeleton::after,
+.descriptionSkeleton::before,
+.descriptionSkeleton::after {
+  content: "";
+  display: inline-block;
+  height: 1em;
+  animation: shimmer 2s ease-in-out 0s infinite;
+}
+
+.titleSkeleton::after {
+  width: 196px;
+  background-color: rgba(0,0,0,0.1);
+}
+
+.releaseSkeleton::after {
+  width: 48px;
+  background-color: rgba(0,0,0,0.05);
+}
+
+.descriptionSkeleton::before {
+  width: 100%;
+  background-color: rgba(0,0,0,0.05);
+}
+
+.descriptionSkeleton::after {
+  margin-top: 4px;
+  width: 256px;
+  background-color: rgba(0,0,0,0.05);
+}
+
+@keyframes shimmer {
+  20% { opacity: 1 }
+  50% { opacity: 0.5 }
+  80% { opacity: 1}
 }

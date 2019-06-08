@@ -14,6 +14,7 @@ interface IFilmCardImageProps {
   mode?: "cover" | "contain";
   loading?: boolean;
   theme?: "light" | "dark";
+  roundCorners?: boolean;
 }
 
 export const GlacierThumbnail = React.memo<IFilmCardImageProps>(({
@@ -21,6 +22,7 @@ export const GlacierThumbnail = React.memo<IFilmCardImageProps>(({
   mode,
   loading = true,
   theme = "light",
+  roundCorners = true,
   ...rest
 }) => {
 
@@ -59,7 +61,7 @@ export const GlacierThumbnail = React.memo<IFilmCardImageProps>(({
   return (
     <div {...rest}>
       <div className={styles.placeholder}>
-        <div className={classnames(styles.placeholderContent, mode === "cover"? styles.cover : styles.contain)}>
+        <div className={classnames(styles.placeholderContent, mode === "cover"? styles.cover : styles.contain, {[styles.border]: roundCorners})}>
           {fluid? (
             <Img
               objectFit={mode === "contain"? "contain" : "cover"}

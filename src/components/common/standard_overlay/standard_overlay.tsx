@@ -1,24 +1,24 @@
 import { Button, Icon } from "antd";
 import classnames from "classnames";
 import hash from "hash-sum";
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, ReactNode } from "react";
 import { Transition, TransitionGroup } from "react-transition-group";
 
-import styles from "./standard_overlay.module.css";
 import { DarkButton } from "../../glacier/dark_button";
+import styles from "./standard_overlay.module.css";
 
 type divProps = JSX.IntrinsicElements["div"];
 interface IStandardOverlayProps extends divProps {
   active?: boolean;
   icon?: string;
-  text?: string;
-  button?: string;
+  text?: ReactNode;
+  button?: ReactNode;
   onButton?: () => any;
   theme?: "light" | "dark";
   shimmer?: boolean;
   dim?: boolean;
   background?: boolean;
-  code?: string;
+  code?: ReactNode;
 }
 
 /** Display a configurable overlay, with an icon and optional button */
