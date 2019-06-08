@@ -54,10 +54,11 @@
 
 @media only screen and (max-width: 768px) {
   .logo {
-    width: 45vmin;
+    width: 40vmin;
   }
   .title {
-    font-size: 6.5vmin;
+    font-size: 7vmin;
+    letter-spacing: 0.3em;
   }
   .subtitle {
     font-size: 3.6vmin;

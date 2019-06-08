@@ -12,7 +12,7 @@
   bottom: 0;
   background-color: #111;
   animation: background-keyframes 20s ease infinite;
-  transform: translate3d(0px, 0px, 0px); /* create it's own render layer */
+  transform: translate3d(0px, 0px, 0px) scale(1.5); /* create it's own render layer */
 }
 
 .spinner {
