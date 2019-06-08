@@ -46,11 +46,6 @@ export const Footer: FunctionComponent<IFooterProps> = ({
       </p>
 
       <p className={styles.breadcrumb}>
-        <span className={styles.experimental}>
-          <Icon type="experiment" className={styles.experimentalIcon} />
-          This website is currently under active development
-        </span>
-
         <span className={styles.breadcrumbMessage}>
           All rights reserved © 2019 Marcus Cemes – Powered by <b>SnowOwl</b>
         </span>
