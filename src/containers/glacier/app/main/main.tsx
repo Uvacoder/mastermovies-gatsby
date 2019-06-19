@@ -79,7 +79,7 @@ export const GlacierMain: FunctionComponent<RouteComponentProps<{ film: string, 
   return (
     <>
       <GlacierIntro onComplete={() => setIntroFinished(true)} />
-      <div className={styles.browser}>
+      <div className={styles.glacierMain}>
         <Nav extended type="static" theme="dark" links={navLinks} logo={{text: <GlacierLogo theme="dark" />, link: "https://mastermovies.uk/glacier"}} />
 
         <StandardOverlay
@@ -111,9 +111,7 @@ export const GlacierMain: FunctionComponent<RouteComponentProps<{ film: string, 
               <GlacierAppGrid films={introFinished? displayedFilms : []} />
             </div>
 
-            <div>
-              <GlacierDownload film={film} filmExport={filmExport} onBack={() => navigate("/glacier", {state: { noScroll: true }})} />
-            </div>
+            <GlacierDownload film={film} filmExport={filmExport} onBack={() => navigate("/glacier", {state: { noScroll: true }})} />
 
             <Footer theme="dark" />
           </>

@@ -1,6 +1,6 @@
 import { PageHeader } from "antd";
 import classnames from "classnames";
-import React, { FunctionComponent, useEffect } from "react";
+import React, { FunctionComponent, useEffect, useState } from "react";
 import { Transition, TransitionGroup } from "react-transition-group";
 
 import { Spinner } from "../spinner";
@@ -32,15 +32,24 @@ export const Modal: FunctionComponent<IModalProps> = ({
   children
 }) => {
 
+  // Remember the width of the scrollbar
+  const [ scrollbarWidth, setScrollbarWidth ] = useState<number>(0);
+
   // Lock the body from scrolling, without changing the viewport size, using a shared queue with other modals
   useEffect(() => {
     if (active) {
+
+      // Cache the scrollbar size
+      const newScrollbarWidth = window.innerWidth - document.documentElement.clientWidth || scrollbarWidth;
+      if (newScrollbarWidth > 0 && newScrollbarWidth !== scrollbarWidth) {
+        setScrollbarWidth(newScrollbarWidth);
+      }
+
       const body = document.getElementsByTagName("body")[0];
       const locks = parseInt(body.getAttribute("data-modal-lock")) || 0;
-      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
 
       body.style.overflow = "hidden";
-      body.style.paddingRight = Math.round(scrollbarWidth).toString() + "px";
+      body.style.paddingRight = Math.round(newScrollbarWidth).toString() + "px";
 
       body.setAttribute("data-modal-lock", (locks + 1).toString());
 
@@ -88,21 +97,23 @@ export const Modal: FunctionComponent<IModalProps> = ({
 
   // Create the main transition group and overlay logic
   return (
-    <TransitionGroup component={null}>
+    <div className={styles.modalWrapper} style={{right: active? scrollbarWidth : 0}}>
+      <TransitionGroup component={null}>
 
-      {active && (
-        <Transition key="ModalOverlay" timeout={{ enter: 0, exit: 900 }}>
-          {state => (
-            <div className={classnames(styles.overlay, {[styles.active]: state === "entered"})} onClick={() => onBack(true)}>
-              <Spinner active={active && parsedChildren.length === 0} theme="dark" delay={1000} />
-            </div>
-          )}
-        </Transition>
-      )}
+        {active && (
+          <Transition key="ModalOverlay" timeout={{ enter: 0, exit: 900 }}>
+            {state => (
+              <div className={classnames(styles.overlay, {[styles.active]: state === "entered"})} onClick={() => onBack(true)}>
+                <Spinner active={active && parsedChildren.length === 0} theme="dark" delay={1000} />
+              </div>
+            )}
+          </Transition>
+        )}
 
-      {active && parsedChildren}
+        {active && parsedChildren}
 
-    </TransitionGroup>
+      </TransitionGroup>
+    </div>
   );
 
 }
