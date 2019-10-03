@@ -33,7 +33,7 @@ export const SEO: FunctionComponent<SEOProps> = (props: SEOProps) => {
   if (addTheme) {
     meta.push({
       name: `theme-color`,
-      content: `#FFF`
+      content: `#FFF`,
     });
   }
 
@@ -43,9 +43,7 @@ export const SEO: FunctionComponent<SEOProps> = (props: SEOProps) => {
         lang,
       }}
       title={title}
-      titleTemplate={
-        title ? `%s – ${site.siteMetadata.title}` : site.siteMetadata.title
-      }
+      titleTemplate={title ? `%s – ${site.siteMetadata.title}` : site.siteMetadata.title}
       meta={[
         {
           name: `description`,

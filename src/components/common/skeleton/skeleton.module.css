@@ -1,0 +1,44 @@
+.skeleton {
+  display: inline-block;
+  width: 100%;
+  height: 1em;
+
+  background-color: rgba(0, 0, 0, 0.1);
+  animation: shimmer 2s ease-in-out 0s infinite !important;
+}
+
+.dark {
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+.light {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.dark.light {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.lighter {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.dark.lighter {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.shorter {
+  width: 60%;
+}
+
+@keyframes shimmer {
+  20% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  80% {
+    opacity: 1;
+  }
+}

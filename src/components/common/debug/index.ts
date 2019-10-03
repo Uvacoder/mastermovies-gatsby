@@ -1,2 +1,2 @@
-export * from "./debug_props";
-export * from "./debug_switch";
+export * from "./props";
+export * from "./switch";

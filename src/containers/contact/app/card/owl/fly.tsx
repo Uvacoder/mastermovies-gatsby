@@ -4,10 +4,7 @@ import { useStaticQuery, graphql } from "gatsby";
 
 type imgProps = JSX.IntrinsicElements["img"];
 
-export const ContactOwlFly: FunctionComponent<imgProps> = ({
-  style,
-  ...rest
-}) => {
+export const ContactOwlFly: FunctionComponent<imgProps> = ({ style, ...rest }) => {
   const query = useStaticQuery(graphql`
     query {
       owlImage: file(relativePath: { eq: "contact/owl-fly-blue.svg" }) {
@@ -15,11 +12,5 @@ export const ContactOwlFly: FunctionComponent<imgProps> = ({
       }
     }
   `);
-  return (
-    <img
-      {...rest}
-      style={{ ...style, pointerEvents: "none" }}
-      src={query.owlImage.publicURL}
-    />
-  );
+  return <img {...rest} style={{ ...style, pointerEvents: "none" }} src={query.owlImage.publicURL} />;
 };

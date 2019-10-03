@@ -1,0 +1,36 @@
+.button {
+  margin: 0 8px;
+}
+
+.button.active {
+  color: #7FDBFF !important;
+  border-color: #7FDBFF !important;
+}
+
+.overlay {
+  padding: 16px 16px 8px;
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.sortBy {
+  display: block;
+  margin-bottom: 16px;
+}
+
+.sortAscending {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.radio {
+  display: block;
+  margin: 4px 4px 4px 0;
+}
+
+.reset {
+  text-align: center;
+}

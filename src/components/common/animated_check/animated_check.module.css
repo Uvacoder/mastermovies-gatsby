@@ -1,0 +1,54 @@
+/* Easings are Quartic-in-out and Quartic-out */
+
+.container {
+  /* display: block; */
+  border-radius: 50%;
+  /* stroke-width: 2; dynamic with style */
+  stroke: #fff;
+  stroke-miterlimit: 10;
+
+  box-shadow: inset 0px 0px 0px #2ecc40;
+  transition: box-shadow 500ms cubic-bezier(0.165, 0.84, 0.44, 1) 0ms; /* out */
+}
+
+.container.failed {
+  box-shadow: inset 0px 0px 0px 0px #ff4136;
+}
+
+.container.active {
+  box-shadow: inset 0px 0px 0px 30px #2ecc40;
+  transition: box-shadow 500ms cubic-bezier(0.77, 0, 0.175, 1) 200ms; /* in */
+}
+
+.container.failed.active {
+  box-shadow: inset 0px 0px 0px 30px #ff4136;
+}
+
+.circle {
+  stroke: #2ecc40;
+  fill: none;
+  stroke-dasharray: 157; /* circle radius: 25 */
+  stroke-dashoffset: 157; /* circle radius: 25 */
+  /* stroke-width: 2; dynamic with style */
+  stroke-miterlimit: 10;
+  transition: stroke-dashoffset 0ms cubic-bezier(0.77, 0, 0.175, 1); /* out */
+}
+
+.container.active .circle {
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 500ms cubic-bezier(0.77, 0, 0.175, 1); /* in */
+}
+
+.container.failed .circle {
+  stroke: #ff4136;
+}
+
+.path {
+  transform: scale(0);
+  transform-origin: 50% 50%;
+  transition: transform 600ms cubic-bezier(0.77, 0, 0.175, 1) 400ms;
+}
+
+.container.active .path {
+  transform: none;
+}

@@ -1,80 +1,52 @@
+import { Empty } from "antd";
 import classnames from "classnames";
-import Img, { FluidObject } from "gatsby-image/withIEPolyfill";
-import React, { CSSProperties, useEffect, useState } from "react";
+import { FluidObject } from "gatsby-image";
+import Img from "gatsby-image/withIEPolyfill";
+import React, { FunctionComponent } from "react";
 
-import { IGlacierFilmThumbnail } from "../../../api/glacier";
+import { IStyleProps } from "../../../types/component";
+import { IGlacierThumbnail } from "../../../types/glacier";
 import { Spinner } from "../../common/spinner";
-import { generateFluid } from "./generate_fluid";
+import { glacierToFluid } from "./glacier_to_fluid";
 import styles from "./thumbnail.module.css";
 
-interface IFilmCardImageProps {
-  thumbnails?: IGlacierFilmThumbnail[];
-  className?: string;
-  style?: CSSProperties;
-  mode?: "cover" | "contain";
-  loading?: boolean;
-  theme?: "light" | "dark";
-  roundCorners?: boolean;
+interface IFilmCardImageProps extends IStyleProps {
+  thumbnails?: IGlacierThumbnail[];
+  /** Use `cover` instead of `contain`. You may also want the `fill` option. */
+  cover?: boolean;
+  /** Apply `width: 100%; height: 100%;` to the thumbnail wrapper */
+  fill?: boolean;
+  borderRadius?: number;
+  /** Remove the aspect-ratio enforcement (requires explicit size!) */
+  noAspectRatio?: boolean;
 }
 
-export const GlacierThumbnail = React.memo<IFilmCardImageProps>(({
+export const GlacierThumbnail: FunctionComponent<IFilmCardImageProps> = ({
   thumbnails,
-  mode,
-  loading = true,
-  theme = "light",
-  roundCorners = true,
-  ...rest
+  cover = false,
+  fill = false,
+  borderRadius,
+  noAspectRatio,
+  style,
+  className,
 }) => {
+  const fluid: FluidObject | null | undefined = Array.isArray(thumbnails) ? glacierToFluid(thumbnails) : thumbnails;
 
-  const [ resolve, setResolve ] = useState<IGlacierFilmThumbnail[]>(null);
-  const [ fluid, setFluid ] = useState<FluidObject>(null);
-
-  // Start resolving a thumbnail
-  useEffect(() => setResolve(thumbnails), [thumbnails]);
-
-  // Do the resolving magic
-  useEffect(() => {
-    if (resolve) {
-      if (!Array.isArray(thumbnails) || thumbnails.length === 0) {
-        setResolve(null);
-      } else {
-
-        let mounted = true;
-        const { cancel, promise } = generateFluid(thumbnails);
-
-        promise.then(data => {
-          if (mounted) {
-            setFluid(data);
-          }
-        });
-
-        return () => {
-          mounted = false;
-          cancel();
-        };
-
-      }
-    }
-
-  }, [ resolve ]);
-
-  return (
-    <div {...rest}>
-      <div className={styles.placeholder}>
-        <div className={classnames(styles.placeholderContent, mode === "cover"? styles.cover : styles.contain, {[styles.border]: roundCorners})}>
-          {fluid? (
-            <Img
-              objectFit={mode === "contain"? "contain" : "cover"}
-              className={styles.image}
-              fluid={fluid}
-            />
-          ) : loading && (
-            <span style={{minWidth: 32, minHeight: 32}}>
-              <Spinner active={true} theme={theme} />
-            </span>
-          )}
-        </div>
-      </div>
+  return fluid ? (
+    <Img
+      draggable={false}
+      objectFit={cover ? "cover" : "contain"}
+      className={className}
+      style={{ borderRadius, width: fill ? "100%" : void 0, height: fill ? "100%" : void 0, ...style }}
+      fluid={noAspectRatio ? { ...fluid, aspectRatio: 0 } : fluid}
+    />
+  ) : fluid === null ? (
+    <div style={style} className={classnames(styles.thumbnailPlaceholder, className)}>
+      <Empty description="No preview" image={Empty.PRESENTED_IMAGE_SIMPLE} />
+    </div>
+  ) : (
+    <div style={style} className={classnames(styles.thumbnailPlaceholder, className)}>
+      <Spinner active />
     </div>
   );
-});
+};

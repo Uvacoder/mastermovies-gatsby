@@ -1,0 +1,59 @@
+.landingContent {
+  position: relative; /* for absolutely positioned content */
+  overflow: hidden; /* Hide absolutely positioned elements that overflow */
+}
+
+.header {
+  margin-bottom: 16px;
+  padding: 0 10vw;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.headerPadding {
+  flex: 1;
+}
+
+.layoutSelector {
+  flex: 1;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.headerTitle {
+  flex: 1;
+  margin: 0 16px;
+}
+
+.searchContent {
+  min-height: 600px;
+}
+
+.searchSpinner {
+  position: absolute;
+  top: 0;
+  right: calc(100% + 32px);
+  bottom: 0;
+}
+
+.searchResults {
+  min-height: 80vh;
+}
+
+@media only screen and (max-width: 1600px) {
+  .headerPadding {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  .header {
+    flex-direction: column;
+    margin-bottom: 32px;
+    padding: 0 8px;
+  }
+}

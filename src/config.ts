@@ -7,21 +7,21 @@ export interface ISocialLink extends ILink {
   icon: string;
 }
 
-export const navLinks: ILink[] = [
+export const NAV_LINKS: ILink[] = [
   { text: "Home", link: "/" },
   { text: "Glacier", link: "/glacier" },
   { text: "Contact", link: "/contact" },
 ];
 
-export const footerLinks: ILink[] = [
+export const FOOTER_LINKS: ILink[] = [
   { text: "Home", link: "/" },
   { text: "Glacier", link: "/glacier" },
-  { text: "API", link: "/docs" },
+  { text: "API", link: "/api" },
   { text: "Blog", link: "https://blog.mastermovies.uk" },
   { text: "Contact", link: "/contact" },
 ];
 
-export const socialLinks: ISocialLink[] = [
+export const SOCIAL_LINKS: ISocialLink[] = [
   {
     text: "Facebook",
     icon: "facebook",

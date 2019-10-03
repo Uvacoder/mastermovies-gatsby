@@ -1,0 +1,23 @@
+.layoutSelector {
+  margin: 0 4px;
+}
+
+/* Overriding Ant Design styles */
+.button {
+  user-select: none;
+
+  background: none !important;
+  color: rgba(255, 255, 255, 0.6) !important;
+  background: rgba(0,0,0,0.8) !important;
+  border-color: rgba(255, 255, 255, 0.6) !important;
+  box-shadow: none !important;
+}
+
+.button::before {
+  content: none !important;
+}
+
+.button.active {
+  border-color: #fff !important;
+  color: #fff !important;
+}

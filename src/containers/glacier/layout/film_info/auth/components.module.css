@@ -1,0 +1,104 @@
+/* PROMPT */
+
+.inputWrapper {
+  display: flex;
+}
+
+.promptHint {
+  margin-top: 8px;
+  font-size: 0.65em;
+}
+
+.darkInput > input {
+  flex: 1;
+  border-radius: 3px 0 0 3px;
+
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.6);
+  outline: #f00;
+}
+
+.darkInput:hover > input,
+.darkInput > input:focus {
+  border-color: #fff !important;
+}
+
+.darkInput i {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.darkInput i:hover {
+  color: rgba(255, 255, 255, 1);
+}
+
+.inputButton {
+  position: relative;
+  left: -1px;
+  border-radius: 0 3px 3px 0;
+  border-color: rgba(255, 255, 255, 0.6);
+}
+
+.inputButton:hover {
+  border-color: #fff;
+}
+
+.failed {
+  color: #FF4136;
+  font-size: 0.7em;
+}
+
+.success {
+  color: #2ECC40;
+}
+
+.check {
+  margin-right: 8px;
+  margin-bottom: 2px;
+}
+
+/* ERROR */
+
+.error {
+  color: #FF4136;
+}
+
+.errorInfo {
+  margin-top: 1em;
+  font-size: 0.8em;
+}
+
+.errorInfoIcon {
+  font-size: 1.2em;
+  margin-bottom: 0.6em;
+}
+
+.errorInfoCode {
+  margin-top: 0.4em;
+  font-size: 0.8em;
+}
+
+.errorButton {
+  margin-top: 1em;
+}
+
+/* AUTH */
+
+.authSpin :global(.ant-spin-dot-item) {
+  background: #ff851b;
+}
+
+/* UTILITY */
+.separation {
+  margin-right: 0.2em;
+}
+
+.largerSeparation {
+  margin-right: 1em;
+}
+
+.align {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

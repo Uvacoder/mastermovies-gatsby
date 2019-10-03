@@ -1,0 +1,19 @@
+.app {
+  position: relative;
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+}
+
+/* Provide a backup background */
+.app::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #000;
+  z-index: -2;
+}

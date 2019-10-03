@@ -16,7 +16,7 @@
   user-select: none;
 }
 
-.root[data-dark] {
+.root.dark {
   background-color: #222;
   color: #FFF;
   border-top: 1px solid #666;
@@ -39,8 +39,8 @@
   opacity: 0.5;
 }
 
-.root[data-dark] .title,
-.root[data-dark] .subtitle {
+.root.dark .title,
+.root.dark .subtitle {
   opacity: 0.8;
 }
 
@@ -52,7 +52,7 @@
   transition: color 300ms;
 }
 
-.root[data-dark] .link {
+.root.dark .link {
   color: #DDD;
 }
 
@@ -60,7 +60,7 @@
   color: #1890ff;
 }
 
-.root[data-dark] .link:hover {
+.root.dark .link:hover {
   color: #FFF;
 }
 

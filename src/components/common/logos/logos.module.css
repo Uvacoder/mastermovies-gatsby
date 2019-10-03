@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway:300,600&display=swap');
+
+.logo {
+  font-family: Raleway, sans-serif;
+  color: #000;
+
+  user-select: none;
+}
+
+.logo.dark {
+  color: #FFF;
+}
+
+.mastermovies {
+  font-weight: 600;
+}
+
+.glacier {
+  font-weight: 300;
+  letter-spacing: 0.1em;
+}

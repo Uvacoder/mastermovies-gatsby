@@ -47,6 +47,12 @@ module.exports = {
         style: "css"
       }
     },
+    {
+      resolve: `gatsby-plugin-nprogress`,
+      options: {
+        color: "#65C3BA"
+      },
+    },
     // {
     //   resolve: `gatsby-plugin-webpack-bundle-analyzer`,
     //   options: {

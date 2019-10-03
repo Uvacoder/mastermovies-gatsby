@@ -1,12 +1,44 @@
 .darkButton {
-  color: #DDD !important;
-  border-color: #DDD !important;
-  --antd-wave-shadow-color: #FFF;
+  position: relative;
+  display: inline-block;
+  height: 32px;
+  padding: 0 15px;
+
+  font-size: 14px;
+  font-weight: 400;
+  text-align: center;
+  white-space: nowrap;
+  border-radius: 4px;
+  color: #ddd;
+  border: 1px solid transparent;
+  border-color: #ddd;
+  background: rgba(0, 0, 0, 0.6);
+  background-image: none;
+
+  transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+
+  outline: 0;
+  touch-action: manipulation;
+  user-select: none;
+  cursor: pointer;
+}
+
+.large {
+  height: 40px;
+  padding: 0 15px;
+  font-size: 16px;
+  border-radius: 4px;
 }
 
 .darkButton:hover,
 .darkButton:focus,
 .darkButton:active {
-  color: #FFF !important;
-  border-color: #FFF !important;
+  color: #fff;
+  border-color: #fff;
+}
+
+.disabled {
+  cursor: not-allowed;
+  color: #888 !important;
+  border-color: #888 !important;
 }

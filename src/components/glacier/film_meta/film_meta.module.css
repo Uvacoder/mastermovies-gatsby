@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css?family=Oswald:200&display=swap');
+
+.meta {
+  margin-top: 16px;
+  padding: 8px 16px;
+  overflow: none;
+}
+
+.title {
+  font-family: Oswald, sans-serif;
+  user-select: none;
+  font-size: 1.8em;
+  letter-spacing: 0.04em;
+  font-weight: 200;
+
+  margin-bottom: 0.2em;
+}
+
+.release {
+  position: relative;
+  bottom: 0.03em;
+  font-size: 0.8em;
+  margin-left: 0.2em;
+
+  opacity: 0.6;
+  letter-spacing: 0.01em;
+}
+
+.description {
+  font-size: 1em;
+  overflow: none;
+}
+
+.title,
+.description {
+  color: #000;
+}
+
+.dark {
+  color: #fff;
+}

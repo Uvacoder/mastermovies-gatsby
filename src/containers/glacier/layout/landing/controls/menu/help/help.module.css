@@ -1,0 +1,6 @@
+.helpModal {
+  padding: 16px 64px 32px;
+  width: 800px;
+  max-width: 100%;
+  text-align: justify;
+}

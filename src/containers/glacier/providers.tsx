@@ -1,0 +1,14 @@
+import React, { FunctionComponent, useReducer } from "react";
+
+import { ThemeContext } from "../../hooks/theme";
+import { GlacierContext, GlacierContextDefault, glacierContextReducer } from "./context";
+
+export const GlacierProviders: FunctionComponent = ({ children }) => {
+  const context = useReducer(glacierContextReducer, GlacierContextDefault);
+
+  return (
+    <ThemeContext.Provider value="dark">
+      <GlacierContext.Provider value={context}>{children}</GlacierContext.Provider>
+    </ThemeContext.Provider>
+  );
+};

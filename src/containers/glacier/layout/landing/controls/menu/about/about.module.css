@@ -1,0 +1,41 @@
+.container {
+  padding: 0 64px 32px;
+  width: 800px;
+  max-width: 100%;
+  text-align: justify;
+}
+
+.header {
+  font-size: 2.4rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  user-select: none;
+}
+
+.logo {
+  height: 2.2rem;
+  margin-right: 16px;
+}
+
+.subheading {
+  font-size: 0.8rem;
+  letter-spacing: 0.25em;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: bold;
+
+  color: rgba(0,0,0,0.4);
+
+  margin-bottom: 32px;
+  user-select: none;
+}
+
+.copyrightNotice {
+  font-size: 0.9em;
+  text-align: center;
+  user-select: none;
+  margin-bottom: 16px;
+}

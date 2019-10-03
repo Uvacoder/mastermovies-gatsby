@@ -1,0 +1,23 @@
+{
+  "extends": ["tslint:latest", "tslint-config-prettier"],
+  "rules": {
+    "interface-name": true,
+    // TODO: allow devDependencies only in **/*.spec.ts files:
+    // waiting on https://github.com/palantir/tslint/pull/3708
+    "no-implicit-dependencies": [true, "dev"],
+
+    /* tslint-immutable rules */
+    // Recommended built-in rules
+    "no-var-keyword": true,
+    "no-parameter-reassignment": true,
+
+    /* end tslint-immutable rules */
+
+    "variable-name": false,
+    "curly": false,
+    "object-literal-sort-keys": false,
+
+    "no-floating-promises": true, // when forgetting await
+    "no-submodule-imports": false
+  }
+}

@@ -1,23 +1,15 @@
 import classnames from "classnames";
 import hash from "hash-sum";
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useContext } from "react";
 
-import { ILogo } from "..";
+import { ThemeContext } from "../../../../hooks/theme";
 import { SmartLink } from "../../smart_link";
-import { NavMenu } from "../common/menu";
-import { INavPropsWithState } from "../nav";
+import { INavProps } from "../nav";
 import styles from "./navbar.module.css";
 
-export const Navbar: FunctionComponent<INavPropsWithState> = ({
-  links,
-  theme,
-  logo,
-  type,
-  extended,
-  background,
-  sidebarOpen,
-  setSidebarOpen,
-}) => {
+export const Navbar: FunctionComponent<INavProps> = ({ links, logo, type, extended, background }) => {
+  const theme = useContext(ThemeContext);
+
   return (
     <nav
       className={classnames(styles.nav, {
@@ -28,13 +20,6 @@ export const Navbar: FunctionComponent<INavPropsWithState> = ({
         [styles.absolute]: type === "absolute",
       })}
     >
-      <NavMenu
-        active={sidebarOpen}
-        theme={theme}
-        className={classnames(styles.menu, {[styles.exit]: sidebarOpen})}
-        onClick={() => setSidebarOpen(true)}
-      />
-
       <SmartLink className={styles.logo} link={logo.link}>
         {logo.text}
       </SmartLink>

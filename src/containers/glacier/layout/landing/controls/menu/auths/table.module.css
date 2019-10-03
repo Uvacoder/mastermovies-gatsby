@@ -1,0 +1,38 @@
+@import url("https://fonts.googleapis.com/css?family=Oswald:200&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Oswald&display=swap");
+
+.spinnerWrapper {
+  position: relative;
+}
+
+.filmName {
+  font-family: Oswald, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
+    "Helvetica Neue", sans-serif;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+
+  transition: color 200ms cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.filmName:hover {
+  position: relative;
+  color: #39cccc;
+}
+
+.filmRelease {
+  margin-left: 0.4em;
+  font-weight: 200;
+}
+
+.filmThumbnail {
+  display: inline-block;
+  height: 100%;
+  width: 4em;
+  margin-right: 1em;
+}
+
+.expired {
+  color: #ff4136;
+}

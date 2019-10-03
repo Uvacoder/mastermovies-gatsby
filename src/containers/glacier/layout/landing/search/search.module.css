@@ -1,0 +1,34 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+
+.searchWrapper {
+  margin-bottom: 32px;
+  padding: 0 20vw;
+}
+
+.search {
+  position: relative;
+  height: 50px;
+  border-radius: 4px;
+  background-color: #fff;
+  font-family: "Open Sans", -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  user-select: none;
+
+  display: grid;
+  grid-template-columns: 128px 1fr 196px;
+
+  opacity: 0.4;
+  box-shadow: none;
+  transition: all 300ms cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.search.active, .search:hover {
+  opacity: 1;
+  box-shadow: 0 50px 100px -24px rgba(0,0,0,.25);
+}
+
+
+@media only screen and (max-width: 768px) {
+  .searchWrapper {
+    padding: 0 5vw;
+  }
+}

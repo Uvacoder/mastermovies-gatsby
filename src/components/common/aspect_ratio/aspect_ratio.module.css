@@ -1,0 +1,13 @@
+.aspectRatio {
+  position: relative;
+  height: 0px;
+  overflow: hidden;
+}
+
+.aspectRatioContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}

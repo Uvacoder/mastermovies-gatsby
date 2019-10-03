@@ -1,0 +1,27 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+
+  padding: 0 64px;
+  margin-bottom: 64px; /* for footer */
+}
+
+.film {
+  position: relative;
+  padding: 32px;
+
+  cursor: pointer;
+}
+
+@media only screen and (max-width: 768px) {
+  .grid {
+  grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .grid {
+    grid-template-columns: 1fr;
+    padding: 8px;
+  }
+}

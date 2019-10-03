@@ -1,0 +1,30 @@
+.underline {
+  display: inline-block;
+  position: relative;
+}
+
+.underline::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0.2em;
+  right: 0.2em;
+  border-top: 1px solid #000;
+}
+
+.underline.dark::after {
+  border-color: #fff;
+}
+
+.underline.thin::after {
+  border-width: thin;
+}
+
+.animated::after {
+  animation: expand 2s cubic-bezier(0.215, 0.610, 0.355, 1);
+}
+
+@keyframes expand {
+  from { transform: scaleX(0); }
+  to { transform: none; }
+}

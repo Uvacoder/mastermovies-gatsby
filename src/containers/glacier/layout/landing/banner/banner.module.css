@@ -1,0 +1,16 @@
+.banner {
+  position: relative;
+  height: 600px;
+  padding: 0 5vw;
+  margin-bottom: 64px;
+
+  display: flex;
+  flex-direction: row;
+}
+
+@media only screen and (max-width: 768px) {
+  .banner {
+    flex-direction: column;
+    height: 1200px;
+  }
+}

@@ -1,0 +1,21 @@
+.nothing {
+  width: 100%;
+  height: 100%;
+  color: #000;
+  transition: color 250ms, opacity 250ms;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+
+  opacity: 0.6;
+}
+
+.nothing:hover {
+  opacity: 0.8;
+}
+
+.dark p {
+  color: #FFF;
+}

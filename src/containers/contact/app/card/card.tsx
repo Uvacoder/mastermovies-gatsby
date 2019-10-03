@@ -8,12 +8,11 @@ import { ContactCardLeft } from "./left";
 import { ContactCardRight } from "./right";
 
 export const ContactForm: FunctionComponent = () => {
-
   const [show, setShow] = useState(false);
   useEffect(() => setShow(true), []);
 
   return (
-    <div className={classnames(styles.card, {[styles.show]: show})}>
+    <div className={classnames(styles.card, { [styles.show]: show })}>
       <ContactCardLeft />
       <ContactCardDivider />
       <ContactCardRight />

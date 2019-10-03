@@ -1,13 +1,14 @@
 import classnames from "classnames";
 import { navigate } from "gatsby";
 import hash from "hash-sum";
-import React, { FunctionComponent, useEffect, useState } from "react";
+import React, { FunctionComponent, useState, useEffect } from "react";
 import { animated, useSpring } from "react-spring";
-import { useGesture } from "react-use-gesture";
+import { useDrag } from "react-use-gesture";
 
+import { ThemeContext } from "../../../../hooks/theme";
 import { SmartLink } from "../../smart_link";
 import { NavMenu } from "../common/menu";
-import { INavPropsWithState } from "../nav";
+import { INavProps } from "../nav";
 import styles from "./sidebar.module.css";
 import { SidebarImage } from "./sidebar_image";
 
@@ -15,116 +16,85 @@ const SIDEBAR_WIDTH = 400; /* see styles */
 const SIDEBAR_MAX_WIDTH = 0.8; /* see styles */
 
 const ENTER_DELAY = 200;
-const EXIT_DELAY = 400;
 const STAGGER_DELAY = 100; // delay between stagger animations
 
-const DEFAULT_SPRING_CONFIG = { mass: 1, tension: 170, friction: 26 };
-const GESTURE_SPRING_CONFIG = { mass: 1, tension: 200, friction: 30 };
+const SPRING_PROPS = { friction: 20, tension: 200 };
 
+const OPEN = 0;
+const BREAKPOINT = -50;
+const CLOSED = -100;
 
 /** A powerful react-spring animated sidebar that supports drag-based open/close gestures */
-export const Sidebar: FunctionComponent<INavPropsWithState> = ({
-  links,
-  theme,
-  logo,
-  type,
-  sidebarOpen,
-  setSidebarOpen,
-}) => {
-  // Create the state hooks
-  const [immediate, setImmediate] = useState(false);
-  const [gestureActive, setGestureActive] = useState(false);
-  const [gesturePosition, setGesturePosition] = useState(0); // start gesture sidebar position
-  const [releasedFromGesture, setReleasedFromGesture] = useState(false); // release the sidebar from gestures
-  const [loadImage, setLoadImage] = useState(false); // defer lazy loading of the image
+export const Sidebar: FunctionComponent<INavProps> = ({ links, logo }) => {
+  // useSpring executes outside of React's rendering. This state provides real-time access
+  // for animation logic. `active` state updates are pushed to React and done at a later time.
+  const [gesture] = useState<{ active: boolean }>({ active: false });
 
-  // Create the animation engine
-  const [{ x }, setX] = useSpring(() => ({
-    x: -100,
-    config: DEFAULT_SPRING_CONFIG,
-    immediate: false,
+  // Active state used for conventional React rendering
+  const [active, setActive] = useState<boolean>(false);
+
+  // Deferred image loading
+  const [image, setImage] = useState<boolean>(false);
+
+  const [{ x }, setSpring] = useSpring<{ x: number }>(() => ({
+    x: CLOSED,
+    config: {
+      ...SPRING_PROPS,
+      velocity: 0,
+      gesture: false, // save w
+    },
+    onFrame: ({ x }) => {
+      const shouldBeOpen = x >= BREAKPOINT;
+      if (gesture.active !== shouldBeOpen) {
+        gesture.active = shouldBeOpen;
+        setActive(shouldBeOpen);
+        setSpring({ x: shouldBeOpen ? OPEN : CLOSED });
+        if (shouldBeOpen) {
+          setImage(true); // deferred image loading
+        }
+      }
+    },
   }));
 
-  // Utility function to handle open/closing
-  const setOpen = (open: boolean) => {
-    if (!loadImage && open) setLoadImage(true);
-    setX({
-      x: open ? 0 : -100,
-      config: DEFAULT_SPRING_CONFIG,
-      immediate: false,
-    });
-  };
-
-  // Handle opening/closing on manual state change, with a closing delay
-  useEffect(() => {
-    if (!gestureActive) {
-      if (immediate || sidebarOpen) {
-        setOpen(sidebarOpen);
-      } else {
-        const timeout = setTimeout(() => {
-          setOpen(sidebarOpen);
-        }, EXIT_DELAY);
-        return () => clearTimeout(timeout);
-      }
-    }
-  }, [sidebarOpen]);
-
-  //* Create the gesture logic
-  const bind = useGesture(({ first, last, delta, vxvy }) => {
-    // Clean up the end of the gesture, reset to correct position
-    if (last) {
-      setGestureActive(false);
-      setImmediate(false);
-      if (releasedFromGesture) {
-        setReleasedFromGesture(false); // position is already "fresh"
-      } else {
-        // If there's some movement, snap it to the other end, otherwise reset
-        setOpen(
-          Math.abs(vxvy[0]) > 0.25 ? (vxvy[0] > 0 ? true : false) : sidebarOpen
-        );
-      }
-      return;
-    }
-
-    // Run when the gesture is first started
+  // The starting gesture position is stored in args
+  const bind = useDrag(({ first, last, movement, vxvy, args }) => {
     if (first) {
-      if (!loadImage) setLoadImage(true);
-      setGestureActive(true);
-      setGesturePosition(x.getValue());
-      setImmediate(true);
-      setSidebarOpen(x.getValue() > -50); // reset the state
-    }
-
-    // Handle real-time position based on gesture
-    if (!releasedFromGesture && gestureActive) {
-      // Update the state as it passed a threshold (centre)
-      if (
-        (sidebarOpen && x.getValue() < -50) ||
-        (!sidebarOpen && x.getValue() > -50)
-      ) {
-        setSidebarOpen(x.getValue() > -50 ? true : false);
-      }
-
-      // If a certain x-velocity is exceeded, release and snap to open/closed
-      if (Math.abs(vxvy[0]) > 1) {
-        setReleasedFromGesture(true); // release the sidebar from further gestures
-        setGestureActive(false);
-        setSidebarOpen(vxvy[0] > 0 ? true : false);
-        return;
-      }
-
-      // Otherwise respond to gestures
-      const newX = Math.max(
-        -100,
-        Math.min(0, gesturePosition + (delta[0] / sidebarWidth()) * 100)
-      );
-      setX({ x: newX, config: GESTURE_SPRING_CONFIG, immediate: true });
+      args[0] = clamp(x.getValue(), CLOSED, OPEN); // Save the initial `x` position
+      setSpring({
+        immediate: true,
+        x: clamp(args[0] + (movement ? movement[0] / realSidebarWidth() : 0), CLOSED, OPEN),
+      });
+    } else if (last) {
+      setSpring({
+        immediate: false,
+        x: gesture.active ? OPEN : CLOSED,
+        config: {
+          ...SPRING_PROPS,
+          velocity: (vxvy[0] * 1000 * 100) / realSidebarWidth(), // 1000 is unit conversion, 100 is percent factor
+        },
+      });
+    } else {
+      setSpring({ x: clamp(args[0] + (movement ? movement[0] / realSidebarWidth() : 0) * 100, CLOSED, OPEN) });
     }
   });
 
+  useEffect(() => {
+    setSpring({
+      x: active ? OPEN : CLOSED,
+    });
+  }, [active]);
+
+  // Utility to calculate stagger delays
+  const staggerDelay = (index: number, total: number, direction: boolean) => {
+    let duration = direction ? index : total - (index + 1);
+    duration *= STAGGER_DELAY * (direction ? 1 : 0.5); // shorter return
+    duration += active ? ENTER_DELAY : 0; // add initial delay
+    return `${duration}ms`;
+  };
+
   // Link click handler
   const navigateTo = (destination: string) => {
-    setSidebarOpen(false); // In case the sidebar is hoisted above the router
+    setActive(false);
     if (/^\/.*$/.test(destination)) {
       navigate(destination);
     } else {
@@ -132,65 +102,53 @@ export const Sidebar: FunctionComponent<INavPropsWithState> = ({
     }
   };
 
-  // Utility to calculate stagger delays
-  const transitionDelay = (
-    index: number,
-    total: number,
-    direction: boolean
-  ) => {
-    let duration = direction ? index : total - (index + 1);
-    duration *= STAGGER_DELAY * (direction ? 1 : 0.5); // shorter return
-    duration += sidebarOpen ? ENTER_DELAY : 0; // add initial delay
-    return `${duration}ms`;
-  };
-
   return (
-    <div
-      className={classnames(styles.wrapper, {
-        [styles.fixed]: type === "fixed",
-      })}
-    >
+    <div className={styles.wrapper}>
       <div
-        onClick={() => setSidebarOpen(false)}
-        className={classnames(styles.overlay, { [styles.shade]: sidebarOpen })}
+        onClick={() => {
+          setSpring({ x: !active ? OPEN : CLOSED });
+          setActive(!active);
+        }}
+        className={classnames(styles.overlay, { [styles.shade]: active })}
       />
       <animated.div
         className={styles.sidebar}
         style={{
-          transform: x.interpolate(x => `translate3d(${x}%,0,0)`),
+          transform: x.interpolate(x => `translate3d(${clampInvert(x, CLOSED, OPEN)}%,0,0)`),
           boxShadow: x.interpolate(
             x =>
-              `14px 0 28px rgba(0,0,0,${(0.2 * (x + 100)) /
-                100}), 10px 0 10px rgba(0,0,0,${(0.18 * (x + 100)) / 100})`
+              `14px 0 28px rgba(0,0,0,${(0.2 * (x + 100)) / 100}), 10px 0 10px rgba(0,0,0,${(0.18 * (x + 100)) / 100})`
           ),
         }}
       >
-        <NavMenu
-          onClick={() => setSidebarOpen(!sidebarOpen)}
-          active={sidebarOpen}
-          theme={sidebarOpen ? "light" : theme}
-          delay={!sidebarOpen && !gestureActive ? EXIT_DELAY * 0.5 : 0}
-          className={classnames(styles.menu, { [styles.exit]: !sidebarOpen })}
-        />
-        <SidebarImage load={loadImage} />
+        <ThemeContext.Consumer>
+          {theme => (
+            <ThemeContext.Provider value={active ? "light" : theme}>
+              <NavMenu
+                active={active}
+                onClick={() => setActive(!active)}
+                // delay={!active && !gestureActive ? EXIT_DELAY * 0.5 : 0}
+                className={classnames(styles.menu, { [styles.exit]: !active })}
+              />
+            </ThemeContext.Provider>
+          )}
+        </ThemeContext.Consumer>
+
+        <SidebarImage load={image} />
 
         <div
           {...bind()}
           className={classnames(styles.gestureTrigger, {
-            [styles.disable]: sidebarOpen,
+            [styles.disable]: active,
           })}
         />
         <div {...bind()} className={styles.content}>
           <SmartLink
             className={classnames(styles.logo, styles.stagger, {
-              [styles.staggerIn]: sidebarOpen,
+              [styles.staggerIn]: active,
             })}
             style={{
-              transitionDelay: transitionDelay(
-                0,
-                links.length + 1,
-                sidebarOpen
-              ),
+              transitionDelay: staggerDelay(0, links.length + 1, active),
             }}
             link={logo.link}
           >
@@ -201,14 +159,10 @@ export const Sidebar: FunctionComponent<INavPropsWithState> = ({
             <div
               key={hash(link)}
               className={classnames(styles.link, styles.stagger, {
-                [styles.staggerIn]: sidebarOpen,
+                [styles.staggerIn]: active,
               })}
               style={{
-                transitionDelay: transitionDelay(
-                  index + 1,
-                  links.length + 1,
-                  sidebarOpen
-                ),
+                transitionDelay: staggerDelay(index + 1, links.length + 1, active),
               }}
               onClick={() => navigateTo(link.link)}
             >
@@ -222,11 +176,20 @@ export const Sidebar: FunctionComponent<INavPropsWithState> = ({
 };
 
 /** Calculate the width of the sidebar to convert pixel transform to a percentage transform */
-function sidebarWidth() {
+function realSidebarWidth() {
   // SSR doesn't have a window object, make one up
-  return Math.min(
-    SIDEBAR_WIDTH,
-    (typeof window !== "undefined" ? window.innerWidth : 1280) *
-      SIDEBAR_MAX_WIDTH
-  );
+  return Math.min(SIDEBAR_WIDTH, (typeof window !== "undefined" ? window.innerWidth : 1280) * SIDEBAR_MAX_WIDTH);
+}
+
+function clamp(value: number, min: number, max: number): number {
+  return Math.min(max, Math.max(min, value));
+}
+
+/** If value exceeds MIN or MAX, it will be inverted around the exceed value. Useful for bounce. */
+function clampInvert(value: number, min: number, max: number): number {
+  if (value < min) return min + (min - value);
+
+  if (value > max) return max - (value - max);
+
+  return value;
 }

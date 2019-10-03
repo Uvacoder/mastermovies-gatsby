@@ -1,0 +1,25 @@
+.releases {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+
+  cursor: pointer;
+}
+
+.release {
+  position: relative; /* for overlays */
+  flex: 1;
+  padding: 8px 8px 8px 10%;
+
+  display: flex;
+  flex-direction: row;
+}
+
+.thumbnail {
+  flex: 1;
+}
+
+.meta {
+  margin-left: 16px;
+  flex: 1;
+}

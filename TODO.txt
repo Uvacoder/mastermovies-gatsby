@@ -1,0 +1,7 @@
+Remove all 100vh (html height is 100%)
+Glacier error when all film list fails to resolve
+https://medium.com/@wittydeveloper/react-components-naming-convention-%EF%B8%8F-b50303551505
+Fix thumbnail apect ratio film card index page
+Unify API/frontend interfaces. Go monorepo?
+Switch to a better Typography/Font system
+Stop Modal from jumping

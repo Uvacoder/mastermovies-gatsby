@@ -1,0 +1,53 @@
+.list {
+  margin: 0 20vw 64px;
+}
+
+.listItem {
+  position: relative; /* for overlay */
+  display: flex;
+  flex-direction: row;
+  height: 200px;
+  margin: 64px 0;
+
+  cursor: pointer;
+}
+
+.thumbnail {
+  flex-basis: 400px;
+}
+
+.meta {
+  padding-left: 32px;
+  flex: 1;
+}
+
+@media only screen and (max-width: 768px) {
+  .list {
+    margin: 0 64px;
+  }
+  .listItem {
+    height: 150px;
+  }
+  .thumbnail {
+    flex-basis: 300px;
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .list {
+    flex-direction: column;
+    margin: 0 16px;
+  }
+  .listItem {
+    height: initial;
+    flex-direction: column;
+    height: 300px;
+    margin: 32px 0;
+  }
+  .thumbnail {
+    flex: 2;
+  }
+  .meta {
+    padding: 0;
+  }
+}

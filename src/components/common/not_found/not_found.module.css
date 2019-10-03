@@ -10,27 +10,6 @@
   background: radial-gradient(circle at center, #FFF 50%, #edf6ff 150%);
 }
 
-.root[data-dark] {
-  background: radial-gradient(circle at center, #222 0%, #111 150%);
-}
-
-.text {
-  color: rgba(0,0,0,0.8);
-}
-
-.fadedText {
-  color: rgba(0,0,0,0.6);
-}
-
-.root[data-dark] .text,
-.root[data-dark] .title {
-  color: rgba(255,255,255,0.85);
-}
-
-.root[data-dark] .fadedText {
-  color: rgba(255,255,255,0.6);
-}
-
 .container {
   width: 400px;
   max-width: 100vw;
@@ -38,12 +17,29 @@
   padding: 16px;
 }
 
-.title {
-  font-family: Raleway, sans-serif;
-  font-weight: 800;
+.container > * {
+  color: rgba(0,0,0,0.8);
+}
+
+.root.dark {
+  background: radial-gradient(circle at center, #222 0%, #111 150%);
+}
+
+.root.dark .container > * {
+  color: rgba(255,255,255,0.85);
+}
+
+.logo {
+  font-size: 32px;
   user-select: none;
-  font-size: 1.4rem;
-  margin-bottom: 32px;
+}
+
+.faded {
+  color: rgba(0,0,0,0.6);
+}
+
+.root.dark .faded {
+  color: rgba(255,255,255,0.6);
 }
 
 .button {

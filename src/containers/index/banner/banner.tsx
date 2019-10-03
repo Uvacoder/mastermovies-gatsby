@@ -5,7 +5,6 @@ import React, { FunctionComponent } from "react";
 import styles from "./banner.module.css";
 
 export const IndexBanner: FunctionComponent = () => {
-
   const query = useStaticQuery(graphql`
     query {
       background: file(relativePath: { eq: "index/landing_banner.jpg" }) {

@@ -1,0 +1,167 @@
+.downloads {
+  position: relative; /* for overlay */
+}
+
+.helpIcon {
+  position: absolute;
+  left: calc(100% + 8px);
+  top: calc(50% + 2px);
+  transform: translateY(-50%);
+  font-size: 0.6em;
+
+  color: rgba(255,255,255,0.6);
+  transition: color 250ms cubic-bezier(0.215, 0.610, 0.355, 1);
+  cursor: pointer;
+}
+
+.helpIcon:hover {
+  color: rgba(255,255,255,0.8);
+}
+
+.exports {
+  position: relative; /* for spinner */
+  margin-bottom: 32px;
+
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.noExports {
+  font-size: 1.2em;
+  user-select: none;
+  margin-top: 32px;
+}
+
+.exportCard {
+  display: inline-block;
+  padding: 16px 28px;
+  margin: 16px 16px;
+
+  flex-basis: 300px;
+  max-width: 100%;
+
+  border-radius: 2px;
+}
+
+.title {
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.titleText {
+  margin-bottom: 8px;
+
+  font-size: 2em;
+  font-weight: 300;
+}
+
+.titleDescription {
+  font-weight: bold;
+  font-size: 0.8em;
+  text-transform: uppercase;
+}
+
+.properties {
+  display: grid;
+  grid-template-columns: auto auto;
+}
+
+.propertyTitle {
+  margin-right: 8px;
+  text-align: right;
+
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.downloadButtons {
+  text-align: center;
+}
+
+.downloadButton, .streamButton {
+  width: initial;
+  height: initial;
+  padding: 16px 32px;
+  border-radius: 2px;
+
+  margin: 0 16px;
+
+  font-size: 18px;
+}
+
+/* TODO */
+.downloadButton {
+
+}
+
+.streamButton {
+
+}
+
+.typeSelectors {
+  margin-bottom: 32px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.typeSelector {
+  margin: 0 16px;
+  color: #fff;
+  padding: 16px 32px;
+  border-radius: 2px;
+
+  font-size: 1.2em;
+}
+
+.auth {
+  display: flex;
+  justify-content: center;
+}
+
+/* MODAL */
+.modalContainer {
+  padding: 16px 64px 32px;
+}
+
+@media only screen and (max-width: 576px) {
+  .modalContainer {
+    padding: 8px 16px 16px;
+  }
+}
+
+.checksumRow {
+  display: flex;
+}
+
+.modalProperty {
+  margin-right: 4px;
+
+  color: rgba(0, 0, 0, 0.6);
+  font-weight: bold;
+  user-select: none;
+}
+
+/* UI selection */
+.selectable {
+  border: 1px solid rgba(255, 255, 255, 0.4);
+
+  cursor: pointer;
+  box-shadow: none;
+  transition: box-shadow 250ms cubic-bezier(0.215, 0.61, 0.355, 1), border 250ms cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.selectable:hover {
+  border: 1px solid #fff;
+}
+
+.selectable.selected {
+  border: 1px solid #fff;
+  box-shadow: 0 3px 12px rgba(255, 255, 255, 0.4);
+}
+
+.lighterLink {
+  color: #7fdbff;
+}

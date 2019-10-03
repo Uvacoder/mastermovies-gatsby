@@ -1,9 +1,10 @@
 import { Button, Icon } from "antd";
 import classnames from "classnames";
 import hash from "hash-sum";
-import React, { FunctionComponent, ReactNode } from "react";
+import React, { FunctionComponent, ReactNode, useContext } from "react";
 import { Transition, TransitionGroup } from "react-transition-group";
 
+import { ThemeContext } from "../../../hooks/theme";
 import { DarkButton } from "../../glacier/dark_button";
 import styles from "./standard_overlay.module.css";
 
@@ -14,7 +15,6 @@ interface IStandardOverlayProps extends divProps {
   text?: ReactNode;
   button?: ReactNode;
   onButton?: () => any;
-  theme?: "light" | "dark";
   shimmer?: boolean;
   dim?: boolean;
   background?: boolean;
@@ -29,67 +29,68 @@ export const StandardOverlay: FunctionComponent<IStandardOverlayProps> = ({
   button = "",
   onButton = () => {},
   shimmer = false,
-  theme = "light",
   dim = false,
   background = false,
   code,
   className,
   ...rest
-}) => (
-  <TransitionGroup component={null}>
-    {active && (
-      <Transition
-        key={hash({
-          active,
-          icon,
-          text,
-          button,
-          onButton,
-          shimmer,
-          theme,
-          className,
-          ...rest,
-        })}
-        timeout={{ enter: 200, exit: 300 }}
-      >
-        {state => (
-          <div
-            {...rest}
-            className={classnames(
-              styles.overlay,
-              {
-                [styles.dark]: theme === "dark",
-                [styles.active]: state === "entered",
-                [styles.dim]: dim,
-                [styles.background]: background
-              },
-              className
-            )}
-          >
-            <span
-              className={classnames(styles.container, {
-                [styles.shimmer]: shimmer,
-              })}
-            >
-              {icon && <Icon type={icon} className={styles.icon} />}
-              <span>{text}</span>
-              {code && (
-                <code className={styles.code}>{code}</code>
+}) => {
+  const theme = useContext(ThemeContext);
+
+  return (
+    <TransitionGroup component={null}>
+      {active && (
+        <Transition
+          key={hash({
+            active,
+            icon,
+            text,
+            button,
+            onButton,
+            shimmer,
+            theme,
+            className,
+            ...rest,
+          })}
+          timeout={{ enter: 200, exit: 300 }}
+        >
+          {state => (
+            <div
+              {...rest}
+              className={classnames(
+                styles.overlay,
+                {
+                  [styles.dark]: theme === "dark",
+                  [styles.active]: state === "entered",
+                  [styles.dim]: dim,
+                  [styles.background]: background,
+                },
+                className
               )}
-              {button &&
-                (theme === "dark" ? (
-                  <DarkButton className={styles.button} onClick={onButton}>
-                    {button}
-                  </DarkButton>
-                ) : (
-                  <Button className={styles.button} onClick={onButton}>
-                    {button}
-                  </Button>
-                ))}
-            </span>
-          </div>
-        )}
-      </Transition>
-    )}
-  </TransitionGroup>
-);
+            >
+              <span
+                className={classnames(styles.container, {
+                  [styles.shimmer]: shimmer,
+                })}
+              >
+                {icon && <Icon type={icon} className={styles.icon} />}
+                <span>{text}</span>
+                {code && <code className={styles.code}>{code}</code>}
+                {button &&
+                  (theme === "dark" ? (
+                    <DarkButton className={styles.button} onClick={onButton}>
+                      {button}
+                    </DarkButton>
+                  ) : (
+                    <Button className={styles.button} onClick={onButton}>
+                      {button}
+                    </Button>
+                  ))}
+              </span>
+            </div>
+          )}
+        </Transition>
+      )}
+    </TransitionGroup>
+  );
+};

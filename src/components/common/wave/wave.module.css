@@ -1,0 +1,30 @@
+.waveElement {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: block;
+  border-radius: inherit;
+  box-shadow: 0 0 0 0 #0074D9;
+  box-shadow: 0 0 0 0 var(--wave-colour);
+  opacity: 0.2;
+  animation: fadeEffect 2s cubic-bezier(0.075, 0.82, 0.165, 1), waveEffect 0.4s cubic-bezier(0.075, 0.82, 0.165, 1);
+  animation-fill-mode: forwards;
+  content: '';
+  pointer-events: none;
+}
+
+/* Explosion style click taken from Ant Design */
+@keyframes waveEffect {
+  100% {
+    box-shadow: 0 0 0 8px #0074D9;
+    box-shadow: 0 0 0 8px var(--wave-colour);
+  }
+}
+
+@keyframes fadeEffect {
+  100% {
+    opacity: 0;
+  }
+}

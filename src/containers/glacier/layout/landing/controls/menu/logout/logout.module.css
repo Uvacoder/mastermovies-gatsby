@@ -1,0 +1,58 @@
+.logout {
+  max-width: 600px;
+}
+
+.content {
+  padding: 40px 64px 0;
+}
+
+.paragraph {
+  margin-left: 8px;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  margin: 0 32px 32px 0;
+}
+
+.button {
+  margin: 0 8px;
+}
+
+.error  {
+  text-align: center;
+  color: #FF4136;
+  font-size: 1.2em;
+}
+
+.errorDetails {
+  color: rgba(0,0,0,0.4);
+  text-align: center;
+  margin-bottom: 16px;
+  user-select: none;
+}
+
+.successOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+
+  background: #fff;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 300ms cubic-bezier(0.215, 0.610, 0.355, 1);
+}
+
+.successOverlay.active {
+  pointer-events: all;
+  opacity: 1;
+}

@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway:300&display=swap');
+
+.authContainer {
+  padding: 0 64px 32px;
+  width: 800px;
+  max-width: 100%;
+}
+
+.title {
+  margin-bottom: 1em;
+
+  font-family: Raleway, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-weight: 300;
+  text-align: center;
+  font-size: 2.2em;
+}
+
+.text {
+  text-align: justify;
+}
+
+.authorisations {
+  position: relative;
+  min-height: 120px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+}
+
+.authorisationsTitle {
+  margin-bottom: 1.2em;
+
+  text-align: center;
+  font-size: 1.2em;
+  font-weight: 300;
+}
+
+.noAuth {
+  font-size: 1.2em;
+  color: rgba(0,0,0,0.4);
+  pointer-events: none;
+  text-align: center;
+
+  user-select: none;
+}

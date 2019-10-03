@@ -1,1 +1,0 @@
-export * from "./glacier_logo";

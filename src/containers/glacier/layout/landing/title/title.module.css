@@ -1,0 +1,22 @@
+.titleContainer {
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+.title, .subtitle {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 32px;
+
+  user-select: none;
+  color: #fff;
+  font-weight: 300;
+}
+
+.title {
+  font-size: 3rem;
+}
+
+.subtitle {
+  font-size: 2rem;
+}

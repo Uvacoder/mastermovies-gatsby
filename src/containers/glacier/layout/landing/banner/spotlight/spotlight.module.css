@@ -1,0 +1,40 @@
+.spotlightContainer {
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.spotlight {
+  position: relative; /* for overlays */
+  flex: 1;
+  padding: 0 64px;
+
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.thumbnail {
+  flex: 2;
+}
+
+.meta {
+  flex: 1;
+  margin: 32px 0 16px 0;
+}
+
+.title {
+  font-size: 4em;
+}
+
+.description {
+  font-size: 1.4em;
+  padding-left: 1em;
+}
+
+@media only screen and (max-width: 768px) {
+  .spotlight {
+    padding: 0;
+  }
+}

@@ -1,13 +1,13 @@
 import React, { FunctionComponent } from "react";
 
-import { navLinks } from "../../../config";
 import { Nav } from "../../../components/common/nav";
-import { ContactForm } from "./card";
+import { NAV_LINKS } from "../../../config";
 import styles from "./app.module.css";
+import { ContactForm } from "./card";
 
 export const ContactApp: FunctionComponent = () => (
   <div className={styles.container}>
-    <Nav links={navLinks} type="static" extended />
+    <Nav links={NAV_LINKS} type="static" extended />
 
     <div className={styles.spacerTop} />
     <ContactForm />
