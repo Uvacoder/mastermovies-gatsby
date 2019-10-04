@@ -5,6 +5,8 @@
   left: 0;
   right: 0;
   bottom: 0;
+
+  z-index: 1000;
 }
 
 /* OVERLAY */
@@ -15,6 +17,7 @@
   left: 0;
   right: 0;
   bottom: 0;
+  z-index: 1;
 
   user-select: none;
   opacity: 0;
@@ -41,6 +44,7 @@
 .modal {
   position: absolute;
   opacity: 0;
+  z-index: 2;
 
   max-width: 800px;
   max-height: 100vh;
