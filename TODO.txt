@@ -5,3 +5,8 @@ Fix thumbnail apect ratio film card index page
 Unify API/frontend interfaces. Go monorepo?
 Switch to a better Typography/Font system
 Stop Modal from jumping
+
+### Bugs
+- iPhone layout
+- stream button Modal error (implement streaming)
+- Firefox ellipsis on film_info grid

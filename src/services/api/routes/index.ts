@@ -2,6 +2,11 @@ import { GLACIER_PATHS } from "./glacier";
 
 const API_BASE = process.env.API_URL;
 
+if (!API_BASE) {
+  // tslint:disable-next-line:no-console
+  console.warn("API_URL environmental variable is not set!");
+}
+
 /** Generates the full API URL from a relative path */
 export function apiUrl(path: string): string {
   return API_BASE + (path || "");

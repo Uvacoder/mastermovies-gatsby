@@ -1,11 +1,12 @@
 import { PageHeader } from "antd";
 import classnames from "classnames";
-import React, { FunctionComponent, useEffect, useState } from "react";
+import React, { FunctionComponent, useEffect, useState, CSSProperties } from "react";
 import { Transition, TransitionGroup } from "react-transition-group";
 
 import { ThemeContext } from "../../../hooks/theme";
+import { IStyleProps } from "../../../types/component";
 import { Spinner } from "../spinner";
-import styles from "./modal.module.css";
+import cssStyles from "./modal.module.css";
 
 interface IModalProps {
   /** Show the overlay, and content in a modal if provided */
@@ -21,6 +22,17 @@ interface IModalProps {
   onBack?: (all: boolean) => any;
   /** Lock the <body> from scrolling while modal is active */
   scrollLock?: boolean;
+
+  classNames?: {
+    modal?: string;
+    content?: string;
+  };
+  styles?: {
+    modal?: CSSProperties;
+    content?: CSSProperties;
+  };
+  /** Don't maximize to fullscreen on mobiles */
+  noMobileMaximize?: boolean;
 }
 
 /**
@@ -51,7 +63,10 @@ export const Modal: FunctionComponent<IModalProps> = ({
   onBack = () => {
     return;
   },
+  noMobileMaximize,
   children,
+  classNames = {},
+  styles = {},
 }) => {
   // Remember the width of the scrollbar, may not work if the body is not overflowed
   const [scrollbarWidth, setScrollbarWidth] = useState<number>(0);
@@ -70,7 +85,7 @@ export const Modal: FunctionComponent<IModalProps> = ({
       const locks = parseInt(body.getAttribute("data-modal-lock"), 10) || 0;
       const padding = Math.round(newScrollbarWidth).toString() + "px";
 
-      body.style.overflow = "hidden";
+      body.style.overflowY = "hidden";
       body.style.paddingRight = padding;
 
       body.setAttribute("data-modal-lock", (locks + 1).toString());
@@ -79,7 +94,7 @@ export const Modal: FunctionComponent<IModalProps> = ({
         const newLocks = parseInt(body.getAttribute("data-modal-lock"), 10) || 0;
         // Return the ability to scroll if all locks (from other modals) have been released
         if (newLocks <= 1) {
-          body.style.overflow = "";
+          body.style.overflowY = "";
           body.style.paddingRight = "";
           body.removeAttribute("data-modal-lock");
         } else {
@@ -95,11 +110,11 @@ export const Modal: FunctionComponent<IModalProps> = ({
   return (
     <ThemeContext.Provider value="light">
       <Transition in={active} timeout={{ enter: 1000, exit: 1000 }} mountOnEnter unmountOnExit>
-        <div className={styles.modalWrapper}>
+        <div className={cssStyles.modalWrapper}>
           <Transition key="overlay" in={active} timeout={{ enter: 10, exit: 600 }} appear>
             {state => (
               <div
-                className={classnames(styles.overlay, { [styles.overlayActive]: state === "entered" })}
+                className={classnames(cssStyles.overlay, { [cssStyles.overlayActive]: state === "entered" })}
                 onClick={() => onBack(true)}
               >
                 <Spinner active={active && parsedChildren.length === 0} delay={1000} />
@@ -116,18 +131,29 @@ export const Modal: FunctionComponent<IModalProps> = ({
                     <Transition
                       key={React.isValidElement(child) ? child.key : ""}
                       timeout={{ enter: 10, exit: 600 }}
-                      classNames={{ enterDone: styles.modalActive }}
+                      classNames={{ enterDone: cssStyles.modalActive }}
                       appear
                     >
                       {state => (
                         <div
-                          className={classnames(styles.modal, {
-                            [styles.modalActive]: state === "entered",
-                            [styles.modalStacked]: i !== parsedChildren.length - 1,
-                          })}
+                          style={styles.modal}
+                          className={classnames(
+                            cssStyles.modal,
+                            {
+                              [cssStyles.modalActive]: state === "entered",
+                              [cssStyles.modalStacked]: i !== parsedChildren.length - 1,
+                              [cssStyles.noMobileMax]: noMobileMaximize,
+                            },
+                            classNames.modal
+                          )}
                         >
                           {!noHeader && <PageHeader title={backText} onBack={() => onBack(false)} />}
-                          <div className={styles.modalContent}>{child}</div>
+                          <div
+                            className={classnames(cssStyles.modalContent, classNames.content)}
+                            style={styles.content}
+                          >
+                            {child}
+                          </div>
                         </div>
                       )}
                     </Transition>

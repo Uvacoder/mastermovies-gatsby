@@ -9,13 +9,13 @@
   transform: translateY(-50%);
   font-size: 0.6em;
 
-  color: rgba(255,255,255,0.6);
-  transition: color 250ms cubic-bezier(0.215, 0.610, 0.355, 1);
+  color: rgba(255, 255, 255, 0.6);
+  transition: color 250ms cubic-bezier(0.215, 0.61, 0.355, 1);
   cursor: pointer;
 }
 
 .helpIcon:hover {
-  color: rgba(255,255,255,0.8);
+  color: rgba(255, 255, 255, 0.8);
 }
 
 .exports {
@@ -79,7 +79,8 @@
   text-align: center;
 }
 
-.downloadButton, .streamButton {
+.downloadButton,
+.streamButton {
   width: initial;
   height: initial;
   padding: 16px 32px;
@@ -90,13 +91,61 @@
   font-size: 18px;
 }
 
+.streamModal {
+  border-radius: 8px;
+  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
+  overflow: hidden;
+}
+
+.streamContent,
+.streamContent :global(.plyr),
+.streamContent :global(.plyr__video-wrapper) {
+  width: 100%;
+  height: 100%;
+}
+
+.streamClose {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 10;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  top: 16px;
+  right: 16px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 1.4rem;
+  outline: none;
+  border: none;
+  box-shadow: none;
+  color: #fff;
+  background: none;
+}
+
+.streamClose::before {
+  content: "";
+  position: absolute;
+  top: -16px;
+  left: -96px;
+  right: -16px;
+  bottom: -96px;
+  z-index: -1;
+
+  background: rgb(0, 0, 0);
+  /* background: radial-gradient(circle, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 70%); */
+  background: linear-gradient(225deg, rgba(0, 0, 0, 0.2) 10%, rgba(0, 0, 0, 0) 50%);
+}
+
 /* TODO */
 .downloadButton {
-
 }
 
 .streamButton {
-
 }
 
 .typeSelectors {

@@ -9,17 +9,22 @@ import { Modal } from "../../../../components/common/modal";
 import { Portal } from "../../../../components/common/portal";
 import { Spinner } from "../../../../components/common/spinner";
 import { DarkButton } from "../../../../components/glacier/dark_button";
+import { IGlacierFilmProps } from "../../../../components/glacier/film";
+import { useWindowSize } from "../../../../hooks/window_size";
 import { API_PATHS, apiUrl } from "../../../../services/api/routes";
 import { IGlacier, IGlacierExport } from "../../../../types/glacier";
 import { GlacierTitle } from "../landing/title";
 import { EAuthStatus, GlacierDownloadAuth } from "./auth";
 import styles from "./downloads.module.css";
 import { GlacierNotSpecified } from "./not_specified";
+import { GlacierStream } from "./stream";
 
 export const GlacierDownloads: FunctionComponent<{ film?: IGlacier }> = ({ film }) => {
-  const [selectedExport, setSelectedExport] = useState<number>(null);
+  const [selectedExport, setSelectedExport] = useState<IGlacierExport>(null);
   const [authStatus, setAuthStatus] = useState<EAuthStatus>(EAuthStatus.READY);
-  const [downloadToken, setDownloadToken] = useState<string>(void 0);
+  const [authToken, setAuthToken] = useState<string>(void 0);
+
+  const [stream, setStream] = useState<boolean>(false);
 
   const authReady = selectedExport !== null;
 
@@ -43,8 +48,8 @@ export const GlacierDownloads: FunctionComponent<{ film?: IGlacier }> = ({ film 
                 <ExportCard
                   key={exp.id}
                   exp={exp}
-                  selected={exp.id === selectedExport}
-                  onSelect={() => setSelectedExport(exp.id)}
+                  selected={selectedExport && exp.id === selectedExport.id}
+                  onSelect={() => setSelectedExport(exp)}
                 />
               ))
           ))}
@@ -56,7 +61,7 @@ export const GlacierDownloads: FunctionComponent<{ film?: IGlacier }> = ({ film 
             filmId={(authReady && film && film.id) || void 0}
             status={authStatus}
             onStatus={setAuthStatus}
-            onDownloadToken={setDownloadToken}
+            onDownloadToken={setAuthToken}
           />
         </div>
       </AnimatedStyle>
@@ -68,12 +73,17 @@ export const GlacierDownloads: FunctionComponent<{ film?: IGlacier }> = ({ film 
         }}
       >
         <div className={styles.downloadButtons}>
-          <DownloadButtons
-            onDownload={() => download(selectedExport, downloadToken)}
-            onStream={() => stream(selectedExport)}
-          />
+          <DownloadButtons onDownload={() => download(selectedExport.id, authToken)} onStream={() => setStream(true)} />
         </div>
       </AnimatedStyle>
+
+      <StreamModal
+        active={stream}
+        setActive={setStream}
+        selectedExport={selectedExport}
+        film={film}
+        filmAuthorisation={authToken}
+      />
     </div>
   );
 };
@@ -315,16 +325,64 @@ function download(exp: number, downloadToken: string) {
   document.body.removeChild(element);
 }
 
-function stream(_exp: number) {
-  Modal.info({
-    icon: "frown",
-    title: "Aw man",
-    maskClosable: true,
-    content: (
-      <>
-        <p>Video streaming isn't ready yet!</p>
-        <p>This needs a bit more work on our end to provide a seamless experience. Check back later!</p>
-      </>
-    ),
-  });
+interface IStreamModal {
+  active: boolean;
+  setActive: (active: boolean) => any;
+  film: IGlacier;
+  selectedExport: IGlacierExport;
+  filmAuthorisation: string;
 }
+
+const StreamModal: FunctionComponent<IStreamModal> = ({
+  active,
+  setActive,
+  film,
+  selectedExport,
+  filmAuthorisation,
+}) => {
+  const [width, height] = useWindowSize(200);
+
+  let computedWidth: number;
+  let computedHeight: number;
+
+  if (selectedExport) {
+    const windowAspectRatio = width / height;
+    const exportAspectRatio = selectedExport.width / selectedExport.height;
+
+    if (windowAspectRatio >= exportAspectRatio) {
+      computedHeight = Math.round(height * 0.8);
+      computedWidth = Math.round(computedHeight * exportAspectRatio);
+    } else {
+      computedWidth = Math.round(width * 0.8);
+      computedHeight = Math.round(computedWidth / exportAspectRatio);
+    }
+  }
+
+  return (
+    <Portal>
+      <Modal
+        active={active}
+        noHeader
+        noMobileMaximize
+        backText="Back to Glacier"
+        onBack={() => setActive(false)}
+        classNames={{ modal: styles.streamModal, content: styles.streamContent }}
+        styles={{ modal: { width: computedWidth, height: computedHeight, maxWidth: "initial", maxHeight: "initial" } }}
+      >
+        {film && selectedExport && (
+          <React.Fragment key={film.id}>
+            <button className={styles.streamClose} onClick={() => setActive(false)}>
+              <Icon type="close" />
+            </button>
+            <GlacierStream
+              filmExports={film.exports}
+              initalExport={selectedExport}
+              filmAuthorisation={filmAuthorisation}
+              filmThumbnails={film.thumbnails}
+            />
+          </React.Fragment>
+        )}
+      </Modal>
+    </Portal>
+  );
+};

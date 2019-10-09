@@ -1,7 +1,6 @@
 import { Icon, Input, Popover, Spin } from "antd";
-import Password from "antd/lib/input/Password";
 import classnames from "classnames";
-import React, { FunctionComponent, useRef, useState } from "react";
+import React, { FunctionComponent, useState } from "react";
 
 import { AnimatedCheck } from "../../../../../components/common/animated_check";
 import { IconMargin } from "../../../../../components/common/icon_margin";
