@@ -18,7 +18,7 @@ export function humanError(err: any): IHumanError {
 
   // CSRF Error
   if (err instanceof CsrfError) {
-    human.text = "We were unable to continue the request";
+    human.text = "Your request could not be carried out";
     human.code = "MISSING_CSRF_TOKEN";
     human.icon = "stop";
   }

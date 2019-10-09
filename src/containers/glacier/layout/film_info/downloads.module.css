@@ -79,7 +79,8 @@
   text-align: center;
 }
 
-.downloadButton {
+/* Increase specificity */
+.downloadButton.downloadButton {
   width: initial;
   height: initial;
   padding: 16px 32px;

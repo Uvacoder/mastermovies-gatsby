@@ -9,7 +9,6 @@ import { Modal } from "../../../../components/common/modal";
 import { Portal } from "../../../../components/common/portal";
 import { Spinner } from "../../../../components/common/spinner";
 import { DarkButton } from "../../../../components/glacier/dark_button";
-import { IGlacierFilmProps } from "../../../../components/glacier/film";
 import { useWindowSize } from "../../../../hooks/window_size";
 import { API_PATHS, apiUrl } from "../../../../services/api/routes";
 import { IGlacier, IGlacierExport } from "../../../../types/glacier";

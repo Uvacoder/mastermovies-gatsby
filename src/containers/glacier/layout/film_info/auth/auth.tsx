@@ -63,24 +63,29 @@ export const GlacierDownloadAuth: FunctionComponent<IAuthProps> = ({ filmId, sta
 
         // tslint:disable-next-line:no-floating-promises
         (async () => {
-          const payloadPromise = getAuthPayload(token);
-          const filmPromise = getData<IGlacier>(API_PATHS.GLACIER.FILM(film), token);
+          try {
+            const payloadPromise = getAuthPayload(token);
+            const filmPromise = getData<IGlacier>(API_PATHS.GLACIER.FILM(film), token);
 
-          const [decodedPayload, resolvedFilm] = await Promise.all([payloadPromise, filmPromise]);
+            const [decodedPayload, resolvedFilm] = await Promise.all([payloadPromise, filmPromise]);
 
-          const expiry =
-            decodedPayload &&
-            decodedPayload.glacier &&
-            decodedPayload.glacier.auth &&
-            decodedPayload.glacier.auth[film];
+            const expiry =
+              decodedPayload &&
+              decodedPayload.glacier &&
+              decodedPayload.glacier.auth &&
+              decodedPayload.glacier.auth[film];
 
-          // Check if user interaction is necessary to unlock the film
-          if (typeof expiry === "number" && expiry > Date.now() / 1000) {
-            onStatus(EAuthStatus.REQUEST);
-          } else if (resolvedFilm.public) {
-            onStatus(EAuthStatus.AUTH);
-          } else {
-            onStatus(EAuthStatus.PROMPT);
+            // Check if user interaction is necessary to unlock the film
+            if (typeof expiry === "number" && expiry > Date.now() / 1000) {
+              onStatus(EAuthStatus.REQUEST);
+            } else if (resolvedFilm.public) {
+              onStatus(EAuthStatus.AUTH);
+            } else {
+              onStatus(EAuthStatus.PROMPT);
+            }
+          } catch (err) {
+            onStatus(EAuthStatus.ERROR);
+            setError(humanError(err));
           }
         })();
 
@@ -154,6 +159,7 @@ export const GlacierDownloadAuth: FunctionComponent<IAuthProps> = ({ filmId, sta
                 });
             }
           } catch (err) {
+            onStatus(EAuthStatus.ERROR);
             setError(humanError(err));
             return;
           }

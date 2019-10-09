@@ -112,7 +112,7 @@ const Error: FunctionComponent<{ error?: IHumanError; onRetry?: () => void }> = 
     )}
     {onRetry && (
       <DarkButton className={styles.errorButton} onClick={onRetry}>
-        Retry
+        <IconMargin type="reload" marginRight /> Retry
       </DarkButton>
     )}
   </>
