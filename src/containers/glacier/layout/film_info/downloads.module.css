@@ -79,8 +79,7 @@
   text-align: center;
 }
 
-.downloadButton,
-.streamButton {
+.downloadButton {
   width: initial;
   height: initial;
   padding: 16px 32px;
@@ -139,13 +138,6 @@
   background: rgb(0, 0, 0);
   /* background: radial-gradient(circle, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 70%); */
   background: linear-gradient(225deg, rgba(0, 0, 0, 0.2) 10%, rgba(0, 0, 0, 0) 50%);
-}
-
-/* TODO */
-.downloadButton {
-}
-
-.streamButton {
 }
 
 .typeSelectors {

@@ -147,10 +147,10 @@ const DownloadButtons: FunctionComponent<{ onDownload: () => void; onStream: () 
   onStream,
 }) => (
   <>
-    <DarkButton className={styles.downloadButton} onClick={onDownload}>
+    <DarkButton onClick={onDownload} large className={styles.downloadButton}>
       <IconMargin marginRight type="download" /> Download
     </DarkButton>
-    <DarkButton className={styles.streamButton} onClick={onStream}>
+    <DarkButton onClick={onStream} large className={styles.downloadButton}>
       <IconMargin marginRight type="play-circle" /> Stream
     </DarkButton>
   </>
@@ -272,9 +272,9 @@ const ChecksumModal: FunctionComponent<{ checksum?: { [index: string]: string } 
             </p>
             {/* TODO convert to grid */}
             {Object.entries(checksum).map(([key, value]) => (
-              <div className={styles.checksumRow}>
+              <div key={key} className={styles.checksumRow}>
                 <span className={styles.modalProperty}>{key.toUpperCase()}</span>
-                <Typography.Text key={key} copyable={{ text: value }} ellipsis>
+                <Typography.Text copyable={{ text: value }} ellipsis>
                   {value}
                 </Typography.Text>
               </div>

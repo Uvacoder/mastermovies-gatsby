@@ -1,8 +1,8 @@
 import "plyr/dist/plyr.css";
 import "./stream.module.css";
 
-// tslint:disable-next-line:no-var-requires
-const Plyr = typeof window !== `undefined` ? require("plyr").default : null;
+// tslint:disable-next-line:no-var-requires - Plyr uses old function export
+const Plyr = typeof window !== "undefined" ? require("plyr") : null;
 
 import React, { FunctionComponent, useCallback, useEffect, useState } from "react";
 
@@ -32,13 +32,21 @@ export const GlacierStream: FunctionComponent<IStreamProps & IStyleProps> = ({
     }
   }, []);
 
-  const [player, setPlayer] = useState<Plyr>(null);
+  const [player, setPlayer] = useState<typeof Plyr>(null);
 
   useEffect(() => {
     if (ref) {
       const newPlayer = new Plyr(ref);
       setPlayer(newPlayer);
+
+      // Fixes volume control bug
+      const volumeHandler = _e => {
+        newPlayer.currentTime = newPlayer.currentTime;
+      };
+      newPlayer.on("loadeddata", volumeHandler);
+
       return () => {
+        newPlayer.off("loadeddata", volumeHandler);
         newPlayer.destroy();
         setPlayer(null);
       };
