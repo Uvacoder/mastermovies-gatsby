@@ -1,0 +1,33 @@
+.banner {
+  user-select: none;
+}
+
+.logo {
+  display: inline-block;
+}
+
+.logoImage {
+  width: 64px;
+  height: 64px;
+  margin-right: 16px;
+}
+
+.logoTitle {
+  font-size: 32px;
+  margin-bottom: 0;
+}
+
+.logoSubtitle {
+  font-size: 14px;
+  text-align: center;
+  margin-top: -8px;
+}
+
+.statusWarning {
+  color: #ff851b;
+  font-size: 18px; /* const STATUS_SIZE */
+}
+
+.link {
+  padding: 6px;
+}

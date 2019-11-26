@@ -1,0 +1,16 @@
+/* LAYOUT */
+.column {
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 64px;
+}
+
+.heading {
+  padding-left: 16px;
+  user-select: none;
+}
+
+.separator {
+  height: 64px;
+}

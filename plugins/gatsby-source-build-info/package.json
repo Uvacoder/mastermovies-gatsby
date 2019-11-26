@@ -1,0 +1,11 @@
+{
+  "name": "gatsby-source-build-info",
+  "version": "1.0.0",
+  "description": "A custom plugin with build information",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Marcus Cemes <marcus.cemes@gmail.com>",
+  "license": "ISC"
+}

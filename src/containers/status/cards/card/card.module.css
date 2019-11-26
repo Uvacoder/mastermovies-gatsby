@@ -1,0 +1,35 @@
+.card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.row {
+  padding: 16px 32px;
+}
+
+.align {
+  display: flex;
+  align-items: center;
+}
+
+.divider {
+  margin: 0;
+}
+
+.status {
+  position: relative;
+  margin-right: 22px;
+  width: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.primaryText {
+  font-weight: bold;
+}
+
+.secondaryText {
+  color: rgba(0, 0, 0, 0.65);
+}

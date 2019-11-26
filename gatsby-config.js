@@ -53,6 +53,12 @@ module.exports = {
         color: "#65C3BA",
       },
     },
+    {
+      resolve: "gatsby-source-build-info",
+      options: {
+        path: `${__dirname}`,
+      },
+    },
     // {
     //   resolve: "gatsby-plugin-webpack-bundle-analyzer",
     //   options: {
