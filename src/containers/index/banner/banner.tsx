@@ -1,6 +1,7 @@
 import { graphql, useStaticQuery } from "gatsby";
 import Img from "gatsby-image/withIEPolyfill";
 import React, { FunctionComponent } from "react";
+import { Fade } from "react-reveal";
 
 import styles from "./banner.module.css";
 
@@ -33,11 +34,13 @@ export const IndexBanner: FunctionComponent = () => {
         }}
         className={styles.background}
       />
-      <div className={styles.container}>
-        <img className={styles.logo} src={query.logoImage.publicURL} />
-        <h1 className={styles.title}>MASTERMOVIES</h1>
-        <h2 className={styles.subtitle}>SMALL MEDIA STUDIO</h2>
-      </div>
+      <Fade delay={100}>
+        <div className={styles.container}>
+          <img className={styles.logo} src={query.logoImage.publicURL} />
+          <h1 className={styles.title}>MASTERMOVIES</h1>
+          <h2 className={styles.subtitle}>SMALL MEDIA STUDIO</h2>
+        </div>
+      </Fade>
     </div>
   );
 };

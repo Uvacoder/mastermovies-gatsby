@@ -1,0 +1,10 @@
+.link,
+.link:visited,
+.link:active {
+  color: #39cccc;
+  transition: color 100ms cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.link:hover {
+  color: #7fdbff;
+}

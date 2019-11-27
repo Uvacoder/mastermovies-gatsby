@@ -23,7 +23,7 @@ export const NotFound: FunctionComponent<INotFoundProps> = ({ buttonLink = "/", 
   return (
     <>
       <SEO title="Whoops... Where's that?" keywords={["MasterMovies"]} />
-      <div className={classnames(styles.root, { [styles.dark]: theme === "dark" })}>
+      <div className={classnames(styles.notFound, { [styles.dark]: theme === "dark" })}>
         <div className={styles.container}>
           <Fade delay={delay()}>
             <span className={styles.logo}>{logo}</span>

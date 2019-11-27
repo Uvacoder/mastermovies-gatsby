@@ -1,0 +1,138 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans&display=swap");
+
+.caption {
+  margin-top: 16px;
+  font-size: 0.8em;
+}
+
+.table {
+  padding: 32px 48px;
+  border-radius: 8px 0 0 8px;
+
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  background-color: rgba(128, 128, 128, 0.15);
+  backdrop-filter: blur(12px);
+
+  font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
+    "Helvetica Neue", sans-serif;
+}
+
+.legend {
+  position: relative;
+  margin-top: 32px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.legendItem {
+  position: relative;
+  color: #fff;
+  padding-top: 8px;
+  font-size: 0.8em;
+  font-weight: bold;
+}
+
+.legendItem::before {
+  content: "";
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+
+  background-color: #fff;
+}
+
+.legendItem.isFirst::before {
+  left: 50%;
+}
+
+.legendItem.isLast::before {
+  right: 50%;
+}
+
+.legendItem::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -2.5px);
+
+  width: 6px;
+  height: 6px;
+  border-radius: 3px;
+
+  background-color: #fff;
+}
+
+.legendSeparator {
+  flex: 1;
+  background-color: #fff;
+  height: 1px;
+}
+
+.lang {
+  color: #fff;
+  margin: 0 0 8px 2px;
+}
+
+.understanding {
+  position: relative;
+  margin-bottom: 8px;
+}
+
+.bar {
+  height: 8px;
+
+  background: #12c2e9;
+  background: linear-gradient(to right, #12c2e9, #c471ed, #f64f59);
+}
+
+.barWrapper,
+.barShadow {
+  overflow: hidden;
+  border-radius: 4px;
+}
+
+.barShadow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  opacity: 0.8;
+  filter: blur(12px);
+}
+
+/* ANIMATION */
+.bar,
+.barWrapper,
+.barShadow {
+  transition: width 1s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.tableComment {
+  margin-top: 1.6em;
+  text-align: center;
+  font-size: 0.8em;
+}
+
+/* LINKS */
+.buttons {
+  margin-top: 32px;
+  display: flex;
+  justify-content: center;
+}
+
+/* DESIGN */
+
+.design {
+  top: -100%;
+  z-index: 30;
+  bottom: -75%;
+}

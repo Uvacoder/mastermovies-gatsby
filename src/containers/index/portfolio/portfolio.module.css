@@ -1,0 +1,82 @@
+.portfolio {
+  background-color: #f0f0f0;
+  padding: 96px 0;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 0 16px;
+}
+
+.card {
+  position: relative;
+  overflow: hidden;
+  flex-basis: 800px;
+
+  border-radius: 8px;
+  background-color: #fefefe;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+  transition: all 800ms cubic-bezier(0.21, 1.575, 0.355, 1);
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.08), 0 8px 12px -5px rgba(0, 0, 0, 0.03);
+}
+
+.aspectRatio {
+  padding-top: 50%;
+}
+
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.content {
+  position: absolute;
+  left: 0;
+  max-width: 100%;
+  bottom: 0;
+  z-index: 10;
+  padding: 32px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.title {
+  margin-bottom: 0;
+
+  color: #333;
+  font-weight: bold;
+  font-size: 3em;
+}
+
+.subtitle {
+  margin-left: 0.6em;
+  color: #222;
+  font-weight: lighter;
+  font-size: 1.8em;
+}
+
+.hint {
+  color: #444;
+  text-align: center;
+}
+
+@media only screen and (max-width: 576px) {
+  .portfolio {
+    padding: 0 0 64px;
+  }
+  .aspectRatio {
+    padding-top: 125%;
+  }
+}

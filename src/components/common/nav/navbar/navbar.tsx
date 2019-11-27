@@ -7,7 +7,7 @@ import { SmartLink } from "../../smart_link";
 import { INavProps } from "../nav";
 import styles from "./navbar.module.css";
 
-export const Navbar: FunctionComponent<INavProps> = ({ links, logo, type, extended, background }) => {
+export const Navbar: FunctionComponent<INavProps> = ({ links, logo, type, extended, background, left }) => {
   const theme = useContext(ThemeContext);
 
   return (
@@ -20,11 +20,15 @@ export const Navbar: FunctionComponent<INavProps> = ({ links, logo, type, extend
         [styles.absolute]: type === "absolute",
       })}
     >
-      <SmartLink className={styles.logo} link={logo.link}>
-        {logo.text}
-      </SmartLink>
+      {!left && (
+        <>
+          <SmartLink className={styles.logo} link={logo.link}>
+            {logo.text}
+          </SmartLink>
 
-      <div className={styles.grow} />
+          <div className={styles.grow} />
+        </>
+      )}
 
       {links.map(link => (
         <SmartLink key={hash(link)} link={link.link} className={styles.link}>

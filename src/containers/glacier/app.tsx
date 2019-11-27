@@ -1,7 +1,7 @@
 import { Router } from "@reach/router";
 import React, { FunctionComponent } from "react";
 
-import { GlacierNotFound } from "../../components/glacier/not_found";
+import { GlacierNotFound } from "../../components/glacier/not_found/not_found";
 import styles from "./app.module.css";
 import { GlacierLayout } from "./layout";
 import { GlacierProviders } from "./providers";

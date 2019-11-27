@@ -1,0 +1,88 @@
+.glacierError {
+  width: 100%;
+  height: 100%;
+
+  color: rgba(255, 255, 255, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+}
+
+.statistics {
+  background-color: #333;
+  padding: 32px;
+  border-radius: 8px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+.statisticsTitle {
+  margin-bottom: 32px;
+  color: #fff;
+  text-align: center;
+  font-size: 1.2em;
+}
+
+.statisticsRow {
+  display: flex;
+  flex-direction: row;
+}
+
+.statisticsFigure {
+  flex-basis: 50%;
+  text-align: center;
+}
+
+.statisticsItemTitle {
+  color: #fff;
+  font-size: 1.2em;
+}
+
+.statisticsItemCount {
+  font-size: 2em;
+}
+
+.quote {
+  margin-top: 32px;
+  display: flex;
+}
+
+.quoteIcon {
+  margin-right: 32px;
+  width: 64px;
+  height: 64px;
+  fill: #fff;
+}
+
+.quoteText {
+  padding-top: 16px;
+  font-size: 1.4rem;
+  color: #fff;
+}
+
+.quoteSignature {
+  padding-left: 32px;
+  font-size: 1rem;
+  color: #fff;
+}
+
+.player {
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: 32px;
+}
+
+@media only screen and (max-width: 768px) {
+  .buttons {
+    flex-direction: column;
+  }
+  .buttons > * {
+    margin-bottom: 22px;
+  }
+}

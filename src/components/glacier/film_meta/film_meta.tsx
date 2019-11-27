@@ -37,9 +37,10 @@ export const GlacierFilmMeta: FunctionComponent<IFilmMetaProps & IStyleProps> = 
 };
 
 /** A formatted Glacier film title with skeleton loading */
-export const GlacierFilmTitle: FunctionComponent<
-  { name: string | undefined; release: string | number | undefined } & IStyleProps
-> = ({ name, release, className, ...rest }) => {
+export const GlacierFilmTitle: FunctionComponent<{
+  name: string | undefined;
+  release: string | number | undefined;
+} & IStyleProps> = ({ name, release, className, ...rest }) => {
   const theme = useContext(ThemeContext);
 
   const titleElement = name ? name.toUpperCase() : <Skeleton style={{ width: "8em", maxWidth: "60%" }} />;

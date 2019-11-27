@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Raleway:800&display=swap');
 
-
-.root {
+.notFound {
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -21,11 +20,11 @@
   color: rgba(0,0,0,0.8);
 }
 
-.root.dark {
+.notFound.dark {
   background: radial-gradient(circle at center, #222 0%, #111 150%);
 }
 
-.root.dark .container > * {
+.notFound.dark .container > * {
   color: rgba(255,255,255,0.85);
 }
 
@@ -38,7 +37,7 @@
   color: rgba(0,0,0,0.6);
 }
 
-.root.dark .faded {
+.notFound.dark .faded {
   color: rgba(255,255,255,0.6);
 }
 

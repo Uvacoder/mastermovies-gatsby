@@ -4,13 +4,23 @@ import { ThemeContext } from "../../../hooks/theme";
 
 import styles from "./logos.module.css";
 
-const BasicLogo: FunctionComponent<{ text: string; className: string }> = ({ text, className }) => {
+type spanProps = JSX.IntrinsicElements["span"];
+
+const BasicLogo: FunctionComponent<{ text: string } & spanProps> = ({ text, className, ...rest }) => {
   const theme = useContext(ThemeContext);
-  return <span className={classnames(styles.logo, { [styles.dark]: theme === "dark" }, className)}>{text}</span>;
+  return (
+    <span
+      className={classnames(styles.logo, { [styles.dark]: theme === "dark" }, className)}
+      {...rest}
+      children={text}
+    />
+  );
 };
 
-export const MasterMoviesLogo: FunctionComponent = () => (
-  <BasicLogo text="MasterMovies" className={styles.mastermovies} />
+export const MasterMoviesLogo: FunctionComponent<spanProps> = ({ className, ...rest }) => (
+  <BasicLogo text="MasterMovies" className={classnames(styles.mastermovies, className)} {...rest} />
 );
 
-export const GlacierLogo: FunctionComponent = () => <BasicLogo text="Glacier" className={styles.glacier} />;
+export const GlacierLogo: FunctionComponent<spanProps> = ({ className, ...rest }) => (
+  <BasicLogo text="Glacier" className={classnames(styles.glacier, className)} {...rest} />
+);

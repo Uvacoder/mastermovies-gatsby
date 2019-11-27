@@ -16,15 +16,15 @@ export const Footer: FunctionComponent = () => {
       <div className={styles.title}>MasterMovies</div>
       <div className={styles.subtitle}>A small media company</div>
 
-      <p>
+      <div className={styles.links}>
         {FOOTER_LINKS.map(link => (
           <SmartLink key={link.text} className={styles.link} link={link.link}>
             {link.text}
           </SmartLink>
         ))}
-      </p>
+      </div>
 
-      <p>
+      <div className={styles.links}>
         {SOCIAL_LINKS.map(link => (
           <a key={link.text} href={link.link}>
             <Tooltip title={link.text} placement="bottom">
@@ -32,12 +32,12 @@ export const Footer: FunctionComponent = () => {
             </Tooltip>
           </a>
         ))}
-      </p>
+      </div>
 
       <p className={styles.breadcrumb}>
         <span className={styles.breadcrumbMessage}>
           All rights reserved © 2019 Marcus Cemes – Powered by{" "}
-          <Link to="/api" style={{ color: "inherit" }}>
+          <Link to="/status" style={{ color: "inherit" }}>
             <b>SnowOwl</b>
           </Link>
         </span>

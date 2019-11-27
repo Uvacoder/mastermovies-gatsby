@@ -1,0 +1,14 @@
+.end.end {
+  display: flex; /* section should already be flex... */
+  justify-content: center;
+
+  color: #fff;
+  user-select: none;
+  padding: 128px 0 256px;
+}
+
+@media only screen and (max-width: 768px) {
+  .end {
+    padding: 16px 0 64px;
+  }
+}

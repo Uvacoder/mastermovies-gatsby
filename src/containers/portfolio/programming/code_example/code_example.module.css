@@ -1,0 +1,48 @@
+.code {
+  position: relative;
+  /* background: #2b2b2b; */
+  background: #333;
+  padding: 40px 64px 26px 32px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+.badge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 4px 16px;
+  border-radius: 0 0 8px 0;
+
+  letter-spacing: 0.05em;
+  color: #ECEFF4;
+  background: #3B4252;
+  user-select: none;
+
+  transition: background 100ms cubic-bezier(0.215, 0.610, 0.355, 1);
+}
+
+.badge:hover {
+  background: #434C5E;
+}
+
+.line {
+  margin: 0;
+}
+
+.green {
+  color: #a3be8c;
+}
+.blue {
+  color: #88c0d0;
+}
+.darkBlue {
+  color: #81a1c1;
+}
+.purple {
+  color: #b48ead;
+}
+.grey {
+  color: #d8dee9;
+}

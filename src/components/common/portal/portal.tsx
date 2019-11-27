@@ -13,4 +13,4 @@ import ReactDOM from "react-dom";
  * </Portal>
  */
 export const Portal: FunctionComponent<{ nodeId?: string }> = ({ nodeId = "___portal", children }) =>
-  ReactDOM.createPortal(children, document.getElementById(nodeId));
+  typeof document !== "undefined" ? ReactDOM.createPortal(children, document.getElementById(nodeId)) : null; // SSR

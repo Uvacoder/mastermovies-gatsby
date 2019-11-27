@@ -10,12 +10,14 @@ export interface ISocialLink extends ILink {
 export const NAV_LINKS: ILink[] = [
   { text: "Home", link: "/" },
   { text: "Glacier", link: "/glacier" },
+  { text: "Portfolio", link: "/portfolio" },
   { text: "Contact", link: "/contact" },
 ];
 
 export const FOOTER_LINKS: ILink[] = [
   { text: "Home", link: "/" },
   { text: "Glacier", link: "/glacier" },
+  { text: "Portfolio", link: "/portfolio" },
   { text: "API", link: "/api" },
   { text: "Blog", link: "https://blog.mastermovies.uk" },
   { text: "Contact", link: "/contact" },

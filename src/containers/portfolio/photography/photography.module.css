@@ -1,0 +1,41 @@
+.gallery {
+  position: relative;
+  padding-top: 75%;
+
+  user-select: none;
+}
+
+/* TODO dirty fix */
+@media only screen and (max-width: 1024px) {
+  .gallery {
+    transform: translateX(-10%) scale(0.6);
+  }
+}
+
+.shadow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  transform: scale(1.1) translateY(8px);
+  filter: blur(32px);
+  opacity: 0.5;
+}
+
+.buttons {
+  margin-top: 32px;
+
+  display: flex;
+  justify-content: center;
+}
+
+@media only screen and (max-width: 768px) {
+  .buttons {
+    flex-direction: column;
+  }
+  .buttons > * {
+    margin-bottom: 22px;
+  }
+}

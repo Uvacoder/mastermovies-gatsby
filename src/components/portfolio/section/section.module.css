@@ -1,0 +1,79 @@
+/* <Section /> */
+
+.section {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+}
+
+.separate {
+  padding-bottom: 128px;
+}
+
+.sectionPadding {
+  padding: 0 10%;
+}
+
+/* <Content /> */
+
+.column {
+  position: relative;
+  flex: 1;
+}
+
+.content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  color: #fff;
+  z-index: 50;
+}
+
+.padding {
+  padding: 5% 15%;
+}
+
+.horizontal,
+.vertical {
+  display: flex;
+  flex-direction: column;
+}
+
+.horizontal {
+  align-items: center;
+}
+
+.vertical {
+  justify-content: center;
+}
+
+/* <Title /> */
+
+.title {
+  color: #fff;
+  font-size: 2.2em;
+}
+
+@media only screen and (max-width: 768px) {
+  .section {
+    flex-direction: column;
+  }
+
+  .separate {
+    padding-bottom: 64px;
+  }
+
+  .column {
+    flex: initial;
+  }
+
+  .padding {
+    padding: 5%;
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .padding {
+    padding: 10%;
+  }
+}

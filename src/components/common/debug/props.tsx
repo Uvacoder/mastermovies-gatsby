@@ -9,7 +9,17 @@ interface IDebugPropsProps {
   props: { [prop: string]: "string" | "number" | "boolean" };
 }
 
-export const DProps: FunctionComponent<IDebugPropsProps> = ({ children, props }) => {
+/**
+ * Injects props from a dynamic control panel
+ *
+ * @example
+ * <DebugProps props={{ active: "boolean", value: "string", counter: "number" }}>
+ *  <InjectPropsHere>
+ *    ...
+ *  </InjectPropsHere>
+ * </DebugProps>
+ */
+export const DebugProps: FunctionComponent<IDebugPropsProps> = ({ children, props }) => {
   const [injectedProps, setInjectedProps] = useState({});
   const [isolate, setIsolate] = useState(false);
 

@@ -1,5 +1,6 @@
 import { Link } from "gatsby";
 import React, { FunctionComponent } from "react";
+import { Fade } from "react-reveal";
 
 import { FilmCardResolver } from "../../../components/index/film_card";
 import { useGlacierFilms } from "../../../hooks/api/glacier";
@@ -15,20 +16,26 @@ export const IndexGlacier: FunctionComponent = () => {
 
   return (
     <div className={styles.root}>
-      <Link to="/glacier" className={styles.heading}>
-        <h1 className={styles.title}>Glacier</h1>
-        <h5 className={styles.subtitle}>FILM DATABASE</h5>
-      </Link>
+      <Fade>
+        <Link to="/glacier" className={styles.heading}>
+          <h1 className={styles.title}>Glacier</h1>
+          <h5 className={styles.subtitle}>FILM DATABASE</h5>
+        </Link>
+      </Fade>
 
-      <p className={styles.releases}>Newest releases</p>
+      <Fade>
+        <p className={styles.releases}>Featured films</p>
+      </Fade>
 
-      <div className={styles.filmsContainer}>
-        <FilmCardResolver film={leftFilm} error={error} onRetry={retry} className={styles.card} />
+      <Fade>
+        <div className={styles.filmsContainer}>
+          <FilmCardResolver film={leftFilm} error={error} onRetry={retry} className={styles.card} />
 
-        <div className={styles.divider} />
+          <div className={styles.divider} />
 
-        <FilmCardResolver film={rightFilm} error={error} onRetry={retry} className={styles.card} />
-      </div>
+          <FilmCardResolver film={rightFilm} error={error} onRetry={retry} className={styles.card} />
+        </div>
+      </Fade>
     </div>
   );
 };

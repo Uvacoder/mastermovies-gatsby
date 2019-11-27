@@ -1,0 +1,74 @@
+.top,
+.middle,
+.bottom {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.top {
+  transform: translateX(20%);
+}
+
+.middle {
+  transform: scale(0.9);
+}
+
+.bottom {
+  transform: scale(0.8) translateX(-20%);
+}
+
+/* <Image /> */
+
+.imageContainer {
+  padding-top: 50%;
+}
+
+.image {
+  position: absolute !important; /* Override style */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  border-radius: 8px;
+}
+
+/* <Overlay /> */
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  transform: translateX(20%);
+  border-radius: 0 0 8px 8px;
+  overflow: hidden;
+}
+
+.overlayTitle {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+
+  display: flex;
+  align-items: center;
+  padding: 16px 22px;
+  font-size: 18px;
+
+  box-shadow: 0 -20px 25px -5px rgba(0, 0, 0, 0.1), 0 -10px 10px -5px rgba(0, 0, 0, 0.04);
+  border-radius: 0 16px 0 0;
+  background: rgba(46, 52, 64, 0.8);
+  color: #fff;
+}
+
+.icon {
+  margin-right: 8px;
+  height: 1em;
+  width: auto;
+  fill: #fff;
+}

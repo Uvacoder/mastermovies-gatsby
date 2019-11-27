@@ -1,10 +1,9 @@
 import { PageHeader } from "antd";
 import classnames from "classnames";
-import React, { FunctionComponent, useEffect, useState, CSSProperties } from "react";
+import React, { CSSProperties, FunctionComponent, useEffect, useState } from "react";
 import { Transition, TransitionGroup } from "react-transition-group";
 
 import { ThemeContext } from "../../../hooks/theme";
-import { IStyleProps } from "../../../types/component";
 import { Spinner } from "../spinner";
 import cssStyles from "./modal.module.css";
 

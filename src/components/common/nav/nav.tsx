@@ -15,6 +15,8 @@ export interface INavProps {
   type?: "static" | "absolute" | "fixed";
   extended?: boolean;
   background?: boolean;
+  /* Hide the logo and align links to the left */
+  left?: boolean;
 }
 
 export const Nav: FunctionComponent<INavProps> = ({
@@ -23,8 +25,9 @@ export const Nav: FunctionComponent<INavProps> = ({
   type = "static",
   extended = false,
   background = false,
+  left = false,
 }) => {
-  const resolvedProps = { links, logo, type, extended, background };
+  const resolvedProps = { links, logo, type, extended, background, left };
 
   return (
     <>

@@ -17,16 +17,20 @@ const HEIGHT = 250;
 
 export const GlacierResults: FunctionComponent<IGlacierResultsProps> = ({ results }) => {
   // @ts-ignore
-  const transitions = useTransition(results.map((result, i) => ({ ...result, i })), item => item.id, {
-    // @ts-ignore
-    from: { y: 0, opacity: 0 },
-    // @ts-ignore
-    enter: ({ i }) => ({ y: HEIGHT * i, opacity: 1 }),
-    // @ts-ignore
-    leave: { opacity: 0 },
-    // @ts-ignore
-    update: ({ i }) => ({ y: HEIGHT * i }),
-  });
+  const transitions = useTransition(
+    results.map((result, i) => ({ ...result, i })),
+    item => item.id,
+    {
+      // @ts-ignore
+      from: { y: 0, opacity: 0 },
+      // @ts-ignore
+      enter: ({ i }) => ({ y: HEIGHT * i, opacity: 1 }),
+      // @ts-ignore
+      leave: { opacity: 0 },
+      // @ts-ignore
+      update: ({ i }) => ({ y: HEIGHT * i }),
+    }
+  );
 
   return (
     <div className={styles.result} style={{ height: results.length * HEIGHT }}>

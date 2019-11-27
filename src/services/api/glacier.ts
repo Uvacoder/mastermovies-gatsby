@@ -20,7 +20,7 @@ export enum EGlacierFilmAuth {
   EXPIRED,
 }
 
-export enum EGlacierAuthState {
+export enum EGlacierAuthRequest {
   /** Authorisation is missing from the session */
   NO_AUTH,
   ACCEPTED,
@@ -80,14 +80,14 @@ export async function authoriseGlacierFilm(
 export async function authoriseGlacierDownload(
   filmId: number,
   cancelToken?: ICancelToken
-): Promise<{ status: EGlacierAuthState; authorisation?: string }> {
+): Promise<{ status: EGlacierAuthRequest; authorisation?: string }> {
   const payload = await getAuthPayload();
 
   // Thanks to JWT magic, check that the token is valid and contains the correct authorisation before requesting
   if (payload && typeof payload.exp === "number" && payload.exp < Math.floor(Date.now() / 1000))
-    return { status: EGlacierAuthState.EXPIRED };
+    return { status: EGlacierAuthRequest.EXPIRED };
   if (payload && payload.glacier && payload.glacier.auth) {
-    if (typeof payload.glacier.auth[filmId] !== "number") return { status: EGlacierAuthState.NO_AUTH };
+    if (typeof payload.glacier.auth[filmId] !== "number") return { status: EGlacierAuthRequest.NO_AUTH };
   }
 
   const authToken = await getAuthToken(cancelToken);
@@ -108,12 +108,12 @@ export async function authoriseGlacierDownload(
   });
 
   if (status === 200) {
-    return { status: EGlacierAuthState.ACCEPTED, authorisation: data.authorisation };
+    return { status: EGlacierAuthRequest.ACCEPTED, authorisation: data.authorisation };
   }
 
   if (data && data.message && data.message.toLowerCase().indexOf("expired") !== -1) {
-    return { status: EGlacierAuthState.EXPIRED };
+    return { status: EGlacierAuthRequest.EXPIRED };
   }
 
-  return { status: EGlacierAuthState.REJECTED };
+  return { status: EGlacierAuthRequest.REJECTED };
 }

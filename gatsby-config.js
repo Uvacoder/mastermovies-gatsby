@@ -1,66 +1,66 @@
 module.exports = {
   siteMetadata: {
-    title: `MasterMovies`,
-    description: `The official MasterMovies website`,
-    author: `@MarcusCemes`,
+    title: "MasterMovies",
+    description: "The official MasterMovies website",
+    author: "@MarcusCemes",
   },
   plugins: [
     {
-      resolve: `gatsby-plugin-create-client-paths`,
-      options: { prefixes: [`/glacier/*`, `/test/*`] },
+      resolve: "gatsby-plugin-create-client-paths",
+      options: { prefixes: ["/glacier/*", "/test/*"] },
     },
-    `gatsby-plugin-remove-trailing-slashes`,
-    `gatsby-plugin-typescript`,
-    `gatsby-plugin-react-helmet`,
+    "gatsby-plugin-remove-trailing-slashes",
+    "gatsby-plugin-typescript",
+    "gatsby-plugin-react-helmet",
     {
-      resolve: `gatsby-source-filesystem`,
+      resolve: "gatsby-source-filesystem",
       options: {
-        name: `images`,
+        name: "images",
         path: `${__dirname}/src/images`,
       },
     },
-    `gatsby-transformer-sharp`,
+    "gatsby-transformer-sharp",
     {
-      resolve: `gatsby-plugin-sharp`,
+      resolve: "gatsby-plugin-sharp",
       options: {
         stripMetadata: true,
         defaultQuality: 75,
       },
     },
-    `gatsby-transformer-sqip`,
+    "gatsby-transformer-sqip",
     {
-      resolve: `gatsby-plugin-manifest`,
+      resolve: "gatsby-plugin-manifest",
       options: {
-        name: `gatsby-starter-default`,
-        short_name: `mastermovies`,
-        start_url: `/`,
-        background_color: `#FFF`,
-        // theme_color: `#FFF`, // react-helmet
-        display: `minimal-ui`,
-        icon: `src/images/logo/default.png`
+        name: "gatsby-starter-default",
+        short_name: "mastermovies",
+        start_url: "/",
+        background_color: "#FFF",
+        // theme_color: "#FFF", // react-helmet
+        display: "minimal-ui",
+        icon: "src/images/logo/default.png",
       },
     },
     {
-      resolve: 'gatsby-plugin-import',
+      resolve: "gatsby-plugin-import",
       options: {
         libraryName: "antd",
-        style: "css"
-      }
+        style: "css",
+      },
     },
     {
-      resolve: `gatsby-plugin-nprogress`,
+      resolve: "gatsby-plugin-nprogress",
       options: {
-        color: "#65C3BA"
+        color: "#65C3BA",
       },
     },
     // {
-    //   resolve: `gatsby-plugin-webpack-bundle-analyzer`,
+    //   resolve: "gatsby-plugin-webpack-bundle-analyzer",
     //   options: {
     //     production: true
     //   },
     // },
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
-    // `gatsby-plugin-offline`,
+    // "gatsby-plugin-offline",
   ],
-}
+};

@@ -12,7 +12,6 @@ import { GlacierFilmTitle } from "../../../../components/glacier/film_meta";
 import { GlacierThumbnail } from "../../../../components/glacier/thumbnail";
 import { useGlacierFilm } from "../../../../hooks/api/glacier";
 import { IGlacier } from "../../../../types/glacier";
-import { GlacierTitle } from "../landing/title";
 import { GlacierDownloads } from "./downloads";
 import styles from "./film_info.module.css";
 import { GlacierNotSpecified } from "./not_specified";
@@ -206,5 +205,5 @@ function formatRuntime(seconds?: number): string | undefined {
 /** Splits double `\n` characters into DOM paragraphs */
 function splitToParagraphs(text?: string | null): ReactNode {
   if (typeof text !== "string") return text;
-  return text.split("\n\n").map(t => <p>{t}</p>);
+  return text.split("\n\n").map((t, i) => <p key={`${i}-${t.substr(0, 8)}`}>{t}</p>);
 }

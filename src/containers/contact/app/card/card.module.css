@@ -6,15 +6,12 @@
 
   display: flex;
 
+  border-radius: 4px;
   transition: box-shadow 0.3s linear;
 }
 
-.card:hover {
-  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-}
-
 .card.show {
-  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
 @media only screen and (max-width: 768px) {

@@ -1,0 +1,9 @@
+.design {
+  top: -40%;
+  z-index: 40;
+  bottom: -120%;
+}
+
+.designSlant {
+  fill: #333;
+}

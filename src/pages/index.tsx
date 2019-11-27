@@ -1,4 +1,3 @@
-import { FluidObject } from "gatsby-image";
 import React, { FunctionComponent, useEffect, useRef, useState } from "react";
 import { throttle } from "throttle-debounce";
 
@@ -8,6 +7,7 @@ import { SEO } from "../components/common/seo";
 import { NAV_LINKS } from "../config";
 import { IndexBanner } from "../containers/index/banner";
 import { IndexGlacier } from "../containers/index/glacier";
+import { IndexPortfolio } from "../containers/index/portfolio";
 import { ThemeContext } from "../hooks/theme";
 
 const Index: FunctionComponent = () => {
@@ -57,6 +57,7 @@ const Index: FunctionComponent = () => {
       <IndexBanner />
       <div ref={alternateZone}>
         <IndexGlacier />
+        <IndexPortfolio />
         <Footer />
       </div>
     </>

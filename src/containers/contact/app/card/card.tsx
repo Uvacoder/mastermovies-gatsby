@@ -1,6 +1,5 @@
 import classnames from "classnames";
-import React, { useEffect, useState } from "react";
-import { FunctionComponent } from "react";
+import React, { FunctionComponent, useEffect, useState } from "react";
 
 import styles from "./card.module.css";
 import { ContactCardDivider } from "./divider";

@@ -1,0 +1,38 @@
+:global(.plyr__poster) {
+  background-size: cover !important;
+}
+
+.player {
+  position: relative;
+}
+
+.watermark {
+  position: absolute;
+  bottom: 50px;
+  right: 32px;
+  z-index: 10;
+
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+
+  transition: opacity 250ms ease-out;
+}
+
+.watermark.hide {
+  opacity: 0;
+}
+
+.watermarkImage {
+  margin-right: 0.5em;
+  height: 1.6em;
+  width: 1.6em;
+  object-fit: contain;
+  opacity: 0.8;
+}
+
+.watermarkLogo.watermarkLogo {
+  font-size: 1.2em;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.8);
+}

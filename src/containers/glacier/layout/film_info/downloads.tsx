@@ -9,18 +9,17 @@ import { Modal } from "../../../../components/common/modal";
 import { Portal } from "../../../../components/common/portal";
 import { Spinner } from "../../../../components/common/spinner";
 import { DarkButton } from "../../../../components/glacier/dark_button";
+import { FilmPlayer } from "../../../../components/glacier/film_player";
 import { useWindowSize } from "../../../../hooks/window_size";
 import { API_PATHS, apiUrl } from "../../../../services/api/routes";
 import { IGlacier, IGlacierExport } from "../../../../types/glacier";
 import { GlacierTitle } from "../landing/title";
-import { EAuthStatus, GlacierDownloadAuth } from "./auth";
+import { GlacierDownloadAuth } from "./auth";
 import styles from "./downloads.module.css";
 import { GlacierNotSpecified } from "./not_specified";
-import { GlacierStream } from "./stream";
 
 export const GlacierDownloads: FunctionComponent<{ film?: IGlacier }> = ({ film }) => {
   const [selectedExport, setSelectedExport] = useState<IGlacierExport>(null);
-  const [authStatus, setAuthStatus] = useState<EAuthStatus>(EAuthStatus.READY);
   const [authToken, setAuthToken] = useState<string>(void 0);
 
   const [stream, setStream] = useState<boolean>(false);
@@ -56,19 +55,14 @@ export const GlacierDownloads: FunctionComponent<{ film?: IGlacier }> = ({ film 
 
       <AnimatedStyle to={{ opacity: authReady ? 1 : 0.4, pointerEvents: authReady ? "initial" : "none" }}>
         <div className={styles.auth}>
-          <GlacierDownloadAuth
-            filmId={(authReady && film && film.id) || void 0}
-            status={authStatus}
-            onStatus={setAuthStatus}
-            onDownloadToken={setAuthToken}
-          />
+          <GlacierDownloadAuth filmId={(authReady && film && film.id) || void 0} onAuth={setAuthToken} />
         </div>
       </AnimatedStyle>
 
       <AnimatedStyle
         to={{
-          opacity: authStatus === EAuthStatus.SUCCESS ? 1 : 0.4,
-          pointerEvents: authStatus === EAuthStatus.SUCCESS ? "initial" : "none",
+          opacity: !!authToken ? 1 : 0.4,
+          pointerEvents: !!authToken ? "initial" : "none",
         }}
       >
         <div className={styles.downloadButtons}>
@@ -373,11 +367,11 @@ const StreamModal: FunctionComponent<IStreamModal> = ({
             <button className={styles.streamClose} onClick={() => setActive(false)}>
               <Icon type="close" />
             </button>
-            <GlacierStream
-              filmExports={film.exports}
-              initalExport={selectedExport}
-              filmAuthorisation={filmAuthorisation}
-              filmThumbnails={film.thumbnails}
+            <FilmPlayer
+              exps={film.exports}
+              initial={selectedExport}
+              authorisation={filmAuthorisation}
+              thumbnails={film.thumbnails}
             />
           </React.Fragment>
         )}
