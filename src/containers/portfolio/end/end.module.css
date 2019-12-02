@@ -7,6 +7,10 @@
   padding: 128px 0 256px;
 }
 
+.text {
+  text-align: center; /* for mobile */
+}
+
 @media only screen and (max-width: 768px) {
   .end {
     padding: 16px 0 64px;

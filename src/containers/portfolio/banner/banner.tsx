@@ -28,8 +28,8 @@ export const PortfolioBanner: FunctionComponent = () => {
 
   return (
     <div className={styles.banner} ref={ref}>
-        <Fade>
-      {typeof window !== "undefined" && (
+      <Fade ssrReveal>
+        {typeof window !== "undefined" && (
           <Particles
             className={styles.particles}
             width={width}
@@ -57,23 +57,23 @@ export const PortfolioBanner: FunctionComponent = () => {
               },
             }}
           />
-          )}
-        </Fade>
+        )}
+      </Fade>
 
       <div className={styles.background}>
-        <Fade delay={200}>
+        <Fade delay={200} ssrReveal>
           <img src={background.publicURL} className={styles.backgroundImage} />
         </Fade>
       </div>
 
       <div className={styles.content}>
         <div className={styles.contentWrapper}>
-          <Fade delay={400}>
+          <Fade delay={400} ssrReveal>
             <h1 className={styles.title}>
               Hi, I'm <span className={styles.name}>Marcus Cemes</span>
             </h1>
           </Fade>
-          <Fade delay={600}>
+          <Fade delay={600} ssrReveal>
             <div className={styles.subtitle}>
               I'm <TextSwitcher />
             </div>
@@ -81,7 +81,7 @@ export const PortfolioBanner: FunctionComponent = () => {
         </div>
       </div>
 
-      <Fade delay={600} mountOnEnter>
+      <Fade delay={600} ssrReveal>
         <div>
           <div className={styles.hint}>
             <div className={styles.hintContainer}>
