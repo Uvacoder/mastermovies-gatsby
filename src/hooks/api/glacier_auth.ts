@@ -75,7 +75,13 @@ export function useGlacierAuth(filmId?: number): [EAuthStatus, string, SetState<
     }
   }, [status]);
 
-  return [status, auth, setKey, error, reset];
+  // Handle key prompts
+  const handleSetKey = (key: string) => {
+    setKey(key);
+    setStatus(EAuthStatus.AUTH);
+  };
+
+  return [status, auth, handleSetKey, error, reset];
 }
 
 /** Query film information to determine if an unlock key is required */
