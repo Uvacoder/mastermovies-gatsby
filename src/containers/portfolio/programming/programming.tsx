@@ -45,7 +45,7 @@ export const PortfolioProgramming: FunctionComponent = () => (
           web design (and web-related programming) to accompany the old <i>mastermovies.co.uk</i> website.
         </p>
         <p>
-          Today I'm studying C++, courtesy of university, while continuing to experiment with with other languages in my
+          Today I'm studying C++, courtesy of university, while continuing to experiment with other languages in my
           own projects.
         </p>
         <div className={styles.buttons}>

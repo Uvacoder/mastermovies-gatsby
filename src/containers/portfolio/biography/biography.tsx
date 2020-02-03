@@ -32,7 +32,7 @@ export const PortfolioBiography: FunctionComponent = () => (
         helped me to cope by voicing some of my struggles with a touch of humour.
       </p>
       <p>
-        Despite this, much to my own belief, I somehow managed to stay on top, learning French and currently studying{" "}
+        Despite this, much to my own disbelief, I somehow managed to stay on top, learning French and currently studying{" "}
         <i>Microengineering</i> at{" "}
         <PrettyLink href="https://epfl.ch" target="_blank">
           École Polytechnique Fédérale de Lausanne
