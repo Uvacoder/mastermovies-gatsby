@@ -2,7 +2,7 @@
   "name": "mastermovies",
   "private": true,
   "description": "The MasterMovies homepage app",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "author": "Marcus Cemes <marcus.cemes@gmail.com>",
   "dependencies": {
     "@reach/router": "^1.2.1",
