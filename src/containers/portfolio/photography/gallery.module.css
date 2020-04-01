@@ -24,6 +24,7 @@
 
 .imageContainer {
   padding-top: 50%;
+  pointer-events: none;
 }
 
 .image {
