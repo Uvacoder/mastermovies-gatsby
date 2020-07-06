@@ -1,7 +1,7 @@
 import { CloseCircleOutlined, ReloadOutlined, RocketOutlined } from "@ant-design/icons";
-import { Icon, Input, Popover, Spin } from "antd";
+import { Input, Popover, Spin } from "antd";
 import classnames from "classnames";
-import React, { useState } from "react";
+import React, { cloneElement, isValidElement, useState } from "react";
 import { AnimatedCheck } from "../../../../../components/common/animated_check";
 import { IconMargin } from "../../../../../components/common/icon_margin";
 import { DarkButton } from "../../../../../components/glacier/dark_button";
@@ -96,7 +96,7 @@ const Error: React.FC<{ error?: IHumanError; onRetry?: () => void }> = ({ error,
       <div className={styles.errorInfo}>
         {error.icon && (
           <div>
-            <Icon type={error.icon} className={styles.errorInfoIcon} />
+            {isValidElement(error.icon) ? cloneElement(error.icon, { className: styles.errorInfoIco }) : error.icon}
           </div>
         )}
         {error.text && <div>{error.text}</div>}

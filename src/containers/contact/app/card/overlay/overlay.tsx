@@ -21,7 +21,7 @@ export const ContactFormOverlay: React.FC<IContactFormOverlayProps> = ({ active,
     "If you gave us an email, we will get back to you promptly."
   ) : error ? (
     <span style={{ textAlign: "center" }}>
-      {error.icon && <error.icon />}
+      {error.icon}
       {error.text}
       <br />
       <code>{error.code}</code>

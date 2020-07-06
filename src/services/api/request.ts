@@ -80,7 +80,7 @@ export async function getData<T extends {}>(
     if (race instanceof Cancel) {
       throw race;
     } else {
-      if (rawResponse) return race.data;
+      if (rawResponse) return (race.data as unknown) as T;
       return race.data.data;
     }
   } catch (err) {

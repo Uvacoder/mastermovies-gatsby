@@ -42,7 +42,6 @@ export const StandardOverlay: React.FC<IStandardOverlayProps> = ({
         <Transition
           key={hash({
             active,
-            Icon,
             text,
             button,
             onButton,

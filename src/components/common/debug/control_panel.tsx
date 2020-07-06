@@ -5,7 +5,8 @@ import { Portal } from "../portal";
 import styles from "./styles.module.css";
 
 export const DebugControlPanel: React.FC = ({ children }) => {
-  const [{ offset }, set] = useSpring(() => ({ offset: [0, 0], immediate: true }));
+  // @ts-ignore Bad library typings
+  const [{ offset }, set] = useSpring<{ offset: [number, number] }>(() => ({ offset: [0, 0], immediate: true }));
   const bind = useDrag(({ offset }) => set({ offset }));
 
   return (

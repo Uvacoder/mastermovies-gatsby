@@ -6,13 +6,18 @@ import styles from "./app.module.css";
 import { GlacierLayout } from "./layout";
 import { GlacierProviders } from "./providers";
 
-/** Creates a Reach router for the Glacier app */
+/**
+ * Creates a Reach router for the Glacier app.
+ *
+ * Each path must have the same key to avoid React unmounting and re-mounting
+ * the component.
+ */
 export const GlacierApp: React.FC = () => (
   <GlacierProviders>
     <Router primary={false} className={styles.app} basepath="/glacier">
-      <GlacierLayout path="/" />
-      <GlacierLayout path="/film/:film" />
-      <GlacierLayout path="/download/:exp" />
+      <GlacierLayout path="/" key="glacier" />
+      <GlacierLayout path="/film/:film" key="glacier" />
+      <GlacierLayout path="/download/:exp" key="glacier" />
       <GlacierNotFound default />
     </Router>
   </GlacierProviders>

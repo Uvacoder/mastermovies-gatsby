@@ -34,6 +34,7 @@ export const GlacierResults: React.FC<IGlacierResultsProps> = ({ results }) => {
 
   return (
     <div className={styles.result} style={{ height: results.length * HEIGHT }}>
+      {/* @ts-ignore Bad library typings */}
       {transitions.map(({ item, props: { y, ...rest }, key }) => (
         <animated.div
           key={key}

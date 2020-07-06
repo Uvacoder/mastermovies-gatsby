@@ -35,7 +35,9 @@
 
     "lib": ["esnext", "dom"],
     "typeRoots": ["node_modules/@types", "src/types"],
-    "jsx": "preserve"
+    "jsx": "preserve",
+
+    "noEmit": true
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],
   "exclude": ["node_modules", ".vscode/blueprint-templates"],

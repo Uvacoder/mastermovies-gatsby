@@ -72,14 +72,7 @@ const Authorisations: React.FC<{ onClose: () => void }> = ({ onClose }) => {
       {typeof payload === "undefined" ? (
         <Spinner active delay={500} />
       ) : error ? (
-        <StandardOverlay
-          active
-          text={error.text}
-          code={error.code}
-          icon={error.icons}
-          button="Retry"
-          onButton={retry}
-        />
+        <StandardOverlay active text={error.text} code={error.code} icon={error.icon} button="Retry" onButton={retry} />
       ) : auths && auths.length > 0 ? (
         <>
           <h2 className={styles.authorisationsTitle}>

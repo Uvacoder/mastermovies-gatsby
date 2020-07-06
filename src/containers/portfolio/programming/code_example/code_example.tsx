@@ -57,22 +57,6 @@ const Line: React.FC = ({ children }) => {
   );
 };
 
-const Tag: React.FC<{ type: string }> = ({ children, type }) => (
-  <>
-    <Line>
-      {"<"}
-      <span className={styles.red}>{type}</span>
-      {">"}
-    </Line>
-    <Block>{children}</Block>
-    <Line>
-      {"</"}
-      <span className={styles.red}>{type}</span>
-      {">"}
-    </Line>
-  </>
-);
-
 const Green: React.FC = ({ children }) => <span className={styles.green} children={children} />;
 const Blue: React.FC = ({ children }) => <span className={styles.blue} children={children} />;
 const DarkBlue: React.FC = ({ children }) => <span className={styles.darkBlue} children={children} />;

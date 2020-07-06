@@ -2,7 +2,7 @@
   "name": "mastermovies",
   "private": true,
   "description": "The MasterMovies homepage app",
-  "version": "2.4.0",
+  "version": "2.4.1",
   "author": "Marcus Cemes <marcus.cemes@gmail.com>",
   "dependencies": {
     "@ant-design/icons": "^4.2.1",

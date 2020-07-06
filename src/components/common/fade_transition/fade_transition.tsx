@@ -42,8 +42,9 @@ export const FadeTransition: React.FC<IFadeTransition> = ({
   <Transition
     {...rest}
     timeout={4000}
-    addEndListener={(node, callback) => {
-      node.addEventListener("transitioned", callback, false);
+    // @ts-ignore Bad library typings
+    addEndListener={(node: HTMLElement, done: () => void) => {
+      node.addEventListener("transitioned", () => setTimeout(done, 1000), false);
     }}
   >
     {(state) => (

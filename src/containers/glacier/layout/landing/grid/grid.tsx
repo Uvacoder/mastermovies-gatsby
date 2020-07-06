@@ -1,6 +1,5 @@
 import { navigate } from "gatsby";
 import React from "react";
-
 import { AspectRatio } from "../../../../../components/common/aspect_ratio";
 import { Nothing } from "../../../../../components/common/nothing";
 import { StandardOverlay } from "../../../../../components/common/standard_overlay";
@@ -29,11 +28,12 @@ interface IGridItemProps {
 const GridItem: React.FC<IGridItemProps> = ({ film }) => {
   const [resolvedFilm, error, retry] = useGlacierFilm(film);
 
+  const openFilm = (film: number) => {
+    navigate(`/glacier/film/${film}`);
+  };
+
   return (
-    <div
-      className={styles.film}
-      onClick={resolvedFilm && !error ? () => navigate(`/glacier/film/${resolvedFilm.id}`) : void 0}
-    >
+    <div className={styles.film} onClick={resolvedFilm && !error ? () => openFilm(resolvedFilm.id) : void 0}>
       {resolvedFilm === null ? (
         <Nothing />
       ) : error ? (
