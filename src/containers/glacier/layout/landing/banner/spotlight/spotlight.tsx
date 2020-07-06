@@ -1,5 +1,5 @@
 import { navigate } from "gatsby";
-import React, { FunctionComponent } from "react";
+import React from "react";
 
 import { Nothing } from "../../../../../../components/common/nothing";
 import { StandardOverlay } from "../../../../../../components/common/standard_overlay";
@@ -13,7 +13,7 @@ interface IGlacierSpotlightProps {
   film?: IGlacierSummary;
 }
 
-export const GlacierSpotlight: FunctionComponent<IGlacierSpotlightProps> = ({ film }) => {
+export const GlacierSpotlight: React.FC<IGlacierSpotlightProps> = ({ film }) => {
   const [resolvedFilm, error, retry] = useGlacierFilm(film ? film.id : void 0);
 
   return (

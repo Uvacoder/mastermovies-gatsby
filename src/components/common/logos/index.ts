@@ -1,1 +1,1 @@
-export * from "./logos";
+export * from "./mastermovies";

@@ -1,6 +1,5 @@
-@import url('https://fonts.googleapis.com/css?family=Raleway&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Raleway:600&display=swap');
-
+@import url("https://fonts.googleapis.com/css?family=Raleway&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Raleway:600&display=swap");
 
 .nav {
   position: relative;
@@ -11,10 +10,8 @@
   display: flex;
   align-items: center;
 
-  transition:
-    background 0.3s linear,
-    height 0.6s cubic-bezier(0.215, 0.61, 0.355, 1),
-    box-shadow 0.6s cubic-bezier(0.215, 0.61, 0.355, 1);
+  transition: background 0.4s linear, height 0.6s cubic-bezier(0.65, 0, 0.35, 1),
+    box-shadow 0.7s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 .nav.extended {
@@ -22,13 +19,16 @@
 }
 
 .nav.background {
-  background: #FFF;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+
+  transition: background 0.4s linear, height 0.6s cubic-bezier(0.215, 0.61, 0.355, 1),
+    box-shadow 0.7s cubic-bezier(0.215, 0.61, 0.355, 1);
 }
 
 .nav.dark.background {
   background: #000;
-  box-shadow: 0 1px 3px rgba(255,255,255,0.12), 0 1px 2px rgba(255,255,255,0.24);
+  box-shadow: 0 1px 3px rgba(255, 255, 255, 0.12), 0 1px 2px rgba(255, 255, 255, 0.24);
 }
 
 .nav.fixed {
@@ -69,7 +69,12 @@
 }
 
 .nav.dark .logo {
-  color: #FFF !important; /* override anchor colours */
+  color: #fff !important; /* override anchor colours */
+}
+
+.nav .hideLogo,
+.nav.dark .hideLogo {
+  color: transparent !important;
 }
 
 .grow {
@@ -89,7 +94,7 @@
 }
 
 .nav.dark .link {
-  color: #FFF !important;
+  color: #fff !important;
 }
 
 .link::after {
@@ -112,11 +117,10 @@
 }
 
 .nav.dark .link::after {
-  background-color: #FFF;
+  background-color: #fff;
 }
 
 /** Responsive CSS */
-
 
 @media only screen and (max-width: 768px) {
   .nav {

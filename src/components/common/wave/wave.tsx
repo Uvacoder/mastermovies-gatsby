@@ -1,14 +1,5 @@
 import { EventEmitter } from "events";
-import React, {
-  FunctionComponent,
-  Reducer,
-  useEffect,
-  useLayoutEffect,
-  useReducer,
-  useState,
-  CSSProperties,
-} from "react";
-
+import React, { CSSProperties, Reducer, useEffect, useLayoutEffect, useReducer, useState } from "react";
 import styles from "./wave.module.css";
 
 interface IWaveProps {
@@ -21,7 +12,7 @@ interface IWaveProps {
  * Put this component inside a `relative`/`absolute` positioned element, and pass an EventEmitter.
  * Dispatch a `click` event to fire a new wave. The parent component will not be re-rendered.
  */
-export const Wave: FunctionComponent<IWaveProps> = ({ eventEmitter, colour }) => {
+export const Wave: React.FC<IWaveProps> = ({ eventEmitter, colour }) => {
   const [waves, dispatch] = useReducer<Reducer<number[], "ADD" | "REMOVE">>(reducer, []);
 
   useEffect(() => {
@@ -42,7 +33,7 @@ export const Wave: FunctionComponent<IWaveProps> = ({ eventEmitter, colour }) =>
 
   return (
     <>
-      {waves.map(id => (
+      {waves.map((id) => (
         <WaveElement key={id} colour={colour} />
       ))}
     </>
@@ -59,7 +50,7 @@ function reducer(state: number[], action: "ADD" | "REMOVE"): number[] {
   }
 }
 
-const WaveElement: FunctionComponent<{ colour: CSSProperties["color"] }> = ({ colour }) => {
+const WaveElement: React.FC<{ colour: CSSProperties["color"] }> = ({ colour }) => {
   const [active, setActive] = useState<boolean>(false);
 
   useLayoutEffect(() => {

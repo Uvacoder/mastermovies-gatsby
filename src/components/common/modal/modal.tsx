@@ -1,8 +1,7 @@
 import { PageHeader } from "antd";
 import classnames from "classnames";
-import React, { CSSProperties, FunctionComponent, useEffect, useState } from "react";
+import React, { CSSProperties, useEffect, useState } from "react";
 import { Transition, TransitionGroup } from "react-transition-group";
-
 import { ThemeContext } from "../../../hooks/theme";
 import { Spinner } from "../spinner";
 import cssStyles from "./modal.module.css";
@@ -55,7 +54,7 @@ interface IModalProps {
  *   <Step3 />
  * </Modal>
  */
-export const Modal: FunctionComponent<IModalProps> = ({
+export const Modal: React.FC<IModalProps> = ({
   active = false,
   backText = "Back",
   noHeader = false,
@@ -111,7 +110,7 @@ export const Modal: FunctionComponent<IModalProps> = ({
       <Transition in={active} timeout={{ enter: 1000, exit: 1000 }} mountOnEnter unmountOnExit>
         <div className={cssStyles.modalWrapper}>
           <Transition key="overlay" in={active} timeout={{ enter: 10, exit: 600 }} appear>
-            {state => (
+            {(state) => (
               <div
                 className={classnames(cssStyles.overlay, { [cssStyles.overlayActive]: state === "entered" })}
                 onClick={() => onBack(true)}
@@ -133,7 +132,7 @@ export const Modal: FunctionComponent<IModalProps> = ({
                       classNames={{ enterDone: cssStyles.modalActive }}
                       appear
                     >
-                      {state => (
+                      {(state) => (
                         <div
                           style={styles.modal}
                           className={classnames(

@@ -1,4 +1,4 @@
-import React, { CSSProperties, FunctionComponent, ReactNode } from "react";
+import React, { CSSProperties, ReactNode } from "react";
 import { animated, AnimatedValue, useSpring } from "react-spring";
 
 interface IAnimatedStyleProps {
@@ -31,7 +31,7 @@ interface IAnimatedStyleProps {
  *   <div className={styles.container}>My content</div>
  * </AnimatedStyle>
  */
-export const AnimatedStyle: FunctionComponent<IAnimatedStyleProps> = ({
+export const AnimatedStyle: React.FC<IAnimatedStyleProps> = ({
   from,
   to,
   delay = 0,
@@ -62,7 +62,7 @@ function generateAnimatedElement(spring: AnimatedValue<any>, children: ReactNode
   try {
     return (
       <>
-        {React.Children.map(children, child => {
+        {React.Children.map(children, (child) => {
           if (
             React.isValidElement(child) &&
             typeof child.type === "string" &&

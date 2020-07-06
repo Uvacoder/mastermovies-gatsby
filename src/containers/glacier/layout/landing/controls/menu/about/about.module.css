@@ -18,6 +18,7 @@
 .logo {
   height: 2.2rem;
   margin-right: 16px;
+  fill: #000;
 }
 
 .subheading {
@@ -27,7 +28,7 @@
   text-transform: uppercase;
   font-weight: bold;
 
-  color: rgba(0,0,0,0.4);
+  color: rgba(0, 0, 0, 0.4);
 
   margin-bottom: 32px;
   user-select: none;

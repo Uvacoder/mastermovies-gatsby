@@ -1,5 +1,5 @@
-import React, { FunctionComponent, useEffect } from "react";
-
+import { SafetyCertificateOutlined } from "@ant-design/icons";
+import React, { useEffect } from "react";
 import { IconMargin } from "../../../../../components/common/icon_margin";
 import { Underline } from "../../../../../components/common/underline";
 import { EAuthStatus, useGlacierAuth } from "../../../../../hooks/api/glacier_auth";
@@ -13,7 +13,7 @@ interface IAuthProps {
 }
 
 /** A film authorisation component. Provides UI and authorisation logic to authorise Glacier film downloads */
-export const GlacierDownloadAuth: FunctionComponent<IAuthProps> = ({ filmId, onAuth }) => {
+export const GlacierDownloadAuth: React.FC<IAuthProps> = ({ filmId, onAuth }) => {
   const [status, auth, setKey, error, retry] = useGlacierAuth(filmId);
 
   const onSubmit = (pass: string) => {
@@ -45,7 +45,7 @@ export const GlacierDownloadAuth: FunctionComponent<IAuthProps> = ({ filmId, onA
   return (
     <div className={styles.auth}>
       <div className={styles.authBadge}>
-        <IconMargin type="safety-certificate" marginRight="0.3em" />
+        <IconMargin icon={SafetyCertificateOutlined} right="0.3em" />
         <Underline thin>MasterMovies ID</Underline>
       </div>
       <div className={styles.authStatus}>{component}</div>

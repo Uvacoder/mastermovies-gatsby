@@ -18,19 +18,15 @@
   flex-direction: column;
 }
 
-.logo {
-  width: 200px;
-}
-
 .title {
   font-family: brandon_grotesque;
   font-size: 46px;
   letter-spacing: 12px;
   line-height: 1.5;
   font-weight: 900;
-  margin-top: 40px;
+  margin-top: 32px;
   margin-bottom: 0;
-  color: #FFF;
+  color: #fff;
 }
 
 .subtitle {
@@ -39,7 +35,7 @@
   letter-spacing: 4px;
   font-weight: 300;
   margin-top: 0.2rem;
-  color: #FFF;
+  color: #fff;
 }
 
 .background {
@@ -50,7 +46,6 @@
   bottom: 0;
   z-index: -1;
 }
-
 
 @media only screen and (max-width: 768px) {
   .logo {

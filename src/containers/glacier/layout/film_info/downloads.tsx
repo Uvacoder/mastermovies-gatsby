@@ -1,8 +1,14 @@
-import { Icon, Typography } from "antd";
+import {
+  CloseOutlined,
+  DownloadOutlined,
+  FileProtectOutlined,
+  PlayCircleOutlined,
+  QuestionCircleOutlined,
+} from "@ant-design/icons";
+import { Typography } from "antd";
 import classnames from "classnames";
 import fileSize from "file-size";
-import React, { FunctionComponent, useState } from "react";
-
+import React, { useState } from "react";
 import { AnimatedStyle } from "../../../../components/common/animated_style";
 import { IconMargin } from "../../../../components/common/icon_margin";
 import { Modal } from "../../../../components/common/modal";
@@ -11,14 +17,14 @@ import { Spinner } from "../../../../components/common/spinner";
 import { DarkButton } from "../../../../components/glacier/dark_button";
 import { FilmPlayer } from "../../../../components/glacier/film_player";
 import { useWindowSize } from "../../../../hooks/window_size";
-import { API_PATHS, apiUrl } from "../../../../services/api/routes";
+import { apiUrl, API_PATHS } from "../../../../services/api/routes";
 import { IGlacier, IGlacierExport } from "../../../../types/glacier";
 import { GlacierTitle } from "../landing/title";
 import { GlacierDownloadAuth } from "./auth";
 import styles from "./downloads.module.css";
 import { GlacierNotSpecified } from "./not_specified";
 
-export const GlacierDownloads: FunctionComponent<{ film?: IGlacier }> = ({ film }) => {
+export const GlacierDownloads: React.FC<{ film?: IGlacier }> = ({ film }) => {
   const [selectedExport, setSelectedExport] = useState<IGlacierExport>(null);
   const [authToken, setAuthToken] = useState<string>(void 0);
 
@@ -42,7 +48,7 @@ export const GlacierDownloads: FunctionComponent<{ film?: IGlacier }> = ({ film 
           ) : (
             film.exports
               .sort(sortExports)
-              .map(exp => (
+              .map((exp) => (
                 <ExportCard
                   key={exp.id}
                   exp={exp}
@@ -81,7 +87,7 @@ export const GlacierDownloads: FunctionComponent<{ film?: IGlacier }> = ({ film 
   );
 };
 
-const ExportCard: FunctionComponent<{ exp: IGlacierExport; selected: boolean; onSelect: () => void }> = ({
+const ExportCard: React.FC<{ exp: IGlacierExport; selected: boolean; onSelect: () => void }> = ({
   exp,
   selected,
   onSelect,
@@ -106,7 +112,7 @@ const ExportCard: FunctionComponent<{ exp: IGlacierExport; selected: boolean; on
   </div>
 );
 
-const Title: FunctionComponent<{ width: number }> = ({ width }) => {
+const Title: React.FC<{ width: number }> = ({ width }) => {
   const [title, colour, description] =
     width >= 3840
       ? ["2160p", "#F012BE", "Ultra-High Definition"]
@@ -128,23 +134,20 @@ const Title: FunctionComponent<{ width: number }> = ({ width }) => {
   );
 };
 
-const Property: FunctionComponent<{ title: string }> = ({ title, children }) => (
+const Property: React.FC<{ title: string }> = ({ title, children }) => (
   <>
     <div className={styles.propertyTitle}>{title}</div>
     <div>{children}</div>
   </>
 );
 
-const DownloadButtons: FunctionComponent<{ onDownload: () => void; onStream: () => void }> = ({
-  onDownload,
-  onStream,
-}) => (
+const DownloadButtons: React.FC<{ onDownload: () => void; onStream: () => void }> = ({ onDownload, onStream }) => (
   <>
     <DarkButton onClick={onDownload} large className={styles.downloadButton}>
-      <IconMargin marginRight type="download" /> Download
+      <IconMargin right icon={DownloadOutlined} /> Download
     </DarkButton>
     <DarkButton onClick={onStream} large className={styles.downloadButton}>
-      <IconMargin marginRight type="play-circle" /> Stream
+      <IconMargin right icon={PlayCircleOutlined} /> Stream
     </DarkButton>
   </>
 );
@@ -160,7 +163,7 @@ function sortExports(a: IGlacierExport, b: IGlacierExport): number {
   return 0;
 }
 
-const HelpModal: FunctionComponent = () => {
+const HelpModal: React.FC = () => {
   const [active, setActive] = useState<boolean>(false);
 
   const ratio = window.devicePixelRatio || 1;
@@ -188,12 +191,12 @@ const HelpModal: FunctionComponent = () => {
 
   return (
     <>
-      <Icon type="question-circle" className={styles.helpIcon} onClick={() => setActive(true)} />
+      <QuestionCircleOutlined className={styles.helpIcon} onClick={() => setActive(true)} />
       <Portal>
         <Modal active={active} backText="Back to Glacier" onBack={() => setActive(false)}>
           <div className={styles.modalContainer}>
             <h3>
-              <IconMargin type="question-circle" marginRight /> Help me out here!?
+              <IconMargin icon={QuestionCircleOutlined} right /> Help me out here!?
             </h3>
             <p style={{ borderLeft: "3px solid #39CCCC", paddingLeft: 8 }}>
               Depending on availability, you may choose from multiple film exports. For the simplest answer, choose the
@@ -235,13 +238,13 @@ const HelpModal: FunctionComponent = () => {
   );
 };
 
-const ChecksumModal: FunctionComponent<{ checksum?: { [index: string]: string } }> = ({ checksum }) => {
+const ChecksumModal: React.FC<{ checksum?: { [index: string]: string } }> = ({ checksum }) => {
   const [active, setActive] = useState<boolean>(false);
 
   return checksum ? (
     <>
       <a
-        onClick={event => {
+        onClick={(event) => {
           setActive(true);
           event.stopPropagation();
         }}
@@ -253,7 +256,7 @@ const ChecksumModal: FunctionComponent<{ checksum?: { [index: string]: string } 
         <Modal active={active} onBack={() => setActive(false)} backText="Back to Glacier">
           <div className={styles.modalContainer}>
             <h3>
-              <IconMargin type="file-protect" marginRight /> File checksums
+              <IconMargin icon={FileProtectOutlined} right /> File checksums
             </h3>
             <p>
               Checksums are used to ensure the integrity of a file after it has been transmitted from one storage device
@@ -326,13 +329,7 @@ interface IStreamModal {
   filmAuthorisation: string;
 }
 
-const StreamModal: FunctionComponent<IStreamModal> = ({
-  active,
-  setActive,
-  film,
-  selectedExport,
-  filmAuthorisation,
-}) => {
+const StreamModal: React.FC<IStreamModal> = ({ active, setActive, film, selectedExport, filmAuthorisation }) => {
   const [width, height] = useWindowSize(200);
 
   let computedWidth: number;
@@ -365,7 +362,7 @@ const StreamModal: FunctionComponent<IStreamModal> = ({
         {film && selectedExport && (
           <React.Fragment key={film.id}>
             <button className={styles.streamClose} onClick={() => setActive(false)}>
-              <Icon type="close" />
+              <CloseOutlined />
             </button>
             <FilmPlayer
               exps={film.exports}

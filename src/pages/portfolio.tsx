@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import React from "react";
 
 import { Footer } from "../components/common/footer";
 import { SEO } from "../components/common/seo";
@@ -12,7 +12,7 @@ import { PortfolioPhotography } from "../containers/portfolio/photography";
 import { PortfolioProgramming } from "../containers/portfolio/programming";
 import { ThemeContext } from "../hooks/theme";
 
-const Portfolio: FunctionComponent = () => (
+const Portfolio: React.FC = () => (
   <ThemeContext.Provider value="dark">
     <SEO
       title="Portfolio"
@@ -23,6 +23,8 @@ const Portfolio: FunctionComponent = () => (
       ]}
     />
 
+    {/** Prevent flickering when scrolling */}
+    <style>{`body { background: #222; }`}</style>
     <PortfolioLayout>
       <PortfolioBanner />
       <PortfolioBiography />
@@ -32,7 +34,6 @@ const Portfolio: FunctionComponent = () => (
       <PortfolioFilm />
       <PortfolioEnd />
     </PortfolioLayout>
-
     <Footer />
   </ThemeContext.Provider>
 );

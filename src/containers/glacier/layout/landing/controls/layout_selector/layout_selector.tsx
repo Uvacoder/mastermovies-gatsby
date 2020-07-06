@@ -1,18 +1,18 @@
-import { Icon, Radio } from "antd";
+import { LayoutOutlined, UnorderedListOutlined } from "@ant-design/icons";
+import { Radio } from "antd";
 import classnames from "classnames";
-import React, { FunctionComponent, useContext } from "react";
-
+import React, { useContext } from "react";
 import { EGlacierActions, GlacierContext } from "../../../../context";
 import { EGlacierLayout } from "../../enum";
 import styles from "./layout_selector.module.css";
 
-export const GlacierLayoutSelector: FunctionComponent = () => {
+export const GlacierLayoutSelector: React.FC = () => {
   const [{ layout }, dispatch] = useContext(GlacierContext);
 
   return (
     <Radio.Group
       value={layout}
-      onChange={e => {
+      onChange={(e) => {
         dispatch({ type: EGlacierActions.UPDATE_LAYOUT, data: e.target.value });
       }}
       size={"large"}
@@ -22,14 +22,14 @@ export const GlacierLayoutSelector: FunctionComponent = () => {
         value={EGlacierLayout.GRID}
         className={classnames(styles.button, { [styles.active]: layout === EGlacierLayout.GRID })}
       >
-        <Icon type="layout" /> Grid
+        <LayoutOutlined /> Grid
       </Radio.Button>
 
       <Radio.Button
         value={EGlacierLayout.LIST}
         className={classnames(styles.button, { [styles.active]: layout === EGlacierLayout.LIST })}
       >
-        <Icon type="unordered-list" /> List
+        <UnorderedListOutlined /> List
       </Radio.Button>
     </Radio.Group>
   );

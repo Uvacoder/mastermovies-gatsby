@@ -1,11 +1,11 @@
 import { graphql, useStaticQuery } from "gatsby";
 import Img from "gatsby-image/withIEPolyfill";
-import React, { FunctionComponent } from "react";
+import React from "react";
 import { Fade } from "react-reveal";
-
+import { MasterMoviesLogo } from "../../../components/common/logos/mastermovies";
 import styles from "./banner.module.css";
 
-export const IndexBanner: FunctionComponent = () => {
+export const IndexBanner: React.FC = () => {
   const query = useStaticQuery(graphql`
     query {
       background: file(relativePath: { eq: "index/landing_banner.jpg" }) {
@@ -17,9 +17,6 @@ export const IndexBanner: FunctionComponent = () => {
             ...GatsbyImageSharpFluid_withWebp_noBase64
           }
         }
-      }
-      logoImage: file(relativePath: { eq: "logo/white.svg" }) {
-        publicURL
       }
     }
   `);
@@ -34,9 +31,9 @@ export const IndexBanner: FunctionComponent = () => {
         }}
         className={styles.background}
       />
-      <Fade delay={100}>
+      <Fade delay={100} ssrReveal>
         <div className={styles.container}>
-          <img className={styles.logo} src={query.logoImage.publicURL} />
+          <MasterMoviesLogo width="128px" fill="#fff" />
           <h1 className={styles.title}>MASTERMOVIES</h1>
           <h2 className={styles.subtitle}>SMALL MEDIA STUDIO</h2>
         </div>

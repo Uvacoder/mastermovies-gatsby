@@ -1,15 +1,14 @@
-import { Icon } from "antd";
+import { DownOutlined } from "@ant-design/icons";
 import { graphql, useStaticQuery } from "gatsby";
-import React, { FunctionComponent } from "react";
+import React from "react";
 import { useInView } from "react-intersection-observer";
 import Particles from "react-particles-js";
 import Fade from "react-reveal/Fade";
 import useViewportSizes from "use-viewport-sizes";
-
 import styles from "./banner.module.css";
 import { TextSwitcher } from "./text_switcher";
 
-export const PortfolioBanner: FunctionComponent = () => {
+export const PortfolioBanner: React.FC = () => {
   const { background } = useStaticQuery(
     graphql`
       query {
@@ -86,7 +85,7 @@ export const PortfolioBanner: FunctionComponent = () => {
           <div className={styles.hint}>
             <div className={styles.hintContainer}>
               <span className={styles.hintText}>Scroll down to explore</span>
-              <Icon type="down" className={styles.hintIcon} />
+              <DownOutlined className={styles.hintIcon} />
             </div>
           </div>
         </div>

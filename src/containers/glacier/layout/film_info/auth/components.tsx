@@ -1,29 +1,26 @@
+import { CloseCircleOutlined, ReloadOutlined, RocketOutlined } from "@ant-design/icons";
 import { Icon, Input, Popover, Spin } from "antd";
 import classnames from "classnames";
-import React, { FunctionComponent, useState } from "react";
-
+import React, { useState } from "react";
 import { AnimatedCheck } from "../../../../../components/common/animated_check";
 import { IconMargin } from "../../../../../components/common/icon_margin";
 import { DarkButton } from "../../../../../components/glacier/dark_button";
 import { IHumanError } from "../../../../../types/app";
 import styles from "./components.module.css";
 
-const Ready: FunctionComponent = () => (
+const Ready: React.FC = () => (
   <>
-    <IconMargin type="rocket" marginRight /> Ready
+    <IconMargin icon={RocketOutlined} right /> Ready
   </>
 );
 
-const Query: FunctionComponent = () => (
+const Query: React.FC = () => (
   <div className={styles.align}>
     <Spin className={styles.largerSeparation} /> Querying
   </div>
 );
 
-const Prompt: FunctionComponent<{ failed?: boolean; onSubmit: (password: string) => void }> = ({
-  failed,
-  onSubmit,
-}) => {
+const Prompt: React.FC<{ failed?: boolean; onSubmit: (password: string) => void }> = ({ failed, onSubmit }) => {
   const [input, setInput] = useState<string>("");
   const [popover, setPopover] = useState<boolean>(false);
 
@@ -51,7 +48,7 @@ const Prompt: FunctionComponent<{ failed?: boolean; onSubmit: (password: string)
 
       <div className={styles.inputWrapper}>
         <Input.Password
-          onChange={e => setInput(e.target.value)}
+          onChange={(e) => setInput(e.target.value)}
           className={styles.darkInput}
           visibilityToggle
           onPressEnter={submit}
@@ -65,7 +62,7 @@ const Prompt: FunctionComponent<{ failed?: boolean; onSubmit: (password: string)
           trigger="hover"
           content={
             <>
-              <IconMargin type="cross-circle" marginRight /> Password can't be empty!
+              <IconMargin icon={CloseCircleOutlined} right /> Password can't be empty!
             </>
           }
         >
@@ -78,19 +75,19 @@ const Prompt: FunctionComponent<{ failed?: boolean; onSubmit: (password: string)
   );
 };
 
-const Auth: FunctionComponent = () => (
+const Auth: React.FC = () => (
   <div className={styles.align}>
     <Spin className={classnames(styles.authSpin, styles.largerSeparation)} /> Authorising
   </div>
 );
 
-const Success: FunctionComponent = () => (
+const Success: React.FC = () => (
   <div className={classnames(styles.success, styles.align)}>
     <AnimatedCheck active size={22} className={styles.check} /> Authorised
   </div>
 );
 
-const Error: FunctionComponent<{ error?: IHumanError; onRetry?: () => void }> = ({ error, onRetry }) => (
+const Error: React.FC<{ error?: IHumanError; onRetry?: () => void }> = ({ error, onRetry }) => (
   <>
     <div className={classnames(styles.error, styles.align)}>
       <AnimatedCheck active failed size={22} className={styles.check} /> Error
@@ -112,7 +109,7 @@ const Error: FunctionComponent<{ error?: IHumanError; onRetry?: () => void }> = 
     )}
     {onRetry && (
       <DarkButton className={styles.errorButton} onClick={onRetry}>
-        <IconMargin type="reload" marginRight /> Retry
+        <IconMargin icon={ReloadOutlined} right /> Retry
       </DarkButton>
     )}
   </>

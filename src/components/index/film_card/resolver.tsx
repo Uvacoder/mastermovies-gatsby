@@ -1,6 +1,5 @@
 import { navigate } from "gatsby";
-import React, { FunctionComponent } from "react";
-
+import React from "react";
 import { useGlacierFilm } from "../../../hooks/api/glacier";
 import { IHumanError } from "../../../types/app";
 import { StandardOverlay } from "../../common/standard_overlay";
@@ -18,13 +17,7 @@ interface IFilmCardResolverProps extends divProps {
  * Display a GlacierCard. Resolves the film from API based on id.
  * Supports error IHumanError pass-down and retry.
  */
-export const FilmCardResolver: FunctionComponent<IFilmCardResolverProps> = ({
-  film,
-  onClick,
-  error,
-  onRetry,
-  ...rest
-}) => {
+export const FilmCardResolver: React.FC<IFilmCardResolverProps> = ({ film, onClick, error, onRetry, ...rest }) => {
   const [resolvedFilm, resolveError, retry] = useGlacierFilm(typeof film === "number" ? film : void 0);
 
   // Pass through error/retry props if necessary

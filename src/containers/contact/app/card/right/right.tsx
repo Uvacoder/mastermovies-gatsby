@@ -1,11 +1,10 @@
 import classnames from "classnames";
-import React, { FunctionComponent, useEffect, useState } from "react";
-
+import React, { useEffect, useState } from "react";
 import { ContactCardContentForm } from "../form";
 import { ContactOwlSit } from "../owl";
 import styles from "./right.module.css";
 
-export const ContactCardRight: FunctionComponent = () => {
+export const ContactCardRight: React.FC = () => {
   const [show, setShow] = useState(false);
   useEffect(() => setShow(true), []);
 

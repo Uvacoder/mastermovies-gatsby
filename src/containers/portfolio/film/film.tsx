@@ -1,9 +1,8 @@
-import { Icon } from "antd";
+import { YoutubeOutlined } from "@ant-design/icons";
 import Tooltip from "antd/lib/tooltip";
-import React, { FunctionComponent, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
-
-import { GlacierLogo } from "../../../components/common/logos";
+import { GlacierText } from "../../../components/common/logos";
 import { Spinner } from "../../../components/common/spinner";
 import { GlacierFilmMeta } from "../../../components/glacier/film_meta";
 import { FilmPlayer } from "../../../components/glacier/film_player";
@@ -14,7 +13,7 @@ import { useGlacierAuth } from "../../../hooks/api/glacier_auth";
 import { QuoteIcon } from "../../../images/icons/quote";
 import styles from "./film.module.css";
 
-export const PortfolioFilm: FunctionComponent = () => (
+export const PortfolioFilm: React.FC = () => (
   <>
     <PortfolioSection>
       <PortfolioContent vertical padding>
@@ -39,14 +38,11 @@ export const PortfolioFilm: FunctionComponent = () => (
 
         <div className={styles.buttons}>
           <PortfolioButton href="/glacier">
-            <GlacierLogo />
+            <GlacierText />
             &nbsp;database
           </PortfolioButton>
 
-          <PortfolioButton
-            href="https://www.youtube.com/channel/UCRx9M5nYJfW9F5hsFcklwKQ"
-            icon={<Icon type="youtube" />}
-          >
+          <PortfolioButton href="https://www.youtube.com/channel/UCRx9M5nYJfW9F5hsFcklwKQ" icon={<YoutubeOutlined />}>
             My channel
           </PortfolioButton>
         </div>
@@ -71,7 +67,7 @@ export const PortfolioFilm: FunctionComponent = () => (
 const FILMS_PRODUCED = 17;
 const VIDEOS_PRODUCED = 45;
 
-const Statistics: FunctionComponent = () => (
+const Statistics: React.FC = () => (
   <div className={styles.statistics}>
     <h2 className={styles.statisticsTitle}>To date, I have invested myself in</h2>
     <div className={styles.statisticsRow}>
@@ -89,11 +85,7 @@ const Statistics: FunctionComponent = () => (
   </div>
 );
 
-const StatisticsItem: FunctionComponent<{ text: string; number: number; tooltip: string }> = ({
-  text,
-  number,
-  tooltip,
-}) => {
+const StatisticsItem: React.FC<{ text: string; number: number; tooltip: string }> = ({ text, number, tooltip }) => {
   const [ref, inView] = useInView({ triggerOnce: true });
   const [startCounting, setStartCounting] = useState<boolean>(false);
 
@@ -121,7 +113,7 @@ const StatisticsItem: FunctionComponent<{ text: string; number: number; tooltip:
   );
 };
 
-const AnimatedFigure: FunctionComponent<{ target: number }> = ({ target }) => {
+const AnimatedFigure: React.FC<{ target: number }> = ({ target }) => {
   const [current, setCurrent] = useState<number>(0);
   const duration = target * 50;
 
@@ -129,7 +121,7 @@ const AnimatedFigure: FunctionComponent<{ target: number }> = ({ target }) => {
     let start: number;
     let animationFrame: number | null = null;
 
-    const callback: FrameRequestCallback = time => {
+    const callback: FrameRequestCallback = (time) => {
       animationFrame = null;
 
       if (typeof start === "undefined") {
@@ -160,7 +152,7 @@ function cubicOut(t: number) {
   return t2 * t2 * t2 + 1;
 }
 
-const Quote: FunctionComponent = () => (
+const Quote: React.FC = () => (
   <div className={styles.quote}>
     <QuoteIcon className={styles.quoteIcon} />
     <div className={styles.quoteText}>
@@ -174,9 +166,9 @@ const BRAMMER_WEDDING = 15;
 
 const Film = () => {
   const [film, error] = useGlacierFilm(BRAMMER_WEDDING);
-  const [, auth] = useGlacierAuth(BRAMMER_WEDDING);
+  const [, auth, , authError] = useGlacierAuth(BRAMMER_WEDDING);
 
-  return !!error ? (
+  return !!error || !!authError ? (
     <i className={styles.glacierError}>Glacier is currently unavailable</i>
   ) : film !== null && auth ? (
     <>

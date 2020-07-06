@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import React from "react";
 
 import { AnimatedCheck } from "../../../../components/common/animated_check";
 import {
@@ -13,7 +13,7 @@ import {
 const STATUS_SIZE = 18;
 
 // TODO add an API health check
-export const StatusCardsServer: FunctionComponent = () => {
+export const StatusCardsServer: React.FC = () => {
   return (
     <StatusCard>
       <Server />
@@ -24,7 +24,7 @@ export const StatusCardsServer: FunctionComponent = () => {
 };
 
 /** Displays information about the server */
-const Server: FunctionComponent = () => (
+const Server: React.FC = () => (
   <StatusCardRow align>
     <StatusCardIcon>
       <AnimatedCheck active size={STATUS_SIZE} />
@@ -37,7 +37,7 @@ const Server: FunctionComponent = () => (
 );
 
 /** Displays Cloudflare information */
-const CDN: FunctionComponent = () => (
+const CDN: React.FC = () => (
   <StatusCardRow align>
     <StatusCardIcon>
       <AnimatedCheck active size={STATUS_SIZE} />

@@ -1,8 +1,7 @@
-import { Icon } from "antd";
+import { GithubOutlined } from "@ant-design/icons";
 import classnames from "classnames";
-import React, { FunctionComponent } from "react";
+import React from "react";
 import { InView } from "react-intersection-observer";
-
 import { PrettyLink } from "../../../components/common/link";
 import { PortfolioButton } from "../../../components/portfolio/button";
 import { PortfolioDesignElement, PortfolioDesignRightSlant } from "../../../components/portfolio/design";
@@ -25,7 +24,7 @@ const LANGUAGES: { [index: string]: number } = {
   Lua: 0.02,
 };
 
-export const PortfolioProgramming: FunctionComponent = () => (
+export const PortfolioProgramming: React.FC = () => (
   <>
     <PortfolioSection separate>
       <PortfolioDesignElement className={styles.design}>
@@ -45,11 +44,11 @@ export const PortfolioProgramming: FunctionComponent = () => (
           web design (and web-related programming) to accompany the old <i>mastermovies.co.uk</i> website.
         </p>
         <p>
-          Today I'm studying C++, courtesy of university, while continuing to experiment with other languages in my
-          own projects.
+          Today I'm studying C++, courtesy of university, while continuing to experiment with other languages in my own
+          projects.
         </p>
         <div className={styles.buttons}>
-          <PortfolioButton icon={<Icon type="github" />} href="https://github.com/MarcusCemes">
+          <PortfolioButton icon={<GithubOutlined />} href="https://github.com/MarcusCemes">
             My GitHub
           </PortfolioButton>
         </div>
@@ -91,14 +90,14 @@ export const PortfolioProgramming: FunctionComponent = () => (
           )}
         </InView>
         <div className={styles.tableComment}>
-          Of course, these are just rough estimations (and biased to make a pretty curve)
+          These are very rough estimations. I just wanted to put a chart somewhere.
         </div>
       </PortfolioContent>
     </PortfolioSection>
   </>
 );
 
-const Legend: FunctionComponent = () => {
+const Legend: React.FC = () => {
   const titles = [];
 
   for (let i = 0; i < LEGEND_TITLES.length; i++) {
@@ -124,7 +123,7 @@ const Legend: FunctionComponent = () => {
   );
 };
 
-const Language: FunctionComponent<{ active: boolean; delay: number; lang: string; understanding: number }> = ({
+const Language: React.FC<{ active: boolean; delay: number; lang: string; understanding: number }> = ({
   active,
   delay,
   lang,

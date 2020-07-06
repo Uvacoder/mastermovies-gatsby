@@ -1,7 +1,6 @@
-import { Button, Icon } from "antd";
+import { Button } from "antd";
 import classnames from "classnames";
-import React, { FunctionComponent } from "react";
-
+import React from "react";
 import { IHumanError } from "../../../../../types/app";
 import { ContactOwlFly, ContactOwlSit } from "../owl";
 import styles from "./overlay.module.css";
@@ -15,19 +14,14 @@ interface IContactFormOverlayProps {
 
 // TODO attribute Vector Design by <a href="https://vecteezy.com">Vecteezy.com</a>
 
-export const ContactFormOverlay: FunctionComponent<IContactFormOverlayProps> = ({
-  active,
-  success,
-  error,
-  onRetry,
-}) => {
+export const ContactFormOverlay: React.FC<IContactFormOverlayProps> = ({ active, success, error, onRetry }) => {
   const title = success ? "An owl has been issued with your message." : "Our owls are refusing to fly!";
 
   const subtitle = success ? (
     "If you gave us an email, we will get back to you promptly."
   ) : error ? (
     <span style={{ textAlign: "center" }}>
-      <Icon type={error.icon} />
+      {error.icon && <error.icon />}
       {error.text}
       <br />
       <code>{error.code}</code>

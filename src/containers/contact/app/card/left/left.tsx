@@ -1,11 +1,9 @@
-import { Icon } from "antd";
 import classnames from "classnames";
-import React, { FunctionComponent, useEffect, useState } from "react";
-
+import React, { useEffect, useState } from "react";
 import { SOCIAL_LINKS } from "../../../../../config";
 import styles from "./left.module.css";
 
-export const ContactCardLeft: FunctionComponent = React.memo(() => {
+export const ContactCardLeft: React.FC = React.memo(() => {
   const [show, setShow] = useState(false);
   useEffect(() => setShow(true), []);
 
@@ -19,9 +17,9 @@ export const ContactCardLeft: FunctionComponent = React.memo(() => {
       </p>
 
       <p className={styles.stagger} style={{ transitionDelay: "0.4s" }}>
-        {SOCIAL_LINKS.map(link => (
+        {SOCIAL_LINKS.map((link) => (
           <a className={styles.socialLink} key={link.text} href={link.link} target="_blank">
-            <Icon type={link.icon} />
+            <link.icon />
           </a>
         ))}
       </p>

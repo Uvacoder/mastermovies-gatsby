@@ -1,7 +1,7 @@
-import { Icon } from "antd";
+import { CloseCircleFilled, SearchOutlined } from "@ant-design/icons";
 import classnames from "classnames";
-import React, { FunctionComponent, useCallback, useContext, useEffect, useRef } from "react";
-
+import React, { useCallback, useContext, useEffect, useRef } from "react";
+import { IconMargin } from "../../../../../../components/common/icon_margin";
 import { Keyboard } from "../../../../../../components/common/keyboard";
 import { GlacierContext } from "../../../../context";
 import { EGlacierActions } from "../../../../context/actions";
@@ -19,7 +19,7 @@ export const GlacierSearchBarDefault = {
   term: "",
 };
 
-export const GlacierSearchBar: FunctionComponent = () => {
+export const GlacierSearchBar: React.FC = () => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const [{ bar }, dispatch] = useContext(GlacierContext);
@@ -28,7 +28,7 @@ export const GlacierSearchBar: FunctionComponent = () => {
   };
 
   // Apply focus/blur once mounted, and save the ref for later use
-  const setRef = useCallback<(node: HTMLInputElement) => void>(node => {
+  const setRef = useCallback<(node: HTMLInputElement) => void>((node) => {
     if (node) {
       if (bar.focus) {
         inputRef.current.value = bar.term; // sync with state when appearing
@@ -72,7 +72,7 @@ export const GlacierSearchBar: FunctionComponent = () => {
   return (
     <div className={styles.bar}>
       <span className={styles.barHint}>Search...</span>
-      <Icon type="search" className={classnames(styles.barIcon, { [styles.active]: bar.active })} />
+      <SearchOutlined className={classnames(styles.barIcon, { [styles.active]: bar.active })} />
       <div className={classnames(styles.inputWrapper, { [styles.focus]: bar.focus, [styles.active]: bar.active })}>
         <input
           ref={setRef}
@@ -84,15 +84,14 @@ export const GlacierSearchBar: FunctionComponent = () => {
           }}
           className={styles.input}
           placeholder="What are you looking for?"
-          onChange={event => {
+          onChange={(event) => {
             const searchTerm = event.target ? event.target.value : null;
             updateBar({ active: !!searchTerm, term: searchTerm });
           }}
         />
         <div className={classnames(styles.suffix, styles.clearButton)} onClick={() => updateBar({ term: "" })}>
           <span>
-            <Icon type="close-circle" theme="filled" />
-            &nbsp;&nbsp;Clear
+            <IconMargin icon={CloseCircleFilled} right /> Clear
           </span>
         </div>
       </div>

@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import React from "react";
 
 import { navigate } from "gatsby";
 import { animated, useTransition } from "react-spring";
@@ -15,11 +15,11 @@ interface IGlacierResultsProps {
 
 const HEIGHT = 250;
 
-export const GlacierResults: FunctionComponent<IGlacierResultsProps> = ({ results }) => {
+export const GlacierResults: React.FC<IGlacierResultsProps> = ({ results }) => {
   // @ts-ignore
   const transitions = useTransition(
     results.map((result, i) => ({ ...result, i })),
-    item => item.id,
+    (item) => item.id,
     {
       // @ts-ignore
       from: { y: 0, opacity: 0 },
@@ -37,7 +37,11 @@ export const GlacierResults: FunctionComponent<IGlacierResultsProps> = ({ result
       {transitions.map(({ item, props: { y, ...rest }, key }) => (
         <animated.div
           key={key}
-          style={{ ...rest, zIndex: results.length - item.i, transform: y.interpolate(v => `translate3d(0,${v}px,0)`) }}
+          style={{
+            ...rest,
+            zIndex: results.length - item.i,
+            transform: y.interpolate((v) => `translate3d(0,${v}px,0)`),
+          }}
         >
           <ResultItem key={item.id} film={item.id} />
         </animated.div>
@@ -50,7 +54,7 @@ interface IGlacierListItemProps {
   film?: number;
 }
 
-const ResultItem: FunctionComponent<IGlacierListItemProps> = ({ film }) => {
+const ResultItem: React.FC<IGlacierListItemProps> = ({ film }) => {
   const [resolvedFilm, error, retry] = useGlacierFilm(film);
 
   return (

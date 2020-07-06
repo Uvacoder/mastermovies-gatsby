@@ -1,13 +1,13 @@
+import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import classnames from "classnames";
 import { Link } from "gatsby";
-import React, { FunctionComponent } from "react";
+import React from "react";
 import { Fade } from "react-reveal";
-
 import { IconMargin } from "../../../components/common/icon_margin";
 import { IndexPortfolioBackground } from "./background";
 import styles from "./portfolio.module.css";
 
-export const IndexPortfolio: FunctionComponent = () => (
+export const IndexPortfolio: React.FC = () => (
   <div className={styles.portfolio}>
     <Fade>
       <div className={styles.wrapper}>
@@ -21,7 +21,7 @@ export const IndexPortfolio: FunctionComponent = () => (
               <h1 className={styles.title}>Portfolio</h1>
               <h3 className={styles.subtitle}>of Marcus Cemes</h3>
               <div className={styles.hint}>
-                <IconMargin type="left" marginRight /> Click anywhere <IconMargin type="right" marginLeft />
+                <IconMargin icon={LeftOutlined} right /> Click anywhere <IconMargin icon={RightOutlined} left />
               </div>
             </div>
           </div>

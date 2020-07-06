@@ -1,9 +1,8 @@
 import classnames from "classnames";
-import React, { FunctionComponent, useEffect, useState } from "react";
-
+import React, { useEffect, useState } from "react";
 import styles from "./divider.module.css";
 
-export const ContactCardDivider: FunctionComponent = () => {
+export const ContactCardDivider: React.FC = () => {
   const [show, setShow] = useState(false);
   useEffect(() => setShow(true), []);
 

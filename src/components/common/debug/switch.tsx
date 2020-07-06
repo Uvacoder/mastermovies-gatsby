@@ -1,6 +1,6 @@
-import { Button, Divider, Dropdown, Icon, Menu } from "antd";
-import React, { FunctionComponent, ReactNode, useState } from "react";
-
+import { DownOutlined } from "@ant-design/icons";
+import { Button, Divider, Dropdown, Menu } from "antd";
+import React, { ReactNode, useState } from "react";
 import { DebugControlPanel } from "./control_panel";
 
 interface IDebugSwitchProps {
@@ -9,7 +9,7 @@ interface IDebugSwitchProps {
   };
 }
 
-export const DSwitch: FunctionComponent<IDebugSwitchProps> = ({ components }) => {
+export const DSwitch: React.FC<IDebugSwitchProps> = ({ components }) => {
   const [key, setKey] = useState<string>(null);
 
   if (key === null && Object.values(components).length > 0) {
@@ -29,14 +29,15 @@ export const DSwitch: FunctionComponent<IDebugSwitchProps> = ({ components }) =>
         <Dropdown
           overlay={
             <Menu onClick={onClick}>
-              {Object.keys(components).map(key => (
+              {Object.keys(components).map((key) => (
                 <Menu.Item key={key}>{key}</Menu.Item>
               ))}
             </Menu>
           }
         >
           <Button type="primary" style={{ left: "50%", transform: "translateX(-50%)" }}>
-            Swap Element <Icon type="down" />
+            Swap Element
+            <DownOutlined />
           </Button>
         </Dropdown>
       </DebugControlPanel>

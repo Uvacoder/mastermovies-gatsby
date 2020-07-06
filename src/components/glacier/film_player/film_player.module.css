@@ -24,6 +24,7 @@
 }
 
 .watermarkImage {
+  fill: #fff;
   margin-right: 0.5em;
   height: 1.6em;
   width: 1.6em;

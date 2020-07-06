@@ -1,6 +1,5 @@
 import { Checkbox, Divider, InputNumber } from "antd";
-import React, { FunctionComponent, useState } from "react";
-
+import React, { useState } from "react";
 import { Portal } from "../portal";
 import { DebugControlPanel } from "./control_panel";
 import styles from "./styles.module.css";
@@ -19,11 +18,11 @@ interface IDebugPropsProps {
  *  </InjectPropsHere>
  * </DebugProps>
  */
-export const DebugProps: FunctionComponent<IDebugPropsProps> = ({ children, props }) => {
+export const DebugProps: React.FC<IDebugPropsProps> = ({ children, props }) => {
   const [injectedProps, setInjectedProps] = useState({});
   const [isolate, setIsolate] = useState(false);
 
-  const injected = React.Children.map(children, child =>
+  const injected = React.Children.map(children, (child) =>
     React.isValidElement(child) ? React.cloneElement(child, injectedProps) : child
   );
 
@@ -31,17 +30,17 @@ export const DebugProps: FunctionComponent<IDebugPropsProps> = ({ children, prop
     <>
       <DebugControlPanel>
         <h4>Prop Debug</h4>
-        Isolate: <Checkbox onChange={e => setIsolate(e.target.checked)} />
+        Isolate: <Checkbox onChange={(e) => setIsolate(e.target.checked)} />
         <Divider />
         {Object.entries(props).map(([key, value]) => (
           <div key={key}>
             {key}:&nbsp;
             {value === "boolean" ? (
-              <Checkbox onChange={event => setInjectedProps({ ...injectedProps, [key]: event.target.checked })} />
+              <Checkbox onChange={(event) => setInjectedProps({ ...injectedProps, [key]: event.target.checked })} />
             ) : value === "number" ? (
-              <InputNumber onChange={value => setInjectedProps({ ...injectedProps, [key]: value })} />
+              <InputNumber onChange={(value) => setInjectedProps({ ...injectedProps, [key]: value })} />
             ) : (
-              <input onChange={event => setInjectedProps({ ...injectedProps, [key]: event.target.value })} />
+              <input onChange={(event) => setInjectedProps({ ...injectedProps, [key]: event.target.value })} />
             )}
           </div>
         ))}

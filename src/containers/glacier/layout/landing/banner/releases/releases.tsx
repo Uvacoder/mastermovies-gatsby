@@ -1,5 +1,5 @@
 import { navigate } from "gatsby";
-import React, { FunctionComponent } from "react";
+import React from "react";
 
 import { Nothing } from "../../../../../../components/common/nothing";
 import { StandardOverlay } from "../../../../../../components/common/standard_overlay";
@@ -13,15 +13,15 @@ interface IGlacierReleasesProps {
   films?: IGlacierSummary[];
 }
 
-export const GlacierReleases: FunctionComponent<IGlacierReleasesProps> = ({ films }) => (
+export const GlacierReleases: React.FC<IGlacierReleasesProps> = ({ films }) => (
   <div className={styles.releases}>
     {Array.isArray(films)
       ? films.map((film, i) => <Release key={i} film={film.id} />)
-      : [0, 1, 2].map(v => <Release key={v} film={void 0} />)}
+      : [0, 1, 2].map((v) => <Release key={v} film={void 0} />)}
   </div>
 );
 
-const Release: FunctionComponent<{ film?: number }> = ({ film }) => {
+const Release: React.FC<{ film?: number }> = ({ film }) => {
   const [resolvedFilm, error, retry] = useGlacierFilm(film);
 
   return (

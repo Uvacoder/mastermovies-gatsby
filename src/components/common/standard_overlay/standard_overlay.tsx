@@ -1,9 +1,8 @@
-import { Button, Icon } from "antd";
+import { Button } from "antd";
 import classnames from "classnames";
 import hash from "hash-sum";
-import React, { FunctionComponent, ReactNode, useContext } from "react";
+import React, { cloneElement, isValidElement, ReactNode, useContext } from "react";
 import { Transition, TransitionGroup } from "react-transition-group";
-
 import { ThemeContext } from "../../../hooks/theme";
 import { DarkButton } from "../../glacier/dark_button";
 import styles from "./standard_overlay.module.css";
@@ -11,7 +10,7 @@ import styles from "./standard_overlay.module.css";
 type divProps = JSX.IntrinsicElements["div"];
 interface IStandardOverlayProps extends divProps {
   active?: boolean;
-  icon?: string;
+  icon?: ReactNode;
   text?: ReactNode;
   button?: ReactNode;
   onButton?: () => any;
@@ -22,9 +21,9 @@ interface IStandardOverlayProps extends divProps {
 }
 
 /** Display a configurable overlay, with an icon and optional button */
-export const StandardOverlay: FunctionComponent<IStandardOverlayProps> = ({
+export const StandardOverlay: React.FC<IStandardOverlayProps> = ({
   active = false,
-  icon = "",
+  icon,
   text = "",
   button = "",
   onButton = () => {},
@@ -43,7 +42,7 @@ export const StandardOverlay: FunctionComponent<IStandardOverlayProps> = ({
         <Transition
           key={hash({
             active,
-            icon,
+            Icon,
             text,
             button,
             onButton,
@@ -54,7 +53,7 @@ export const StandardOverlay: FunctionComponent<IStandardOverlayProps> = ({
           })}
           timeout={{ enter: 200, exit: 300 }}
         >
-          {state => (
+          {(state) => (
             <div
               {...rest}
               className={classnames(
@@ -73,7 +72,7 @@ export const StandardOverlay: FunctionComponent<IStandardOverlayProps> = ({
                   [styles.shimmer]: shimmer,
                 })}
               >
-                {icon && <Icon type={icon} className={styles.icon} />}
+                {icon && (isValidElement(icon) ? cloneElement(icon, { className: styles.icon }) : icon)}
                 <span>{text}</span>
                 {code && <code className={styles.code}>{code}</code>}
                 {button &&

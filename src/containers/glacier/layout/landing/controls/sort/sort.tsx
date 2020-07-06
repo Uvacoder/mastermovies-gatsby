@@ -1,8 +1,9 @@
-import classnames from "classnames";
-import React, { FunctionComponent, useContext } from "react";
-
-import { Button, Dropdown, Icon, Menu, Radio } from "antd";
+import { FilterOutlined } from "@ant-design/icons";
+import { Button, Dropdown, Menu, Radio } from "antd";
 import RadioGroup from "antd/lib/radio/group";
+import classnames from "classnames";
+import React, { useContext } from "react";
+import { IconMargin } from "../../../../../../components/common/icon_margin";
 import { DarkButton } from "../../../../../../components/glacier/dark_button";
 import { EGlacierActions, GlacierContext } from "../../../../context";
 import styles from "./sort.module.css";
@@ -26,7 +27,7 @@ export const GlacierSortDefault = {
   active: false,
 };
 
-export const GlacierSortSelector: FunctionComponent = () => {
+export const GlacierSortSelector: React.FC = () => {
   const [{ sort }, dispatch] = useContext(GlacierContext);
 
   const overlay = (
@@ -35,7 +36,7 @@ export const GlacierSortSelector: FunctionComponent = () => {
       <RadioGroup
         value={sort.by}
         className={styles.sortBy}
-        onChange={value => dispatch({ type: EGlacierActions.UPDATE_SORT, data: { by: value.target.value } })}
+        onChange={(value) => dispatch({ type: EGlacierActions.UPDATE_SORT, data: { by: value.target.value } })}
       >
         <Radio value={EGlacierSort.RELEASE} className={styles.radio}>
           Release Date
@@ -50,7 +51,7 @@ export const GlacierSortSelector: FunctionComponent = () => {
       <RadioGroup
         value={sort.ascending}
         className={styles.sortAscending}
-        onChange={value => dispatch({ type: EGlacierActions.UPDATE_SORT, data: { ascending: value.target.value } })}
+        onChange={(value) => dispatch({ type: EGlacierActions.UPDATE_SORT, data: { ascending: value.target.value } })}
       >
         <Radio.Button value={true}>Ascending</Radio.Button>
         <Radio.Button value={false}>Descending</Radio.Button>
@@ -66,7 +67,7 @@ export const GlacierSortSelector: FunctionComponent = () => {
   return (
     <Dropdown trigger={["click"]} overlay={overlay}>
       <DarkButton large className={classnames(styles.button, { [styles.active]: sort.active })}>
-        <Icon type="filter" style={{ marginRight: "0.2em" }} /> Sort
+        <IconMargin icon={FilterOutlined} right /> Sort
       </DarkButton>
     </Dropdown>
   );

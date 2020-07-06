@@ -1,10 +1,10 @@
-import React, { FunctionComponent } from "react";
+import React from "react";
 import { Fade } from "react-reveal";
 
 import { PortfolioSection } from "../../../components/portfolio/section";
 import styles from "./end.module.css";
 
-export const PortfolioEnd: FunctionComponent = () => (
+export const PortfolioEnd: React.FC = () => (
   <PortfolioSection className={styles.end} separate>
     <Fade delay={1000}>
       <span className={styles.text}>

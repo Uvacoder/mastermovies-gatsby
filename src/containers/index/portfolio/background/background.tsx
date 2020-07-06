@@ -1,11 +1,11 @@
 import { graphql, useStaticQuery } from "gatsby";
 import Img from "gatsby-image/withIEPolyfill";
-import React, { FunctionComponent } from "react";
+import React from "react";
 
 import { IGraphQLImage } from "../../../../types/graphql";
 import styles from "./background.module.css";
 
-export const IndexPortfolioBackground: FunctionComponent = () => {
+export const IndexPortfolioBackground: React.FC = () => {
   const { background } = useStaticQuery<{ background: IGraphQLImage }>(
     graphql`
       query {

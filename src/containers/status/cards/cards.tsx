@@ -1,10 +1,10 @@
-import React, { FunctionComponent } from "react";
+import React from "react";
 
 import styles from "./cards.module.css";
 import { StatusCardsServer } from "./server";
 import { StatusCardsSite } from "./site";
 
-export const StatusCards: FunctionComponent = () => {
+export const StatusCards: React.FC = () => {
   return (
     <div className={styles.column}>
       <Heading>Site information</Heading>
@@ -19,4 +19,4 @@ export const StatusCards: FunctionComponent = () => {
   );
 };
 
-const Heading: FunctionComponent = props => <h3 className={styles.heading} {...props} />;
+const Heading: React.FC = (props) => <h3 className={styles.heading} {...props} />;

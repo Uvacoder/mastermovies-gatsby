@@ -1,8 +1,8 @@
-import { Button, Icon, Tooltip } from "antd";
+import { LogoutOutlined } from "@ant-design/icons";
+import { Button, Tooltip } from "antd";
 import classnames from "classnames";
 import moment, { Moment } from "moment";
-import React, { FunctionComponent, useEffect, useState } from "react";
-
+import React, { useEffect, useState } from "react";
 import { AnimatedCheck } from "../../../../../../../components/common/animated_check";
 import { IconMargin } from "../../../../../../../components/common/icon_margin";
 import { Modal } from "../../../../../../../components/common/modal";
@@ -13,7 +13,7 @@ import { IHumanError } from "../../../../../../../types/app";
 import styles from "./logout.module.css";
 
 /** Display a logout dialog with confirmation */
-export const GlacierMenuLogout: FunctionComponent<{ active: boolean; onActive: (active: boolean) => void }> = ({
+export const GlacierMenuLogout: React.FC<{ active: boolean; onActive: (active: boolean) => void }> = ({
   active,
   onActive,
 }) => {
@@ -36,7 +36,6 @@ export const GlacierMenuLogout: FunctionComponent<{ active: boolean; onActive: (
 
     const { token, cancel } = cancelTokenSource();
 
-    // tslint:disable-next-line:no-floating-promises
     (async () => {
       try {
         await authLogout(token);
@@ -62,7 +61,7 @@ export const GlacierMenuLogout: FunctionComponent<{ active: boolean; onActive: (
         <div className={styles.logout}>
           <div className={styles.content}>
             <h2>
-              <IconMargin type="logout" marginRight /> Are you sure?
+              <IconMargin icon={LogoutOutlined} right /> Are you sure?
             </h2>
             <p className={styles.paragraph}>
               You will lose access to all of your film authorisations.
@@ -74,7 +73,7 @@ export const GlacierMenuLogout: FunctionComponent<{ active: boolean; onActive: (
             <Button className={styles.button} disabled={logout} onClick={() => onActive(false)}>
               Cancel
             </Button>
-            <Button type="danger" className={styles.button} loading={logout} onClick={() => setLogout(true)}>
+            <Button danger className={styles.button} loading={logout} onClick={() => setLogout(true)}>
               Logout
             </Button>
           </div>
@@ -101,7 +100,7 @@ export const GlacierMenuLogout: FunctionComponent<{ active: boolean; onActive: (
 };
 
 /** Display an error modal, with instructions on manually ending the session */
-const Error: FunctionComponent<{ error: IHumanError; onClose: () => void }> = ({ error, onClose }) => (
+const Error: React.FC<{ error: IHumanError; onClose: () => void }> = ({ error, onClose }) => (
   <div className={styles.logout}>
     <div className={styles.content}>
       <h5 className={styles.error}>
@@ -113,7 +112,7 @@ const Error: FunctionComponent<{ error: IHumanError; onClose: () => void }> = ({
         <div className={styles.errorDetails}>
           {error.icon && (
             <>
-              <Icon type={error.icon} />
+              {error.icon}
               <br />
             </>
           )}
@@ -144,7 +143,7 @@ const Error: FunctionComponent<{ error: IHumanError; onClose: () => void }> = ({
 );
 
 /** Display a handy time-to-logout countdown */
-const LogoutDuration: FunctionComponent = () => {
+const LogoutDuration: React.FC = () => {
   const [expiry, setExpiry] = useState<Moment>(void 0);
   const [text, setText] = useState<JSX.Element>(<i>checking...</i>);
 
@@ -152,12 +151,11 @@ const LogoutDuration: FunctionComponent = () => {
   useEffect(() => {
     const { token, cancel } = cancelTokenSource();
 
-    // tslint:disable-next-line:no-floating-promises
     (async () => {
       try {
         const payload = await getAuthPayload(token);
         setExpiry(moment.unix(payload.exp));
-      } catch (_err) {
+      } catch {
         setText(<i>unknown</i>);
       }
     })();

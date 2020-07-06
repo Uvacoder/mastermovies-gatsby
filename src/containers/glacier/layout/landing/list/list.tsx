@@ -1,5 +1,5 @@
 import { navigate } from "gatsby";
-import React, { FunctionComponent } from "react";
+import React from "react";
 
 import { StandardOverlay } from "../../../../../components/common/standard_overlay";
 import { GlacierFilmMeta } from "../../../../../components/glacier/film_meta";
@@ -12,10 +12,10 @@ interface IGlacierListProps {
   films: IGlacierSummary[];
 }
 
-export const GlacierList: FunctionComponent<IGlacierListProps> = ({ films }) => {
+export const GlacierList: React.FC<IGlacierListProps> = ({ films }) => {
   const filmItems = films
-    ? films.map(film => <GlacierListItem key={film.id} film={film.id} />)
-    : [0, 1, 2, 3, 4, 5].map(i => <GlacierListItem key={i} film={void 0} />);
+    ? films.map((film) => <GlacierListItem key={film.id} film={film.id} />)
+    : [0, 1, 2, 3, 4, 5].map((i) => <GlacierListItem key={i} film={void 0} />);
 
   return <div className={styles.list}>{filmItems};</div>;
 };
@@ -24,7 +24,7 @@ interface IGlacierListItemProps {
   film?: number;
 }
 
-const GlacierListItem: FunctionComponent<IGlacierListItemProps> = ({ film }) => {
+const GlacierListItem: React.FC<IGlacierListItemProps> = ({ film }) => {
   const [resolvedFilm, error, retry] = useGlacierFilm(film);
 
   return (

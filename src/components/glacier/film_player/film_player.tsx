@@ -1,16 +1,11 @@
+import classnames from "classnames";
 import "plyr/dist/plyr.css";
+import React, { useCallback, useEffect, useState } from "react";
+import { apiUrl, API_PATHS } from "../../../services/api/routes";
+import { IGlacierExport, IGlacierThumbnail } from "../../../types/glacier";
+import { GlacierText, MasterMoviesLogo } from "../../common/logos";
 import styles from "./film_player.module.css";
 
-import React, { FunctionComponent, useCallback, useEffect, useState } from "react";
-
-import { API_PATHS, apiUrl } from "../../../services/api/routes";
-import { IGlacierExport, IGlacierThumbnail } from "../../../types/glacier";
-import { GlacierLogo } from "../../common/logos";
-
-import classnames from "classnames";
-import { graphql, useStaticQuery } from "gatsby";
-
-// tslint:disable-next-line:no-var-requires - Plyr import is not SSR compatible
 const Plyr = typeof window !== "undefined" ? require("plyr") : null;
 
 interface IFilmPlayerProps {
@@ -27,7 +22,7 @@ interface IFilmPlayerProps {
 type divProps = JSX.IntrinsicElements["div"];
 
 /** Creates a Plyr-based film player with a Glacier watermark */
-export const FilmPlayer: FunctionComponent<IFilmPlayerProps & divProps> = ({
+export const FilmPlayer: React.FC<IFilmPlayerProps & divProps> = ({
   exps,
   initial,
   authorisation,
@@ -36,7 +31,7 @@ export const FilmPlayer: FunctionComponent<IFilmPlayerProps & divProps> = ({
   ...rest
 }) => {
   const [ref, setRef] = useState(null); // The player ref
-  const callback = useCallback(node => {
+  const callback = useCallback((node) => {
     if (node) {
       setRef(node);
     }
@@ -61,7 +56,7 @@ export const FilmPlayer: FunctionComponent<IFilmPlayerProps & divProps> = ({
       setPlayer(newPlayer);
 
       // Fixes volume control bug
-      const volumeHandler = _e => {
+      const volumeHandler = (_e) => {
         newPlayer.currentTime = newPlayer.currentTime;
       };
       newPlayer.on("loadeddata", volumeHandler);
@@ -85,7 +80,7 @@ export const FilmPlayer: FunctionComponent<IFilmPlayerProps & divProps> = ({
     const source = {
       type: "video",
       poster: apiUrl(API_PATHS.GLACIER.THUMBNAIL_STREAM(getBestThumbnailId(thumbnails))),
-      sources: exps.map(exp => ({
+      sources: exps.map((exp) => ({
         type: exp.mime,
         size: mapWidth(exp.width),
         src: apiUrl(
@@ -113,22 +108,12 @@ export const FilmPlayer: FunctionComponent<IFilmPlayerProps & divProps> = ({
   );
 };
 
-const WaterMark: FunctionComponent<{ active: boolean }> = ({ active }) => {
-  const { logo } = useStaticQuery(graphql`
-    query {
-      logo: file(relativePath: { eq: "logo/white.svg" }) {
-        publicURL
-      }
-    }
-  `);
-
-  return (
-    <div className={classnames(styles.watermark, { [styles.hide]: !active })}>
-      <img src={logo.publicURL} className={styles.watermarkImage} />
-      <GlacierLogo className={styles.watermarkLogo} />
-    </div>
-  );
-};
+const WaterMark: React.FC<{ active: boolean }> = ({ active }) => (
+  <div className={classnames(styles.watermark, { [styles.hide]: !active })}>
+    <MasterMoviesLogo className={styles.watermarkImage} />
+    <GlacierText className={styles.watermarkLogo} />
+  </div>
+);
 
 function getBestThumbnailId(thumbs?: IGlacierThumbnail[]): number | null {
   if (!thumbs || thumbs.length === 0) return null;

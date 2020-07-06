@@ -1,9 +1,8 @@
-import { DatePicker, Icon } from "antd";
-import { RangePickerValue } from "antd/lib/date-picker/interface";
+import { CalendarFilled, DownOutlined } from "@ant-design/icons";
+import { DatePicker } from "antd";
 import classnames from "classnames";
 import moment, { Moment } from "moment";
-import React, { FunctionComponent, useContext } from "react";
-
+import React, { useContext } from "react";
 import { GlacierContext } from "../../../../context";
 import { EGlacierActions } from "../../../../context/actions";
 import styles from "./range.module.css";
@@ -22,7 +21,7 @@ export const GlacierSearchRangeDefault = {
   range: null,
 };
 
-export const GlacierSearchRange: FunctionComponent = () => {
+export const GlacierSearchRange: React.FC = () => {
   const [{ range }, dispatch] = useContext(GlacierContext);
 
   const updateRange = (newRange: Partial<IGlacierSearchRange>) => {
@@ -35,37 +34,31 @@ export const GlacierSearchRange: FunctionComponent = () => {
         className={classnames(styles.button, { [styles.active]: range.active })}
         onClick={() => updateRange({ focus: !range.focus })}
       >
-        <Icon type="calendar" theme="filled" />
+        <CalendarFilled />
         {prettyRange(range.range)}
-        <Icon type="down" />
+        <DownOutlined />
       </div>
 
       <DatePicker.RangePicker
         ranges={{
-          "Since the start": [],
+          "All films": null,
           "This Month": [moment().startOf("month"), moment().endOf("month")],
           "This Year": [moment().startOf("year"), moment().endOf("year")],
-          "Last Year": [
-            moment()
-              .startOf("year")
-              .subtract(1, "year"),
-            moment()
-              .endOf("year")
-              .subtract(1, "year"),
-          ],
+          "Last Year": [moment().startOf("year").subtract(1, "year"), moment().endOf("year").subtract(1, "year")],
         }}
         open={range.focus}
         value={range.range}
-        onChange={newRange => updateRange({ range: processRange(newRange) })}
-        onOpenChange={open => updateRange({ focus: open })}
+        onChange={(newRange) => updateRange({ range: processRange(newRange) })}
+        onOpenChange={(open) => updateRange({ focus: open })}
         className={styles.picker}
       />
     </div>
   );
 };
 
-function processRange(range: RangePickerValue): TGlacierSearchRange | null {
-  if (range.length === 0) return null;
+/** Cleans up the range to the entire day, or null to deselect range */
+function processRange(range: TGlacierSearchRange | null): TGlacierSearchRange | null {
+  if (range === null) return null;
   return [range[0].startOf("day"), range[1].endOf("day")];
 }
 
@@ -73,32 +66,14 @@ function processRange(range: RangePickerValue): TGlacierSearchRange | null {
 function prettyRange(range: TGlacierSearchRange): string {
   if (range === null) return "Since the start";
 
-  if (
-    range[0].unix() ===
-    range[1]
-      .clone()
-      .startOf("day")
-      .unix()
-  ) {
+  if (range[0].unix() === range[1].clone().startOf("day").unix()) {
     return `On ${range[0].format("ll")}`;
   }
 
   const now = moment().startOf("day");
-  if (
-    range[1].unix() ===
-    now
-      .clone()
-      .endOf("day")
-      .unix()
-  ) {
+  if (range[1].unix() === now.clone().endOf("day").unix()) {
     return `Since ${range[0].format("ll")}`;
-  } else if (
-    range[0].unix() ===
-    now
-      .clone()
-      .startOf("day")
-      .unix()
-  ) {
+  } else if (range[0].unix() === now.clone().startOf("day").unix()) {
     return `Until ${range[1].format("ll")}`;
   } else {
     return `During ${duration(range[1].unix() - range[0].unix())}`;

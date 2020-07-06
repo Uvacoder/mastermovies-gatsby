@@ -39,13 +39,12 @@ function useFilms(films: IGlacierSummary[]): [IGlacier[], boolean, Error, TRetry
     const { token, cancel } = cancelTokenSource();
 
     // Fetch each film from the API and dispatch the data to the state - IMPROVMENT with Rxjs?
-    // tslint:disable-next-line:no-floating-promises
     (async () => {
       try {
         await Promise.all(
           !films
             ? []
-            : films.map(async film => {
+            : films.map(async (film) => {
                 const data = await getData<IGlacier>(API_PATHS.GLACIER.FILM(film.id), token);
                 dispatch({ type: "ADD", data });
               })
@@ -91,7 +90,7 @@ function useGlacierFilter(films: IGlacier[]): IGlacier[] {
 
   /** Refresh the result set when necessary, by appending new result */
   useEffect(() => {
-    setResults(films.filter(film => matchesFilter(film, filter, bar, range)));
+    setResults(films.filter((film) => matchesFilter(film, filter, bar, range)));
   }, [films, filter, bar, range]);
 
   return results;
@@ -120,12 +119,7 @@ function matchesFilter(
       film.copyright,
       film.location,
     ]) {
-      if (
-        field &&
-        String(field)
-          .toLowerCase()
-          .indexOf(term.toLowerCase()) !== -1
-      ) {
+      if (field && String(field).toLowerCase().indexOf(term.toLowerCase()) !== -1) {
         matched = true;
         break;
       }

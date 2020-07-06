@@ -1,7 +1,5 @@
-import classnames from "classnames";
-import React, { FunctionComponent, useContext } from "react";
+import React, { useContext } from "react";
 import { TransitionGroup } from "react-transition-group";
-
 import { FadeTransition } from "../../../../components/common/fade_transition";
 import { Spinner } from "../../../../components/common/spinner";
 import { StandardOverlay } from "../../../../components/common/standard_overlay";
@@ -23,7 +21,7 @@ import { GlacierSearch } from "./search";
 import { GlacierTitle } from "./title";
 
 /** Provides easy browsing of Glacier films with a search bar */
-export const GlacierLanding: FunctionComponent = () => {
+export const GlacierLanding: React.FC = () => {
   const [{ filter, bar, range, layout, sort }] = useContext(GlacierContext);
 
   const [films, error, retry] = useGlacierFilms({ sort_by: sort.by, order_by: sort.ascending ? "asc" : "desc" });
@@ -56,7 +54,7 @@ export const GlacierLanding: FunctionComponent = () => {
   );
 };
 
-const ErrorLayout: FunctionComponent<{ error: IHumanError; retry: () => void }> = ({ error, retry }) => (
+const ErrorLayout: React.FC<{ error: IHumanError; retry: () => void }> = ({ error, retry }) => (
   <div style={{ minHeight: "60vh" }}>
     <StandardOverlay
       active
@@ -69,7 +67,7 @@ const ErrorLayout: FunctionComponent<{ error: IHumanError; retry: () => void }> 
   </div>
 );
 
-const SearchLayout: FunctionComponent<{ films: IGlacierSummary[] }> = ({ films }) => {
+const SearchLayout: React.FC<{ films: IGlacierSummary[] }> = ({ films }) => {
   const [results, done, error, retry] = useGlacierSearch(films);
   const parsedError = error && humanError(error);
 
@@ -101,7 +99,7 @@ const SearchLayout: FunctionComponent<{ films: IGlacierSummary[] }> = ({ films }
   );
 };
 
-const GridLayout: FunctionComponent<{ films: IGlacierSummary[] }> = ({ films }) => {
+const GridLayout: React.FC<{ films: IGlacierSummary[] }> = ({ films }) => {
   return (
     <>
       <div className={styles.header}>
@@ -118,7 +116,7 @@ const GridLayout: FunctionComponent<{ films: IGlacierSummary[] }> = ({ films }) 
   );
 };
 
-const ListLayout: FunctionComponent<{ films: IGlacierSummary[] }> = ({ films }) => (
+const ListLayout: React.FC<{ films: IGlacierSummary[] }> = ({ films }) => (
   <>
     <div className={styles.header}>
       <div className={styles.headerPadding} />
@@ -131,7 +129,7 @@ const ListLayout: FunctionComponent<{ films: IGlacierSummary[] }> = ({ films }) 
   </>
 );
 
-const MainTitle: FunctionComponent = () => {
+const MainTitle: React.FC = () => {
   const [{ sort }] = useContext(GlacierContext);
   return (
     <GlacierTitle className={styles.headerTitle}>

@@ -1,7 +1,6 @@
 import classnames from "classnames";
-import React, { FunctionComponent, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { SwitchTransition, Transition } from "react-transition-group";
-
 import styles from "./text_switcher.module.css";
 
 const TEXTS = [
@@ -14,7 +13,7 @@ const TEXTS = [
   "an IT geek.",
 ];
 
-export const TextSwitcher: FunctionComponent = () => {
+export const TextSwitcher: React.FC = () => {
   const [index, setIndex] = useState<number>(null);
 
   useEffect(() => {
@@ -35,7 +34,7 @@ export const TextSwitcher: FunctionComponent = () => {
       <SwitchTransition>
         {typeof index === "number" ? (
           <Transition timeout={{ enter: 1000, exit: 500 }} key={"text-" + String(index)}>
-            {state => (
+            {(state) => (
               <span
                 className={classnames(styles.text, {
                   [styles.enter]: state === "entering" || state === "entered",

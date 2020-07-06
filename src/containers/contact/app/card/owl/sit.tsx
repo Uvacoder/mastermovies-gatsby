@@ -1,10 +1,9 @@
+import { graphql, useStaticQuery } from "gatsby";
 import React from "react";
-import { FunctionComponent } from "react";
-import { useStaticQuery, graphql } from "gatsby";
 
 type imgProps = JSX.IntrinsicElements["img"];
 
-export const ContactOwlSit: FunctionComponent<imgProps> = ({ style, ...rest }) => {
+export const ContactOwlSit: React.FC<imgProps> = ({ style, ...rest }) => {
   const query = useStaticQuery(graphql`
     query {
       owlImage: file(relativePath: { eq: "contact/owl-sit-blue.svg" }) {

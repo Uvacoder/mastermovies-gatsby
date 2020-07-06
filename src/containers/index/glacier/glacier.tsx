@@ -1,5 +1,5 @@
 import { Link } from "gatsby";
-import React, { FunctionComponent } from "react";
+import React from "react";
 import { Fade } from "react-reveal";
 
 import { FilmCardResolver } from "../../../components/index/film_card";
@@ -7,7 +7,7 @@ import { useGlacierFilms } from "../../../hooks/api/glacier";
 import styles from "./glacier.module.css";
 
 /** Provides a Glacier preview on the homepage */
-export const IndexGlacier: FunctionComponent = () => {
+export const IndexGlacier: React.FC = () => {
   const [films, error, retry] = useGlacierFilms({ public: true, order_by: "desc", sort_by: "release" });
 
   // undefined shows loading, null shows "No Data"

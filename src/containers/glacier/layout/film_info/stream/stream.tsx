@@ -1,14 +1,11 @@
 import "plyr/dist/plyr.css";
-import "./stream.module.css";
-
-// tslint:disable-next-line:no-var-requires - Plyr uses old function export
-const Plyr = typeof window !== "undefined" ? require("plyr") : null;
-
-import React, { FunctionComponent, useCallback, useEffect, useState } from "react";
-
-import { API_PATHS, apiUrl } from "../../../../../services/api/routes";
+import React, { useCallback, useEffect, useState } from "react";
+import { apiUrl, API_PATHS } from "../../../../../services/api/routes";
 import { IStyleProps } from "../../../../../types/component";
 import { IGlacierExport, IGlacierThumbnail } from "../../../../../types/glacier";
+import "./stream.module.css";
+
+const Plyr = typeof window !== "undefined" ? require("plyr") : null;
 
 interface IStreamProps {
   initalExport: IGlacierExport;
@@ -17,7 +14,7 @@ interface IStreamProps {
   filmThumbnails?: IGlacierThumbnail[];
 }
 
-export const GlacierStream: FunctionComponent<IStreamProps & IStyleProps> = ({
+export const GlacierStream: React.FC<IStreamProps & IStyleProps> = ({
   initalExport,
   filmExports: exps,
   filmAuthorisation: authorisation,
@@ -26,7 +23,7 @@ export const GlacierStream: FunctionComponent<IStreamProps & IStyleProps> = ({
   style,
 }) => {
   const [ref, setRef] = useState(null);
-  const callback = useCallback(node => {
+  const callback = useCallback((node) => {
     if (node) {
       setRef(node);
     }
@@ -40,7 +37,7 @@ export const GlacierStream: FunctionComponent<IStreamProps & IStyleProps> = ({
       setPlayer(newPlayer);
 
       // Fixes volume control bug
-      const volumeHandler = _e => {
+      const volumeHandler = (_e) => {
         newPlayer.currentTime = newPlayer.currentTime;
       };
       newPlayer.on("loadeddata", volumeHandler);
@@ -59,7 +56,7 @@ export const GlacierStream: FunctionComponent<IStreamProps & IStyleProps> = ({
     const source = {
       type: "video",
       poster: apiUrl(API_PATHS.GLACIER.THUMBNAIL_STREAM(getBestThumbnailId(thumbs))),
-      sources: exps.map(exp => ({
+      sources: exps.map((exp) => ({
         type: exp.mime,
         size: mapWidth(exp.width),
         src: apiUrl(

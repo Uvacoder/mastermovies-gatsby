@@ -37,7 +37,7 @@ module.exports = {
         background_color: "#FFF",
         // theme_color: "#FFF", // react-helmet
         display: "minimal-ui",
-        icon: "src/images/logo/prototype.png",
+        icon: "src/images/logo/mastermovies-black.png",
       },
     },
     {

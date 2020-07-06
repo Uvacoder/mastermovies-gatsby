@@ -1,6 +1,5 @@
 import classnames from "classnames";
-import React, { CSSProperties, FunctionComponent, useContext } from "react";
-
+import React, { CSSProperties, useContext } from "react";
 import { ThemeContext } from "../../../hooks/theme";
 import styles from "./skeleton.module.css";
 
@@ -20,7 +19,7 @@ interface ISkeletonProps {
 }
 
 /** Provides a generic skeleton for loading text */
-export const Skeleton: FunctionComponent<ISkeletonProps> = ({
+export const Skeleton: React.FC<ISkeletonProps> = ({
   style,
   className,
   light = false,

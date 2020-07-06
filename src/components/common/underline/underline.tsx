@@ -1,6 +1,5 @@
 import classnames from "classnames";
-import React, { FunctionComponent, useContext } from "react";
-
+import React, { useContext } from "react";
 import { ThemeContext } from "../../../hooks/theme";
 import { IStyleProps } from "../../../types/component";
 import styles from "./underline.module.css";
@@ -10,7 +9,7 @@ interface IUnderlineProps {
   thin?: boolean;
 }
 
-export const Underline: FunctionComponent<IUnderlineProps & IStyleProps> = ({
+export const Underline: React.FC<IUnderlineProps & IStyleProps> = ({
   animated,
   thin,
   className,

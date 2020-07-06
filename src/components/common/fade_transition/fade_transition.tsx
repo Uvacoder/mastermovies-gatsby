@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import { animated, useSpring } from "react-spring";
 import { Transition } from "react-transition-group";
 
@@ -31,7 +31,7 @@ const RELATIVE_PROPS = { position: "relative" };
  * high-performance `animated` variants, complex components will be wrapped
  * in a div.
  */
-export const FadeTransition: FunctionComponent<IFadeTransition> = ({
+export const FadeTransition: React.FC<IFadeTransition> = ({
   children,
   speed = 1,
   dampingRatio = 1,
@@ -46,7 +46,7 @@ export const FadeTransition: FunctionComponent<IFadeTransition> = ({
       node.addEventListener("transitioned", callback, false);
     }}
   >
-    {state => (
+    {(state) => (
       <FadeSpring
         active={state === "entering" || state === "entered"}
         speed={speed}
@@ -60,7 +60,7 @@ export const FadeTransition: FunctionComponent<IFadeTransition> = ({
   </Transition>
 );
 
-const FadeSpring: FunctionComponent<{ active: boolean } & ICustomProps> = ({
+const FadeSpring: React.FC<{ active: boolean } & ICustomProps> = ({
   children,
   active,
   speed,
@@ -92,7 +92,7 @@ const FadeSpring: FunctionComponent<{ active: boolean } & ICustomProps> = ({
   // Try to convert child to react-spring animated equivalent element
   return (
     <>
-      {React.Children.map(children, child => {
+      {React.Children.map(children, (child) => {
         if (
           React.isValidElement(child) &&
           typeof child.type === "string" &&

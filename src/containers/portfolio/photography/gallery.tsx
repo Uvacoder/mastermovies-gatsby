@@ -2,7 +2,7 @@ import classnames from "classnames";
 import { graphql, useStaticQuery } from "gatsby";
 import { FluidObject } from "gatsby-image";
 import Img from "gatsby-image/withIEPolyfill";
-import React, { FunctionComponent } from "react";
+import React from "react";
 
 import { PrettyLink } from "../../../components/common/link";
 import { Brand500px } from "../../../images/icons/500px";
@@ -17,10 +17,10 @@ interface IQuery {
 
 // TODO improve
 
-export const PortfolioPhotoGallery: FunctionComponent<JSX.IntrinsicElements["div"]> = props => {
+export const PortfolioPhotoGallery: React.FC<JSX.IntrinsicElements["div"]> = (props) => {
   const { top, middle, bottom } = useStaticQuery<IQuery>(graphql`
     query {
-      top: file(relativePath: { eq: "portfolio/photo-top.jpg" }) {
+      top: file(relativePath: { eq: "portfolio/paris_seine.jpg" }) {
         childImageSharp {
           sqip(mode: 1, numberOfPrimitives: 16, blur: 0) {
             dataURI
@@ -30,7 +30,7 @@ export const PortfolioPhotoGallery: FunctionComponent<JSX.IntrinsicElements["div
           }
         }
       }
-      middle: file(relativePath: { eq: "portfolio/photo-middle.jpg" }) {
+      middle: file(relativePath: { eq: "portfolio/snowman.jpg" }) {
         childImageSharp {
           sqip(mode: 1, numberOfPrimitives: 16, blur: 0) {
             dataURI
@@ -40,7 +40,7 @@ export const PortfolioPhotoGallery: FunctionComponent<JSX.IntrinsicElements["div
           }
         }
       }
-      bottom: file(relativePath: { eq: "portfolio/photo-bottom.jpg" }) {
+      bottom: file(relativePath: { eq: "portfolio/ireland_sea.jpg" }) {
         childImageSharp {
           sqip(mode: 1, numberOfPrimitives: 16, blur: 0) {
             dataURI
@@ -82,22 +82,18 @@ export const PortfolioPhotoGallery: FunctionComponent<JSX.IntrinsicElements["div
   );
 };
 
-const Picture: FunctionComponent<{ fluid: FluidObject } & JSX.IntrinsicElements["div"]> = ({
-  fluid,
-  className,
-  ...rest
-}) => (
+const Picture: React.FC<{ fluid: FluidObject } & JSX.IntrinsicElements["div"]> = ({ fluid, className, ...rest }) => (
   <div {...rest} className={classnames(styles.imageContainer, className)}>
     <Img fluid={fluid} objectFit="cover" className={styles.image} />
   </div>
 );
 
-const Overlay: FunctionComponent = () => (
+const Overlay: React.FC = () => (
   <div className={styles.overlay}>
     <div className={styles.overlayTitle}>
       <Brand500px className={styles.icon} />
-      <PrettyLink href="https://web.500px.com/photo/193110969/Window-Snowman-by-Marcus-Cemes/" target="_blank">
-        Window Snowman
+      <PrettyLink href="https://500px.com/photo/1007403165/The-river-Seine-at-night-by-Marcus-Cemes" target="_blank">
+        The river Seine at night
       </PrettyLink>
       &nbsp;by Marcus Cemes
     </div>

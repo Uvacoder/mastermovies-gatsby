@@ -1,7 +1,6 @@
 import classnames from "classnames";
-import React, { Children, FunctionComponent } from "react";
+import React from "react";
 import Fade from "react-reveal";
-
 import styles from "./section.module.css";
 
 type sectionProps = JSX.IntrinsicElements["section"];
@@ -16,7 +15,7 @@ interface IPortfolioSectionProps {
   noFade?: boolean;
 }
 
-export const PortfolioSection: FunctionComponent<IPortfolioSectionProps & sectionProps> = ({
+export const PortfolioSection: React.FC<IPortfolioSectionProps & sectionProps> = ({
   children,
   className,
   separate,
@@ -41,7 +40,7 @@ interface IPortfolioContentProps {
   padding?: boolean;
 }
 
-export const PortfolioContent: FunctionComponent<IPortfolioContentProps & divProps> = ({
+export const PortfolioContent: React.FC<IPortfolioContentProps & divProps> = ({
   className,
   horizontal,
   vertical,
@@ -66,6 +65,6 @@ export const PortfolioContent: FunctionComponent<IPortfolioContentProps & divPro
   </div>
 );
 
-export const PortfolioTitle: FunctionComponent<JSX.IntrinsicElements["h1"]> = ({ className, ...rest }) => (
+export const PortfolioTitle: React.FC<JSX.IntrinsicElements["h1"]> = ({ className, ...rest }) => (
   <h1 {...rest} className={classnames(styles.title, className)} />
 );

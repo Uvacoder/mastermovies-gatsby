@@ -1,7 +1,7 @@
-import { Divider, Icon, Popover, Typography } from "antd";
+import { GlobalOutlined, LeftOutlined, LockOutlined, TeamOutlined } from "@ant-design/icons";
+import { Divider, Popover, Typography } from "antd";
 import { navigate } from "gatsby";
-import React, { FunctionComponent, ReactNode, useState } from "react";
-
+import React, { ReactNode, useState } from "react";
 import { IconMargin } from "../../../../components/common/icon_margin";
 import { Modal } from "../../../../components/common/modal";
 import { Portal } from "../../../../components/common/portal";
@@ -20,7 +20,7 @@ interface IGlacierFilmInfoProps {
   film: string;
 }
 
-export const GlacierFilmInfo: FunctionComponent<IGlacierFilmInfoProps> = ({ film }) => {
+export const GlacierFilmInfo: React.FC<IGlacierFilmInfoProps> = ({ film }) => {
   const validFilm = !isNaN((film as unknown) as number) ? parseInt(film, 10) : void 0;
 
   const [resolvedFilm, error, retry] = useGlacierFilm(validFilm);
@@ -45,7 +45,7 @@ export const GlacierFilmInfo: FunctionComponent<IGlacierFilmInfoProps> = ({ film
   );
 };
 
-const FilmInfo: FunctionComponent<{ film?: IGlacier }> = ({ film }) => {
+const FilmInfo: React.FC<{ film?: IGlacier }> = ({ film }) => {
   return (
     <>
       <Header film={film} />
@@ -53,11 +53,11 @@ const FilmInfo: FunctionComponent<{ film?: IGlacier }> = ({ film }) => {
   );
 };
 
-const Header: FunctionComponent<{ film?: IGlacier }> = ({ film }) => (
+const Header: React.FC<{ film?: IGlacier }> = ({ film }) => (
   <>
     <div className={styles.nav}>
       <DarkButton large onClick={() => navigate("/glacier")}>
-        <IconMargin type="left" marginRight /> Back to Glacier
+        <IconMargin icon={LeftOutlined} right /> Back to Glacier
       </DarkButton>
     </div>
 
@@ -85,17 +85,17 @@ const Header: FunctionComponent<{ film?: IGlacier }> = ({ film }) => (
   </>
 );
 
-const FilmInfoTable: FunctionComponent<{ film?: IGlacier }> = ({ film }) => (
+const FilmInfoTable: React.FC<{ film?: IGlacier }> = ({ film }) => (
   <div className={styles.infoTable}>
     <FilmInfoProperty title="Access">
       {film &&
         (film.public ? (
           <>
-            <Icon type="global" style={{ marginRight: 4 }} /> Public
+            <GlobalOutlined style={{ marginRight: 4 }} /> Public
           </>
         ) : (
           <>
-            <Icon type="lock" style={{ marginRight: 4 }} /> Restricted
+            <LockOutlined style={{ marginRight: 4 }} /> Restricted
           </>
         ))}
     </FilmInfoProperty>
@@ -123,11 +123,7 @@ const FilmInfoTable: FunctionComponent<{ film?: IGlacier }> = ({ film }) => (
   </div>
 );
 
-const FilmInfoProperty: FunctionComponent<{ title?: ReactNode; tooltip?: boolean }> = ({
-  title,
-  children,
-  tooltip = false,
-}) => (
+const FilmInfoProperty: React.FC<{ title?: ReactNode; tooltip?: boolean }> = ({ title, children, tooltip = false }) => (
   <>
     <div className={styles.infoTableProperty}>{title}</div>
     <Popover
@@ -144,14 +140,14 @@ const FilmInfoProperty: FunctionComponent<{ title?: ReactNode; tooltip?: boolean
   </>
 );
 
-const Description: FunctionComponent<{ description?: ReactNode }> = ({ description }) => (
+const Description: React.FC<{ description?: ReactNode }> = ({ description }) => (
   <div className={styles.description}>
     <div className={styles.descriptionTitle}>Film Description</div>
     {description || <Skeleton count={3} shorter />}
   </div>
 );
 
-const ViewCrew: FunctionComponent<{ crew: { [index: string]: string } }> = ({ crew }) => {
+const ViewCrew: React.FC<{ crew: { [index: string]: string } }> = ({ crew }) => {
   const [visible, setVisible] = useState<boolean>(false);
 
   return (
@@ -163,7 +159,7 @@ const ViewCrew: FunctionComponent<{ crew: { [index: string]: string } }> = ({ cr
         <Modal active={visible} onBack={() => setVisible(false)} backText="Back to Glacier">
           <div key="crew" className={styles.crewModal}>
             <h3 className={styles.crewTitle}>
-              <IconMargin type="team" marginRight /> Participants
+              <IconMargin icon={TeamOutlined} right /> Participants
             </h3>
             <p>
               The following people were involved in the making of this film.

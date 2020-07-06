@@ -1,16 +1,16 @@
 import { Divider } from "antd";
 import classnames from "classnames";
-import React, { FunctionComponent } from "react";
+import React from "react";
 
 import styles from "./card.module.css";
 
 /** Creates a card element */
-export const StatusCard: FunctionComponent<JSX.IntrinsicElements["div"]> = ({ className, ...rest }) => (
+export const StatusCard: React.FC<JSX.IntrinsicElements["div"]> = ({ className, ...rest }) => (
   <div className={classnames(styles.card, className)} {...rest} />
 );
 
 /** A properly padded card row */
-export const StatusCardRow: FunctionComponent<JSX.IntrinsicElements["div"] & { align?: boolean }> = ({
+export const StatusCardRow: React.FC<JSX.IntrinsicElements["div"] & { align?: boolean }> = ({
   align,
 
   className,
@@ -18,19 +18,19 @@ export const StatusCardRow: FunctionComponent<JSX.IntrinsicElements["div"] & { a
 }) => <div className={classnames(styles.row, { [styles.align]: align }, className)} {...rest} />;
 
 /** Adds a prefix to a row */
-export const StatusCardIcon: FunctionComponent<JSX.IntrinsicElements["div"]> = ({ className, ...rest }) => (
+export const StatusCardIcon: React.FC<JSX.IntrinsicElements["div"]> = ({ className, ...rest }) => (
   <div className={classnames(styles.status, className)} {...rest} />
 );
 
 /** A divider without margins */
-export const StatusCardDivider: FunctionComponent = () => <Divider className={styles.divider} />;
+export const StatusCardDivider: React.FC = () => <Divider className={styles.divider} />;
 
 /** Creates bold text for a row item */
-export const StatusCardText: FunctionComponent<JSX.IntrinsicElements["div"]> = ({ className, ...rest }) => (
+export const StatusCardText: React.FC<JSX.IntrinsicElements["div"]> = ({ className, ...rest }) => (
   <div className={styles.primaryText} {...rest} />
 );
 
 /** Creates a faded sub-text for a row item */
-export const StatusCardSubText: FunctionComponent<JSX.IntrinsicElements["div"]> = ({ className, ...rest }) => (
+export const StatusCardSubText: React.FC<JSX.IntrinsicElements["div"]> = ({ className, ...rest }) => (
   <div className={styles.secondaryText} {...rest} />
 );

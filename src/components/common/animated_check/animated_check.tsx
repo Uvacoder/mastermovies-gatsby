@@ -1,8 +1,7 @@
 import classnames from "classnames";
-import React, { FunctionComponent } from "react";
+import React from "react";
 import { CSSTransition, SwitchTransition, Transition } from "react-transition-group";
 import { CSSTransitionClassNames } from "react-transition-group/CSSTransition";
-
 import { IStyleProps } from "../../../types/component";
 import styles from "./animated_check.module.css";
 
@@ -13,7 +12,7 @@ interface IAnimatedCheckProps extends IStyleProps {
 }
 
 /** Use `AnimatedCheck` to mark a successful/failed operation */
-export const AnimatedCheck: FunctionComponent<IAnimatedCheckProps> = ({
+export const AnimatedCheck: React.FC<IAnimatedCheckProps> = ({
   active = false,
   failed = false,
   size = 36,

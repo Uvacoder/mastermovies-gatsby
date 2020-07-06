@@ -1,14 +1,13 @@
-import { Icon, Tooltip } from "antd";
+import { Tooltip } from "antd";
 import classnames from "classnames";
 import { Link } from "gatsby";
-import React, { FunctionComponent, useContext } from "react";
-
+import React, { useContext } from "react";
 import { FOOTER_LINKS, SOCIAL_LINKS } from "../../../config";
 import { ThemeContext } from "../../../hooks/theme";
 import { SmartLink } from "../smart_link";
 import styles from "./footer.module.css";
 
-export const Footer: FunctionComponent = () => {
+export const Footer: React.FC = () => {
   const theme = useContext(ThemeContext);
 
   return (
@@ -17,7 +16,7 @@ export const Footer: FunctionComponent = () => {
       <div className={styles.subtitle}>A small media company</div>
 
       <div className={styles.links}>
-        {FOOTER_LINKS.map(link => (
+        {FOOTER_LINKS.map((link) => (
           <SmartLink key={link.text} className={styles.link} link={link.link}>
             {link.text}
           </SmartLink>
@@ -25,10 +24,10 @@ export const Footer: FunctionComponent = () => {
       </div>
 
       <div className={styles.links}>
-        {SOCIAL_LINKS.map(link => (
+        {SOCIAL_LINKS.map((link) => (
           <a key={link.text} href={link.link}>
             <Tooltip title={link.text} placement="bottom">
-              <Icon type={link.icon} className={classnames(styles.icon, styles.link)} />
+              <link.icon className={classnames(styles.icon, styles.link)} />
             </Tooltip>
           </a>
         ))}
@@ -36,7 +35,7 @@ export const Footer: FunctionComponent = () => {
 
       <p className={styles.breadcrumb}>
         <span className={styles.breadcrumbMessage}>
-          All rights reserved © 2019 Marcus Cemes – Powered by{" "}
+          All rights reserved © {Math.min(2020, new Date().getFullYear())} Marcus Cemes – Powered by{" "}
           <Link to="/status" style={{ color: "inherit" }}>
             <b>SnowOwl</b>
           </Link>

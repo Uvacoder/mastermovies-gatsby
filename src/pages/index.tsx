@@ -1,6 +1,5 @@
-import React, { FunctionComponent, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { throttle } from "throttle-debounce";
-
 import { Footer } from "../components/common/footer/footer";
 import { Nav } from "../components/common/nav";
 import { SEO } from "../components/common/seo";
@@ -10,7 +9,7 @@ import { IndexGlacier } from "../containers/index/glacier";
 import { IndexPortfolio } from "../containers/index/portfolio";
 import { ThemeContext } from "../hooks/theme";
 
-const Index: FunctionComponent = () => {
+const Index: React.FC = () => {
   const [alternateSidebar, setAlternateSidebar] = useState(false);
   const [alternateNav, setAlternateNav] = useState(false);
   const alternateZone = useRef(null);
@@ -51,7 +50,13 @@ const Index: FunctionComponent = () => {
       <SEO title="Home" keywords={["MasterMovies", "homepage", "application"]} />
 
       <ThemeContext.Provider value={alternateNav ? "light" : "dark"}>
-        <Nav links={NAV_LINKS} type="fixed" extended={!alternateNav} background={!!alternateNav} />
+        <Nav
+          links={NAV_LINKS}
+          type="fixed"
+          hideLogo={!alternateNav}
+          extended={!alternateNav}
+          background={alternateNav}
+        />
       </ThemeContext.Provider>
 
       <IndexBanner />

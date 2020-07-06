@@ -1,6 +1,6 @@
-import React, { FunctionComponent } from "react";
+import React from "react";
 
-export const Brand500px: FunctionComponent<JSX.IntrinsicElements["svg"]> = props => (
+export const Brand500px: React.FC<JSX.IntrinsicElements["svg"]> = (props) => (
   <svg
     width="1939"
     height="2500"

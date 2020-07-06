@@ -1,11 +1,11 @@
 import { graphql, useStaticQuery } from "gatsby";
 import Image from "gatsby-image/withIEPolyfill";
-import React, { FunctionComponent } from "react";
+import React from "react";
 
 import { AnimatedStyle } from "../../../../components/common/animated_style";
 import styles from "./background.module.css";
 
-export const GlacierBackground: FunctionComponent<{ active: boolean }> = ({ active }) => {
+export const GlacierBackground: React.FC<{ active: boolean }> = ({ active }) => {
   const query = useStaticQuery(graphql`
     query {
       background: file(relativePath: { eq: "glacier/background.jpg" }) {

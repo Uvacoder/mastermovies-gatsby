@@ -1,6 +1,6 @@
-import { Button, Icon, message } from "antd";
-import React, { FunctionComponent } from "react";
-
+import { ContainerOutlined, LogoutOutlined, SmileOutlined } from "@ant-design/icons";
+import { Button, message } from "antd";
+import React from "react";
 import { IconMargin } from "../../../../../../../components/common/icon_margin";
 import { Modal } from "../../../../../../../components/common/modal";
 import { Portal } from "../../../../../../../components/common/portal";
@@ -10,7 +10,7 @@ import { useAuthPayload } from "../../../../../../../hooks/api/auth";
 import styles from "./auths.module.css";
 import { GlacierMenuAuthsTable } from "./table";
 
-export const GlacierMenuAuths: FunctionComponent<{
+export const GlacierMenuAuths: React.FC<{
   active?: boolean;
   onActive: (active: boolean) => void;
 }> = ({ active, onActive }) => (
@@ -44,11 +44,11 @@ export const GlacierMenuAuths: FunctionComponent<{
                   type: "info",
                   content: "I don't do anything!",
                   duration: 1,
-                  icon: <Icon type="smile" />,
+                  icon: <SmileOutlined />,
                 })
               }
             >
-              <IconMargin type="logout" marginRight /> Logout
+              <IconMargin icon={LogoutOutlined} right /> Logout
             </Button>{" "}
             option under the menu button. This will effectively destroy your access token, any active downloads will
             remain unaffected.
@@ -62,7 +62,7 @@ export const GlacierMenuAuths: FunctionComponent<{
 );
 
 /** Loads the session token and displays active authorisations */
-const Authorisations: FunctionComponent<{ onClose: () => void }> = ({ onClose }) => {
+const Authorisations: React.FC<{ onClose: () => void }> = ({ onClose }) => {
   const [payload, error, retry] = useAuthPayload();
 
   const auths = payload && payload.glacier && payload.glacier.auth && Object.entries(payload.glacier.auth);
@@ -72,7 +72,14 @@ const Authorisations: FunctionComponent<{ onClose: () => void }> = ({ onClose })
       {typeof payload === "undefined" ? (
         <Spinner active delay={500} />
       ) : error ? (
-        <StandardOverlay active text={error.text} code={error.code} icon={error.icon} button="Retry" onButton={retry} />
+        <StandardOverlay
+          active
+          text={error.text}
+          code={error.code}
+          icon={error.icons}
+          button="Retry"
+          onButton={retry}
+        />
       ) : auths && auths.length > 0 ? (
         <>
           <h2 className={styles.authorisationsTitle}>
@@ -86,7 +93,7 @@ const Authorisations: FunctionComponent<{ onClose: () => void }> = ({ onClose })
         </>
       ) : (
         <div className={styles.noAuth}>
-          <IconMargin type="container" marginRight /> You have no active film authorisations
+          <IconMargin icon={ContainerOutlined} right /> You have no active film authorisations
         </div>
       )}
     </div>

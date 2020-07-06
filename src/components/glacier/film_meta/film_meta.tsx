@@ -1,7 +1,6 @@
-import classnames from "classnames";
-import React, { FunctionComponent, useContext } from "react";
-
 import { Typography } from "antd";
+import classnames from "classnames";
+import React, { useContext } from "react";
 import { GlacierNotSpecified } from "../../../containers/glacier/layout/film_info/not_specified";
 import { ThemeContext } from "../../../hooks/theme";
 import { IStyleProps } from "../../../types/component";
@@ -19,7 +18,7 @@ interface IFilmMetaProps {
  *
  * The font size is based on `em`.
  */
-export const GlacierFilmMeta: FunctionComponent<IFilmMetaProps & IStyleProps> = ({
+export const GlacierFilmMeta: React.FC<IFilmMetaProps & IStyleProps> = ({
   name,
   release,
   description,
@@ -37,10 +36,12 @@ export const GlacierFilmMeta: FunctionComponent<IFilmMetaProps & IStyleProps> = 
 };
 
 /** A formatted Glacier film title with skeleton loading */
-export const GlacierFilmTitle: FunctionComponent<{
-  name: string | undefined;
-  release: string | number | undefined;
-} & IStyleProps> = ({ name, release, className, ...rest }) => {
+export const GlacierFilmTitle: React.FC<
+  {
+    name: string | undefined;
+    release: string | number | undefined;
+  } & IStyleProps
+> = ({ name, release, className, ...rest }) => {
   const theme = useContext(ThemeContext);
 
   const titleElement = name ? name.toUpperCase() : <Skeleton style={{ width: "8em", maxWidth: "60%" }} />;
@@ -66,7 +67,7 @@ export const GlacierFilmTitle: FunctionComponent<{
  * A formatted film description with skeleton loading.
  * Due to https://github.com/ant-design/ant-design/issues/19088, Paragraph throws console errors
  */
-export const GlacierFilmDescription: FunctionComponent<{ description: string | undefined } & IStyleProps> = ({
+export const GlacierFilmDescription: React.FC<{ description: string | undefined } & IStyleProps> = ({
   description,
   className,
   ...rest

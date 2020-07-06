@@ -1,8 +1,8 @@
 import { graphql, useStaticQuery } from "gatsby";
-import React, { FunctionComponent } from "react";
+import React from "react";
 import Helmet from "react-helmet";
 
-export const SEO: FunctionComponent<SEOProps> = (props: SEOProps) => {
+export const SEO: React.FC<SEOProps> = (props: SEOProps) => {
   const { description, lang, meta, keywords, title } = {
     ...defaultSEOProps,
     ...props,

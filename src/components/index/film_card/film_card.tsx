@@ -1,8 +1,7 @@
 import { Card } from "antd";
 import { CardProps } from "antd/lib/card";
 import classnames from "classnames";
-import React, { FunctionComponent } from "react";
-
+import React from "react";
 import { IGlacier } from "../../../types/glacier";
 import { AspectRatio } from "../../common/aspect_ratio";
 import { GlacierThumbnail } from "../../glacier/thumbnail";
@@ -15,7 +14,7 @@ export interface IFilmCardProps extends cardProps {
 }
 
 /** Displays a Glacier film in a card-type style */
-export const FilmCard: FunctionComponent<IFilmCardProps> = ({ film, onClick, className }) => (
+export const FilmCard: React.FC<IFilmCardProps> = ({ film, onClick, className }) => (
   <Card
     hoverable
     cover={

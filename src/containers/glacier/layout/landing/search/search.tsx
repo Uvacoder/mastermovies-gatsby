@@ -1,6 +1,5 @@
 import classnames from "classnames";
-import React, { FunctionComponent, useContext } from "react";
-
+import React, { useContext } from "react";
 import { GlacierContext } from "../../../context";
 import { GlacierSearchBar } from "./bar";
 import { GlacierSearchFilter, IGlacierSearchFilter } from "./filter";
@@ -26,7 +25,7 @@ export interface IGlacierSearch {
 }
 
 /** Provides search, filter and date selection UI for sorting Glacier content */
-export const GlacierSearch: FunctionComponent = () => {
+export const GlacierSearch: React.FC = () => {
   const [{ filter, bar, range }] = useContext(GlacierContext);
 
   // Reduce context to see if there are any active search components

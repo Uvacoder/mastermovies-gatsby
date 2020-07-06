@@ -1,4 +1,3 @@
-import { FunctionComponent } from "react";
 import ReactDOM from "react-dom";
 
 /**
@@ -12,5 +11,5 @@ import ReactDOM from "react-dom";
  *   <Modal />
  * </Portal>
  */
-export const Portal: FunctionComponent<{ nodeId?: string }> = ({ nodeId = "___portal", children }) =>
+export const Portal: React.FC<{ nodeId?: string }> = ({ nodeId = "___portal", children }) =>
   typeof document !== "undefined" ? ReactDOM.createPortal(children, document.getElementById(nodeId)) : null; // SSR

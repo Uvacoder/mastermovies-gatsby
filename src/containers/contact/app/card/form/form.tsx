@@ -1,7 +1,7 @@
-import { Button, Form, Icon, Input, Popconfirm } from "antd";
-import { FormComponentProps } from "antd/lib/form";
-import React, { FunctionComponent, useEffect, useState } from "react";
-
+import { CheckOutlined, ExclamationOutlined, HighlightOutlined, MailOutlined, UserOutlined } from "@ant-design/icons";
+import { Button, Form, Input, message, Popconfirm } from "antd";
+import { useForm } from "antd/lib/form/Form";
+import React, { Reducer, useEffect, useReducer } from "react";
 import { Cancel, cancelTokenSource } from "../../../../../lib/cancelToken";
 import { IContactRequest, submitContact } from "../../../../../services/api/contact";
 import { humanError } from "../../../../../services/api/error";
@@ -12,147 +12,143 @@ import styles from "./form.module.css";
 const nameRegex = /^(?:(?![×Þß÷þø])[-'0-9a-zÀ-ÿ\s])+$/i;
 const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-// TODO clean up
-const ContactForm: FunctionComponent<FormComponentProps> = ({ form }) => {
-  // Send the form using useEffect
-  const [sendValues, send] = useState<IContactRequest>(void 0);
+interface State {
+  status: "ready" | "confirm" | "sending" | "done";
+  values?: IContactRequest;
+  error?: IHumanError;
+}
 
-  // Confirm the values (anonymous)
-  const [confirm, setConfirm] = useState<IContactRequest>(void 0);
+export const ContactCardContentForm: React.FC = () => {
+  const [form] = useForm();
 
-  // Success state
-  const [finished, setFinished] = useState<boolean>(void 0);
-  const [success, setSuccess] = useState<boolean>(void 0);
-  const [error, setError] = useState<IHumanError>(void 0);
+  const [state, setState] = useReducer<Reducer<State, Partial<State>>>((state, change) => ({ ...state, ...change }), {
+    status: "ready",
+  });
 
-  const { getFieldDecorator, validateFields } = form;
-
-  /* Prevent default action */
-  const handleSubmit = (event: React.FormEvent<any>) => {
-    event.preventDefault();
-  };
-
-  /* Handle the actual submit button and popover confirmation */
-  const handleVisibleChange = visible => {
-    // Hide the popover
-    if (!visible) {
-      setConfirm(void 0);
+  /**
+   * Fired when the popover should open, or the mouse clicks away and it should close.
+   * The popover completely overrides the submit button, submit logic is done here.
+   */
+  const popoverVisibleRequest = async (shouldBeVisible) => {
+    if (!shouldBeVisible) {
+      setState({ status: "ready" });
+      return;
     }
 
-    // Show if necessary
-    validateFields((err, values) => {
-      if (!err) {
-        if (!values.name || !values.email) {
-          setConfirm(values);
-        } else {
-          send(values);
-        }
-      }
-    });
+    try {
+      const values = await form.validateFields();
+      setState({ status: !values.name || !values.email ? "confirm" : "sending", error: void 0 });
+    } catch {
+      // form did not validate, error hints are shown
+    }
   };
 
-  /** Confirm the popover */
-  const handleConfirm = () => {
-    send(confirm);
-    setConfirm(void 0);
+  /** When the OK/Cancel popover buttons are clicked */
+  const handlePopoverAction = (ok: boolean) => {
+    setState({ status: ok ? "sending" : "ready", error: void 0 });
   };
 
-  /* Upload the form to the server */
+  /** When the overlay retry button is clicked */
+  const onRetry = () => {
+    setState({ status: "ready" }); // clearing error here causes flicker
+  };
+
+  /** Submit the form to the server */
   useEffect(() => {
-    if (!sendValues) return;
+    if (state.status !== "sending") return;
 
     const { token, cancel } = cancelTokenSource();
 
-    // tslint:disable-next-line: no-floating-promises
     (async () => {
       try {
-        await submitContact(sendValues, token);
-        setFinished(true);
-        send(void 0);
-        setSuccess(true);
+        await submitContact(form.getFieldsValue() as IContactRequest, token);
+        setState({
+          status: "done",
+        });
       } catch (err) {
         if (err instanceof Cancel) return;
 
-        setError(humanError(err));
+        setState({ status: "done", error: humanError(err) });
       }
     })();
 
     return cancel;
-  }, [sendValues]);
+  }, [state.status]);
+
+  const disabled = state.status !== "ready";
 
   return (
-    <Form onSubmit={handleSubmit} className={styles.form}>
-      <ContactFormOverlay active={finished} success={success} error={error} onRetry={() => setFinished(false)} />
-      <Form.Item>
-        {getFieldDecorator("name", {
-          rules: [
-            { pattern: nameRegex, message: "That's a strange name... " },
-            { max: 30, message: "Try a shorter version of your name..." },
-          ],
-        })(
-          <Input
-            disabled={!!sendValues || success === true}
-            prefix={<Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />}
-            placeholder="Name"
-          />
-        )}
+    <Form form={form} className={styles.form}>
+      <ContactFormOverlay
+        active={state.status === "done"}
+        success={!state.error}
+        error={state.error}
+        onRetry={onRetry}
+      />
+
+      <Form.Item
+        name="name"
+        rules={[
+          { pattern: nameRegex, message: "That's a strange name... " },
+          { max: 30, message: "Try a shorter version of your name..." },
+        ]}
+      >
+        <Input disabled={disabled} prefix={<UserOutlined style={{ color: "rgba(0,0,0,.25)" }} />} placeholder="Name" />
       </Form.Item>
-      <Form.Item>
-        {getFieldDecorator("email", {
-          rules: [{ pattern: emailRegex, message: "That's a strange email..." }],
-        })(
-          <Input
-            disabled={!!sendValues || success === true}
-            prefix={<Icon type="mail" style={{ color: "rgba(0,0,0,.25)" }} />}
-            placeholder="Email"
-          />
-        )}
+
+      <Form.Item name="email" rules={[{ pattern: emailRegex, message: "That's a strange email..." }]}>
+        <Input disabled={disabled} prefix={<MailOutlined style={{ color: "rgba(0,0,0,.25)" }} />} placeholder="Email" />
       </Form.Item>
-      <Form.Item>
-        {getFieldDecorator("subject", {
-          rules: [
-            { required: true, message: "What is it about?" },
-            { max: 40, message: "Try and make it a bit shorter..." },
-          ],
-        })(
-          <Input
-            disabled={!!sendValues || success === true}
-            prefix={<Icon type="highlight" style={{ color: "rgba(0,0,0,.25)" }} />}
-            placeholder="Subject"
-          />
-        )}
+
+      <Form.Item
+        name="subject"
+        rules={[
+          { required: true, message: "What is it about?" },
+          { max: 40, message: "Try and make it a bit shorter..." },
+        ]}
+      >
+        <Input
+          disabled={disabled}
+          prefix={<HighlightOutlined style={{ color: "rgba(0,0,0,.25)" }} />}
+          placeholder="Subject"
+        />
       </Form.Item>
-      <Form.Item>
-        {getFieldDecorator("message", {
-          rules: [
-            {
-              required: true,
-              message: "It's rude to leave without saying anything...",
-            },
-            {
-              max: 1000,
-              message: "Try and make the initial message a bit shorter...",
-            },
-          ],
-        })(<Input.TextArea disabled={!!sendValues || success === true} placeholder="So what did you want to say?" />)}
+
+      <Form.Item
+        name="message"
+        rules={[
+          {
+            required: true,
+            message: "It's rude to leave without saying anything...",
+          },
+          {
+            max: 1000,
+            message: "Try and make the initial message a bit shorter...",
+          },
+        ]}
+      >
+        <Input.TextArea disabled={disabled} placeholder="So what did you want to say?" />
       </Form.Item>
+
       <Form.Item className={styles.button}>
         <Popconfirm
           title="Are you sure you want to send this anonymously?"
-          visible={!!confirm}
-          onVisibleChange={handleVisibleChange}
-          onConfirm={handleConfirm}
-          onCancel={() => setConfirm(void 0)}
+          visible={state.status === "confirm"}
+          onVisibleChange={popoverVisibleRequest}
+          onConfirm={() => handlePopoverAction(true)}
+          onCancel={() => handlePopoverAction(false)}
           okText="Yes"
           cancelText="No"
         >
           <Button
             type="primary"
             htmlType="submit"
-            icon={!finished ? "mail" : success ? "check" : "exclamation"}
+            icon={
+              state.status !== "done" ? <MailOutlined /> : !state.error ? <CheckOutlined /> : <ExclamationOutlined />
+            }
             size="large"
-            loading={!!sendValues}
-            disabled={success === true}
+            loading={state.status === "sending"}
+            disabled={state.status === "done"}
           >
             Dispatch an owl
           </Button>
@@ -161,5 +157,3 @@ const ContactForm: FunctionComponent<FormComponentProps> = ({ form }) => {
     </Form>
   );
 };
-
-export const ContactCardContentForm = Form.create({ name: "contact" })(ContactForm);

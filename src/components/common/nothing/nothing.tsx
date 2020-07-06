@@ -1,12 +1,11 @@
 import { Empty } from "antd";
 import classnames from "classnames";
-import React, { FunctionComponent, useContext } from "react";
-
+import React, { useContext } from "react";
 import { ThemeContext } from "../../../hooks/theme";
 import styles from "./nothing.module.css";
 
 /** Displays a generic `Nothing to show here` message */
-export const Nothing: FunctionComponent = () => {
+export const Nothing: React.FC = () => {
   const theme = useContext(ThemeContext);
 
   return (

@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import React from "react";
 
 import { IGlacierSummary } from "../../../../../types/glacier";
 import styles from "./banner.module.css";
@@ -10,7 +10,7 @@ interface IGlacierBannerProps {
 }
 
 /** Contains the first section for glacier */
-export const GlacierBanner: FunctionComponent<IGlacierBannerProps> = ({ films }) => {
+export const GlacierBanner: React.FC<IGlacierBannerProps> = ({ films }) => {
   if (films && films.length > 4) throw new Error("[GLACIER] Banner can not show more than 4 films!");
 
   const spotlight = films ? films[0] : void 0;

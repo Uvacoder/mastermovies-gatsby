@@ -1,5 +1,5 @@
 import { navigate } from "gatsby";
-import React, { FunctionComponent } from "react";
+import React from "react";
 
 import { AspectRatio } from "../../../../../components/common/aspect_ratio";
 import { Nothing } from "../../../../../components/common/nothing";
@@ -14,11 +14,11 @@ interface IGlacierGridProps {
   films?: IGlacierSummary[];
 }
 
-export const GlacierGrid: FunctionComponent<IGlacierGridProps> = ({ films }) => (
+export const GlacierGrid: React.FC<IGlacierGridProps> = ({ films }) => (
   <div className={styles.grid}>
     {Array.isArray(films)
       ? films.map((film, i) => <GridItem key={i} film={film.id} />)
-      : [0, 1, 2].map(v => <GridItem key={v} />)}
+      : [0, 1, 2].map((v) => <GridItem key={v} />)}
   </div>
 );
 
@@ -26,7 +26,7 @@ interface IGridItemProps {
   film?: number;
 }
 
-const GridItem: FunctionComponent<IGridItemProps> = ({ film }) => {
+const GridItem: React.FC<IGridItemProps> = ({ film }) => {
   const [resolvedFilm, error, retry] = useGlacierFilm(film);
 
   return (

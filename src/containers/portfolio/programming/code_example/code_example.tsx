@@ -1,8 +1,7 @@
-import React, { createContext, FunctionComponent, useContext } from "react";
-
+import React, { createContext, useContext } from "react";
 import styles from "./code_example.module.css";
 
-export const CodeExample: FunctionComponent = () => {
+export const CodeExample: React.FC = () => {
   return (
     <code className={styles.code}>
       <div className={styles.badge}>C++</div>
@@ -43,12 +42,12 @@ export const CodeExample: FunctionComponent = () => {
 
 const Indent = createContext(0);
 
-const Block: FunctionComponent = ({ children }) => {
+const Block: React.FC = ({ children }) => {
   const indent = useContext(Indent);
   return <Indent.Provider value={indent + 2} children={children} />;
 };
 
-const Line: FunctionComponent = ({ children }) => {
+const Line: React.FC = ({ children }) => {
   const indent = useContext(Indent);
   return (
     <pre className={styles.line}>
@@ -58,7 +57,7 @@ const Line: FunctionComponent = ({ children }) => {
   );
 };
 
-const Tag: FunctionComponent<{ type: string }> = ({ children, type }) => (
+const Tag: React.FC<{ type: string }> = ({ children, type }) => (
   <>
     <Line>
       {"<"}
@@ -74,8 +73,8 @@ const Tag: FunctionComponent<{ type: string }> = ({ children, type }) => (
   </>
 );
 
-const Green: FunctionComponent = ({ children }) => <span className={styles.green} children={children} />;
-const Blue: FunctionComponent = ({ children }) => <span className={styles.blue} children={children} />;
-const DarkBlue: FunctionComponent = ({ children }) => <span className={styles.darkBlue} children={children} />;
-const Purple: FunctionComponent = ({ children }) => <span className={styles.purple} children={children} />;
-const Grey: FunctionComponent = ({ children }) => <span className={styles.grey} children={children} />;
+const Green: React.FC = ({ children }) => <span className={styles.green} children={children} />;
+const Blue: React.FC = ({ children }) => <span className={styles.blue} children={children} />;
+const DarkBlue: React.FC = ({ children }) => <span className={styles.darkBlue} children={children} />;
+const Purple: React.FC = ({ children }) => <span className={styles.purple} children={children} />;
+const Grey: React.FC = ({ children }) => <span className={styles.grey} children={children} />;

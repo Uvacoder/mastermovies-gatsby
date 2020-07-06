@@ -26,7 +26,6 @@ export function useRequest<S extends any>(
 
     const { token, cancel } = cancelTokenSource();
 
-    // tslint:disable-next-line:no-floating-promises
     (async () => {
       try {
         const response = await Axios.request<S>({ url, ...config });

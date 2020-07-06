@@ -1,12 +1,11 @@
-import { Icon } from "antd";
+import { LockOutlined } from "@ant-design/icons";
 import { Link } from "gatsby";
-import React, { FunctionComponent } from "react";
-
+import React from "react";
 import { Modal } from "../../../../../../../components/common/modal";
 import { Portal } from "../../../../../../../components/common/portal";
 import styles from "./help.module.css";
 
-export const GlacierMenuHelp: FunctionComponent<{
+export const GlacierMenuHelp: React.FC<{
   active?: boolean;
   onActive: (active: boolean) => void;
 }> = ({ active, onActive }) => (
@@ -24,8 +23,8 @@ export const GlacierMenuHelp: FunctionComponent<{
         <h3>Film Access</h3>
         <p>
           To protect the privacy of its participants, some films are restricted to a select viewing audience. These
-          films are marked with a <Icon type="lock" /> "Restricted" icon and may only be viewed by people in possession
-          of a valid access key.
+          films are marked with a <LockOutlined /> "Restricted" icon and may only be viewed by people in possession of a
+          valid access key.
         </p>
 
         <h3>Request an access key</h3>

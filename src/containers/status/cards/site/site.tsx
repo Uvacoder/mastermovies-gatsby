@@ -1,10 +1,9 @@
-import { Icon } from "antd";
+import { GithubOutlined, WarningOutlined } from "@ant-design/icons";
 import { graphql, useStaticQuery } from "gatsby";
-import React, { Children, FunctionComponent } from "react";
-
+import React, { Children } from "react";
 import { AnimatedCheck } from "../../../../components/common/animated_check";
 import { IconMargin } from "../../../../components/common/icon_margin";
-import { MasterMoviesLogo } from "../../../../components/common/logos";
+import { MasterMoviesLogo, MasterMoviesText } from "../../../../components/common/logos";
 import { Spinner } from "../../../../components/common/spinner";
 import { useRequest } from "../../../../hooks/use_request";
 import { IGraphQLFile } from "../../../../types/graphql";
@@ -26,8 +25,8 @@ interface IBuildInformation {
 
 const STATUS_SIZE = 18;
 
-export const StatusCardsSite: FunctionComponent = () => {
-  const { buildInformation, logo } = useStaticQuery<{
+export const StatusCardsSite: React.FC = () => {
+  const { buildInformation } = useStaticQuery<{
     buildInformation: IBuildInformation;
     logo: IGraphQLFile;
   }>(graphql`
@@ -37,15 +36,12 @@ export const StatusCardsSite: FunctionComponent = () => {
         gitCommit
         gitDate
       }
-      logo: file(relativePath: { eq: "logo/black.svg" }) {
-        publicURL
-      }
     }
   `);
 
   return (
     <StatusCard>
-      <Banner logo={logo.publicURL} />
+      <Banner />
       <StatusCardDivider />
       <Build info={buildInformation} />
       <StatusCardDivider />
@@ -57,12 +53,12 @@ export const StatusCardsSite: FunctionComponent = () => {
 };
 
 /** Displays the site logo */
-const Banner: FunctionComponent<{ logo: string }> = ({ logo }) => {
+const Banner: React.FC = () => {
   return (
     <StatusCardRow align className={styles.banner}>
-      <img src={logo} className={styles.logoImage} />
+      <MasterMoviesLogo className={styles.logoImage} />
       <div className={styles.logo}>
-        <MasterMoviesLogo className={styles.logoTitle} />
+        <MasterMoviesText className={styles.logoTitle} />
         <div className={styles.logoSubtitle}>hosted with SnowOwl</div>
       </div>
     </StatusCardRow>
@@ -70,9 +66,9 @@ const Banner: FunctionComponent<{ logo: string }> = ({ logo }) => {
 };
 
 /** Displays build information, such as the version and commit hash */
-const Build: FunctionComponent<{ info: IBuildInformation }> = ({ info }) => {
+const Build: React.FC<{ info: IBuildInformation }> = ({ info }) => {
   const production = process.env.NODE_ENV === "production";
-  const [data, error] = useRequest(
+  const [data, error] = useRequest<{ commit?: { sha: string } }>(
     production ? "https://api.github.com/repos/MarcusCemes/mastermovies/branches/master" : null
   );
   const upToDate = data && data.commit ? data.commit.sha === info.gitCommit : null;
@@ -109,7 +105,7 @@ const Build: FunctionComponent<{ info: IBuildInformation }> = ({ info }) => {
             <AnimatedCheck active={!!data || !!error} failed={!upToDate || !!error} size={STATUS_SIZE} />
           </>
         ) : (
-          <Icon type="warning" className={styles.statusWarning} />
+          <WarningOutlined className={styles.statusWarning} />
         )}
       </StatusCardIcon>
       <div>
@@ -121,13 +117,13 @@ const Build: FunctionComponent<{ info: IBuildInformation }> = ({ info }) => {
 };
 
 /** Displays API information, such as version */
-const Api: FunctionComponent = () => {
+const Api: React.FC = () => {
   const [data, error] = useRequest("https://api.github.com/repos/MarcusCemes/mastermovies-api/branches/master");
   const [pkg] = useRequest("https://raw.githubusercontent.com/MarcusCemes/mastermovies-api/master/package.json");
 
   let version: string;
   try {
-    if (typeof pkg === "object") version = pkg.version;
+    if (typeof pkg === "object") version = (pkg as any).version;
   } catch (_err) {
     /* */
   }
@@ -141,9 +137,9 @@ const Api: FunctionComponent = () => {
   const subMessages = separate(
     Children.toArray([
       version ? `Version ${version}` : false,
-      data && data.commit ? (
+      data && (data as any).commit ? (
         <>
-          Build <code>{data.commit.sha.substr(0, 7)}</code>
+          Build <code>{(data as any).commit.sha.substr(0, 7)}</code>
         </>
       ) : null,
     ]),
@@ -164,16 +160,16 @@ const Api: FunctionComponent = () => {
   );
 };
 /** Links to source code repositories */
-const Links: FunctionComponent = () => (
+const Links: React.FC = () => (
   <StatusCardRow>
     <a href="https://github.com/MarcusCemes/mastermovies" target="_blank">
       <div className={styles.link}>
-        <IconMargin type="github" marginRight /> Website repository
+        <IconMargin icon={GithubOutlined} right /> Website repository
       </div>
     </a>
     <a href="https://github.com/MarcusCemes/mastermovies" target="_blank">
       <div className={styles.link}>
-        <IconMargin type="github" marginRight /> API repository
+        <IconMargin icon={GithubOutlined} right /> API repository
       </div>
     </a>
   </StatusCardRow>

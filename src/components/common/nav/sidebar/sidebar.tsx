@@ -1,10 +1,9 @@
 import classnames from "classnames";
 import { navigate } from "gatsby";
 import hash from "hash-sum";
-import React, { FunctionComponent, useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { animated, useSpring } from "react-spring";
 import { useDrag } from "react-use-gesture";
-
 import { ThemeContext } from "../../../../hooks/theme";
 import { SmartLink } from "../../smart_link";
 import { NavMenu } from "../common/menu";
@@ -25,7 +24,7 @@ const BREAKPOINT = -50;
 const CLOSED = -100;
 
 /** A powerful react-spring animated sidebar that supports drag-based open/close gestures */
-export const Sidebar: FunctionComponent<INavProps> = ({ links, logo }) => {
+export const Sidebar: React.FC<INavProps> = ({ links, logo }) => {
   // useSpring executes outside of React's rendering. This state provides real-time access
   // for animation logic. `active` state updates are pushed to React and done at a later time.
   const [gesture] = useState<{ active: boolean }>({ active: false });
@@ -114,15 +113,15 @@ export const Sidebar: FunctionComponent<INavProps> = ({ links, logo }) => {
       <animated.div
         className={styles.sidebar}
         style={{
-          transform: x.interpolate(x => `translate3d(${clampInvert(x, CLOSED, OPEN)}%,0,0)`),
+          transform: x.interpolate((x) => `translate3d(${clampInvert(x, CLOSED, OPEN)}%,0,0)`),
           boxShadow: x.interpolate(
-            x =>
+            (x) =>
               `14px 0 28px rgba(0,0,0,${(0.2 * (x + 100)) / 100}), 10px 0 10px rgba(0,0,0,${(0.18 * (x + 100)) / 100})`
           ),
         }}
       >
         <ThemeContext.Consumer>
-          {theme => (
+          {(theme) => (
             <ThemeContext.Provider value={active ? "light" : theme}>
               <NavMenu
                 active={active}

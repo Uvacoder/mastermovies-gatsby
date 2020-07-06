@@ -20,7 +20,6 @@ export function useAuthPayload(): [IJwt, IHumanError | undefined, TRetryFunction
 
     const { token, cancel } = cancelTokenSource();
 
-    // tslint:disable-next-line:no-floating-promises
     (async () => {
       try {
         const resolvedPayload = await getAuthPayload(token);

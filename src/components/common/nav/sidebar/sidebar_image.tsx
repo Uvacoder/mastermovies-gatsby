@@ -1,10 +1,9 @@
 import { graphql, useStaticQuery } from "gatsby";
 import Img, { FluidObject } from "gatsby-image";
-import React, { FunctionComponent } from "react";
-
+import React from "react";
 import styles from "./sidebar_image.module.css";
 
-export const SidebarImage: FunctionComponent<{ load?: boolean }> = React.memo(({ load = true }) => {
+export const SidebarImage: React.FC<{ load?: boolean }> = React.memo(({ load = true }) => {
   const { background } = useStaticQuery(
     graphql`
       query {

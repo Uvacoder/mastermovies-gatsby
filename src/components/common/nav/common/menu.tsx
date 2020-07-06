@@ -1,13 +1,9 @@
 import classnames from "classnames";
-import React, { FunctionComponent, useContext } from "react";
-
+import React, { useContext } from "react";
 import { ThemeContext } from "../../../../hooks/theme";
 import styles from "./menu.module.css";
 
-export const NavMenu: FunctionComponent<{ active?: boolean } & JSX.IntrinsicElements["div"]> = ({
-  active,
-  ...rest
-}) => {
+export const NavMenu: React.FC<{ active?: boolean } & JSX.IntrinsicElements["div"]> = ({ active, ...rest }) => {
   const theme = useContext(ThemeContext);
 
   return (

@@ -88,7 +88,6 @@ export function useGlacierAuth(filmId?: number): [EAuthStatus, string, SetState<
 function doQuery(filmId: number, setStatus: SetState<EAuthStatus>, setError: SetState<IHumanError>): TCancelFunction {
   const { token, cancel } = cancelTokenSource();
 
-  // tslint:disable-next-line:no-floating-promises
   (async () => {
     try {
       const payloadPromise = getAuthPayload(token);
@@ -125,13 +124,12 @@ function doAuth(
 ): TCancelFunction {
   const { token, cancel } = cancelTokenSource();
 
-  // tslint:disable-next-line no-floating-promises
   (async () => {
     try {
       await authoriseGlacierFilm(filmId, key, token);
       setStatus(EAuthStatus.REQUEST);
     } catch (err) {
-      if (err && (err as AxiosError).response.status === 401) {
+      if (err && (err as AxiosError).response?.status === 401) {
         // 401 Unauthorised
         setStatus(EAuthStatus.FAILED);
       } else {
@@ -154,7 +152,6 @@ function doRequest(
 ): TCancelFunction {
   const { token, cancel } = cancelTokenSource();
 
-  // tslint:disable-next-line:no-floating-promises
   (async () => {
     try {
       const request = await authoriseGlacierDownload(filmId, token);

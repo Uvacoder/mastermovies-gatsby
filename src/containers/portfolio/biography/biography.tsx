@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import React from "react";
 
 import { PrettyLink } from "../../../components/common/link";
 import { PortfolioDesignElement, PortfolioDesignLeftSlant } from "../../../components/portfolio/design";
@@ -11,7 +11,7 @@ const BIRTHDAY = {
   YEAR: 2000,
 };
 
-export const PortfolioBiography: FunctionComponent = () => (
+export const PortfolioBiography: React.FC = () => (
   <PortfolioSection>
     <PortfolioDesignElement className={styles.design}>
       <PortfolioDesignLeftSlant className={styles.designSlant} />
@@ -49,13 +49,13 @@ export const PortfolioBiography: FunctionComponent = () => (
 );
 
 /** A rough Component to display my age, doesn't handle all edge cases */
-const Age: FunctionComponent = () => {
-  const now = new Date(Date.now());
+const Age: React.FC = () => {
+  const now = new Date();
   const year = now.getFullYear();
-  const month = now.getMonth();
+  const month = now.getMonth(); // [0-11] !!
   const day = now.getDay();
 
-  const age: number =
-    year - BIRTHDAY.YEAR - (month < BIRTHDAY.MONTH || (month === BIRTHDAY.MONTH && day < BIRTHDAY.DAY) ? 1 : 0);
-  return <span children={age.toString()} />;
+  const age =
+    year - BIRTHDAY.YEAR - (month < BIRTHDAY.MONTH || (month + 1 === BIRTHDAY.MONTH && day < BIRTHDAY.DAY) ? 1 : 0);
+  return <span>{age}</span>;
 };

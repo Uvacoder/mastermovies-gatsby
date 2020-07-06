@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 /**
  * A universal app error, designed for UI presentation. Contains a human
  * readable message, a technical code, and an antd compatible icon name.
@@ -10,6 +12,6 @@ export interface IHumanError {
    * This should be rendered in a monospace font.
    */
   code?: string;
-  /** An icon identifier that should be resolvable by the antd library */
-  icon?: string;
+  /** An icon ReactNode */
+  icon?: ReactNode;
 }

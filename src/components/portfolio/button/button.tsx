@@ -1,17 +1,16 @@
-import { Icon } from "antd";
+import { GlobalOutlined, RightOutlined } from "@ant-design/icons";
 import classnames from "classnames";
-import React, { cloneElement, FunctionComponent, isValidElement, ReactNode, useEffect, useState } from "react";
+import { navigate } from "gatsby";
+import React, { cloneElement, isValidElement, ReactNode, useEffect, useState } from "react";
 import { CSSTransition } from "react-transition-group";
-
 import { Portal } from "../../common/portal";
 import styles from "./button.module.css";
-import { navigate } from "gatsby";
 
 interface IButtonProps {
   icon?: ReactNode;
 }
 
-export const PortfolioButton: FunctionComponent<IButtonProps & JSX.IntrinsicElements["a"]> = ({
+export const PortfolioButton: React.FC<IButtonProps & JSX.IntrinsicElements["a"]> = ({
   className,
   icon,
   onClick,
@@ -77,7 +76,7 @@ export const PortfolioButton: FunctionComponent<IButtonProps & JSX.IntrinsicElem
       {icon ? (
         <span className={styles.icon}>
           <span className={styles.iconWrapper}>
-            <Icon type="right" className={styles.arrow} />
+            <RightOutlined className={styles.arrow} />
           </span>
           <span className={styles.iconWrapper}>
             {isValidElement(icon)
@@ -85,7 +84,7 @@ export const PortfolioButton: FunctionComponent<IButtonProps & JSX.IntrinsicElem
               : icon}
           </span>
           <span className={styles.iconWrapper}>
-            <Icon type="global" className={styles.active} />
+            <GlobalOutlined className={styles.active} />
           </span>
         </span>
       ) : null}

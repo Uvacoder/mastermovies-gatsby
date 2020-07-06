@@ -1,0 +1,56 @@
+name: Node.js CI
+
+on: push
+
+jobs:
+  build:
+    name: Build static files
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 13.x
+      - name: Install dependencies
+        uses: bahmutov/npm-install@v1.1.0
+
+      - name: Build static files
+        if: github.ref == 'refs/heads/master'
+        run: npm run build
+        env:
+          CI: true
+          API_URL: "https://api.mastermovies.uk"
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v1.0.0
+        if: github.ref == 'refs/heads/master'
+        with:
+          name: build
+          path: public/
+
+  deploy:
+    name: Deploy to SnowOwl
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master'
+    steps:
+      - name: Download build artifact
+        uses: actions/download-artifact@v1.0.0
+        with:
+          name: build
+          path: ./
+      - name: Deploy over rsync
+        uses: Pendect/action-rsyncer@v1.1.0
+        env:
+          DEPLOY_KEY: ${{secrets.DEPLOY_KEY}}
+        with:
+          flags: "-avzrm --delete --no-perms --no-owner --no-group"
+          src: ./
+          dest: "deploy@snowowl.mastermovies.uk:/var/www/mastermovies.uk/public/"
+      - name: Purge Cloudflare cache
+        if: github.ref == 'refs/heads/master'
+        uses: jakejarvis/cloudflare-purge-action@v0.3.0
+        env:
+          CLOUDFLARE_ZONE: ${{ secrets.CLOUDFLARE_ZONE }}
+          CLOUDFLARE_TOKEN: ${{ secrets.CLOUDFLARE_TOKEN }}

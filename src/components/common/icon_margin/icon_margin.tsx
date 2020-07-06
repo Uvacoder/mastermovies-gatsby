@@ -1,32 +1,23 @@
-import { Icon } from "antd";
-import { IconProps } from "antd/lib/icon";
-import classnames from "classnames";
-import React, { CSSProperties, FunctionComponent } from "react";
-
+import { AntdIconProps } from "@ant-design/icons/lib/components/AntdIcon";
+import cn from "classnames";
+import React, { CSSProperties } from "react";
 import styles from "./icon_margin.module.css";
 
-interface IIconMarginProps extends IconProps {
-  marginLeft?: boolean | CSSProperties["marginLeft"];
-  marginRight?: boolean | CSSProperties["marginRight"];
-}
-
 /** Extends the Ant Design Icon with easy left/right margins */
-export const IconMargin: FunctionComponent<IIconMarginProps> = ({
-  marginLeft = false,
-  marginRight = false,
-  style,
-  className,
-  ...rest
-}) => (
+export const IconMargin: React.FC<
+  {
+    icon: React.FC<AntdIconProps>;
+    left?: boolean | CSSProperties["marginLeft"];
+    right?: boolean | CSSProperties["marginRight"];
+  } & AntdIconProps
+> = ({ icon: Icon, left = false, right = false, style, className, ...rest }) => (
   <Icon
     {...rest}
     style={{
       ...style,
-      marginLeft:
-        typeof marginLeft === "number" || typeof marginLeft === "string" ? marginLeft : style && style.marginLeft,
-      marginRight:
-        typeof marginRight === "number" || typeof marginRight === "string" ? marginRight : style && style.marginRight,
+      marginLeft: typeof left === "number" || typeof left === "string" ? left : style && style.left,
+      marginRight: typeof right === "number" || typeof right === "string" ? right : style && style.right,
     }}
-    className={classnames({ [styles.marginLeft]: marginLeft, [styles.marginRight]: marginRight }, className)}
+    className={cn({ [styles.left]: left, [styles.right]: right }, className)}
   />
 );

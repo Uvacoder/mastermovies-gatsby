@@ -1,10 +1,9 @@
 import { RouteComponentProps } from "@reach/router";
-import React, { FunctionComponent, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Transition, TransitionGroup } from "react-transition-group";
-
 import { FadeTransition } from "../../../components/common/fade_transition";
 import { Footer } from "../../../components/common/footer";
-import { GlacierLogo } from "../../../components/common/logos";
+import { GlacierText } from "../../../components/common/logos";
 import { Nav } from "../../../components/common/nav";
 import { NAV_LINKS } from "../../../config";
 import { GlacierBackground } from "./background";
@@ -38,7 +37,7 @@ const TRANSITION_PROPS = {
 interface IGlacierLayoutProps extends RouteComponentProps<{ film?: string; exp?: string }> {}
 
 /** Handle the primary Glacier Intro/Layout */
-export const GlacierLayout: FunctionComponent<IGlacierLayoutProps> = ({ film, exp }) => {
+export const GlacierLayout: React.FC<IGlacierLayoutProps> = ({ film, exp }) => {
   const [stage, setStage] = useState<EStage>(EStage.START);
 
   // Transitions
@@ -53,18 +52,18 @@ export const GlacierLayout: FunctionComponent<IGlacierLayoutProps> = ({ film, ex
   return (
     <>
       <Transition {...TRANSITION_PROPS} in={stage >= EStage.BACKGROUND}>
-        {state => <GlacierBackground active={state === "entered"} />}
+        {(state) => <GlacierBackground active={state === "entered"} />}
       </Transition>
 
       <Transition {...TRANSITION_PROPS} in={stage >= EStage.INTRO && stage < EStage.INTRO_END}>
-        {state => <GlacierIntro active={state === "entered"} />}
+        {(state) => <GlacierIntro active={state === "entered"} />}
       </Transition>
 
       <Transition {...TRANSITION_PROPS} in={stage >= EStage.CONTENT}>
-        {state => (
+        {(state) => (
           <FadeTransition in={state === "entered"}>
             <div className={styles.layout}>
-              <Nav links={NAV_LINKS} logo={{ link: "/glacier", text: <GlacierLogo /> }} extended />
+              <Nav links={NAV_LINKS} logo={{ link: "/glacier", text: <GlacierText /> }} extended />
 
               <LayoutContent film={film} exp={exp} />
 
@@ -79,7 +78,7 @@ export const GlacierLayout: FunctionComponent<IGlacierLayoutProps> = ({ film, ex
 
 const GlacierDownload = ({ exp }) => <span style={{ color: "white" }}>Export {exp}</span>;
 
-const LayoutContent: FunctionComponent<{ film?: string; exp?: string }> = ({ film, exp }) => {
+const LayoutContent: React.FC<{ film?: string; exp?: string }> = ({ film, exp }) => {
   const component = film ? (
     <GlacierFilmInfo key={`film-${film}`} film={film} />
   ) : exp ? (

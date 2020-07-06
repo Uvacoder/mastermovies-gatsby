@@ -1,7 +1,6 @@
 import classnames from "classnames";
 import { EventEmitter } from "events";
-import React, { FunctionComponent } from "react";
-
+import React from "react";
 import { Wave } from "../../common/wave";
 import styles from "./dark_button.module.css";
 
@@ -13,14 +12,7 @@ interface IDarkButtonProps extends TButtonProps {
 }
 
 /** Use `DarkButton` for dark themes. Inspired by Ant Design's button */
-export const DarkButton: FunctionComponent<IDarkButtonProps> = ({
-  large,
-  disabled,
-  className,
-  children,
-  onClick,
-  ...rest
-}) => {
+export const DarkButton: React.FC<IDarkButtonProps> = ({ large, disabled, className, children, onClick, ...rest }) => {
   const emitter = new EventEmitter();
 
   const clickHandler = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {

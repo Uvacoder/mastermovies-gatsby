@@ -27,7 +27,6 @@ export function useData<S extends {}>(
 
     const { token, cancel } = cancelTokenSource();
 
-    // tslint:disable-next-line:no-floating-promises
     (async () => {
       try {
         const data = await getData<S>(path, token, rawResponse);

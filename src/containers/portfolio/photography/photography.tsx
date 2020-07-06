@@ -1,5 +1,4 @@
-import React, { FunctionComponent } from "react";
-
+import React from "react";
 import { PortfolioButton } from "../../../components/portfolio/button";
 import { PortfolioContent, PortfolioSection, PortfolioTitle } from "../../../components/portfolio/section";
 import { Brand500px } from "../../../images/icons/500px";
@@ -7,7 +6,7 @@ import { BrandInstagram } from "../../../images/icons/instagram";
 import { PortfolioPhotoGallery } from "./gallery";
 import styles from "./photography.module.css";
 
-export const PortfolioPhotography: FunctionComponent = () => (
+export const PortfolioPhotography: React.FC = () => (
   <PortfolioSection separate>
     <PortfolioContent padding vertical>
       <div className={styles.gallery}>

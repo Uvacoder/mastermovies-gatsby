@@ -2,8 +2,7 @@ import { Empty } from "antd";
 import classnames from "classnames";
 import { FluidObject } from "gatsby-image";
 import Img from "gatsby-image/withIEPolyfill";
-import React, { FunctionComponent } from "react";
-
+import React from "react";
 import { IStyleProps } from "../../../types/component";
 import { IGlacierThumbnail } from "../../../types/glacier";
 import { Spinner } from "../../common/spinner";
@@ -21,7 +20,7 @@ interface IFilmCardImageProps extends IStyleProps {
   noAspectRatio?: boolean;
 }
 
-export const GlacierThumbnail: FunctionComponent<IFilmCardImageProps> = ({
+export const GlacierThumbnail: React.FC<IFilmCardImageProps> = ({
   thumbnails,
   cover = false,
   fill = false,
