@@ -9,11 +9,15 @@
   font-size: 0.65em;
 }
 
+.darkInput {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
 .darkInput > input {
   flex: 1;
   border-radius: 3px 0 0 3px;
+  background-color: rgba(0, 0, 0, 0);
 
-  background-color: rgba(0, 0, 0, 0.8);
   color: #fff;
   border-color: rgba(255, 255, 255, 0.6);
   outline: #f00;
@@ -44,12 +48,12 @@
 }
 
 .failed {
-  color: #FF4136;
+  color: #ff4136;
   font-size: 0.7em;
 }
 
 .success {
-  color: #2ECC40;
+  color: #2ecc40;
 }
 
 .check {
@@ -60,7 +64,7 @@
 /* ERROR */
 
 .error {
-  color: #FF4136;
+  color: #ff4136;
 }
 
 .errorInfo {
@@ -69,7 +73,7 @@
 
   margin: 16px 0 4px;
   padding: 16px;
-  border: 1px solid rgba(255,255,255,0.4);
+  border: 1px solid rgba(255, 255, 255, 0.4);
   border-radius: 3px;
 }
 

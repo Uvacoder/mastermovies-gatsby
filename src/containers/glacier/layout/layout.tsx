@@ -76,7 +76,7 @@ export const GlacierLayout: React.FC<IGlacierLayoutProps> = ({ film, exp }) => {
   );
 };
 
-const GlacierDownload = ({ exp }) => <span style={{ color: "white" }}>Export {exp}</span>;
+const GlacierDownload: React.FC<{ exp: any }> = ({ exp }) => <span style={{ color: "white" }}>Export {exp}</span>;
 
 const LayoutContent: React.FC<{ film?: string; exp?: string }> = ({ film, exp }) => {
   const component = film ? (
